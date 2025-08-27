@@ -148,8 +148,8 @@
     position: absolute;
     top: 0;
     right: 0;
-    width: 40px;
-    height: 40px;
+    width: 15%;
+    height: 15%;
     background: linear-gradient(-45deg, transparent 50%, hsl(var(--primary) / 0.3) 50%);
     z-index: 10;
     pointer-events: none;
@@ -160,8 +160,8 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 40px;
-    height: 40px;
+    width: 40%;
+    height: 40%;
     background: linear-gradient(45deg, transparent 50%, hsl(var(--primary) / 0.3) 50%);
     z-index: 10;
     pointer-events: none;
