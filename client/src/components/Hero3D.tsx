@@ -5,15 +5,16 @@ export default function Hero3D() {
     <div className="w-full h-full relative bg-gradient-to-br from-background via-muted/20 to-background" data-testid="hero-3d">
       {/* Hero Video */}
       <div className="absolute inset-0 flex items-center justify-center">
-        <div className="relative w-full h-full max-w-2xl">
+        <div className="relative w-full h-full max-w-2xl hero-video-container">
           <video
             autoPlay
             loop
             muted
             playsInline
-            className="w-full h-full object-cover rounded-lg shadow-2xl"
+            className="w-full h-full object-cover shadow-2xl"
             style={{
-              filter: "drop-shadow(0 0 30px rgba(0, 229, 255, 0.4))"
+              filter: "drop-shadow(0 0 30px rgba(0, 229, 255, 0.4))",
+              clipPath: "polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 40px 100%, 0 calc(100% - 40px))"
             }}
             data-testid="hero-video"
           >
@@ -22,7 +23,12 @@ export default function Hero3D() {
           </video>
           
           {/* Video overlay with medical theme */}
-          <div className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-background/20 rounded-lg" />
+          <div 
+            className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-background/20"
+            style={{
+              clipPath: "polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 40px 100%, 0 calc(100% - 40px))"
+            }}
+          />
           
           {/* Technical overlay elements */}
           <div className="absolute top-4 left-4 text-primary font-mono text-sm opacity-70">
