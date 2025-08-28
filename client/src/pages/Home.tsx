@@ -119,6 +119,41 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Workflow Integration Section */}
+      <section className="py-20 bg-gradient-to-b from-black to-zinc-900" data-testid="workflow-section">
+        <div className="container mx-auto px-6">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl md:text-5xl font-dm-sans font-bold text-white mb-6">
+              Seamless Healthcare <span className="text-gradient-medical">Workflow Integration</span>
+            </h2>
+            <p className="text-xl text-zinc-300 max-w-3xl mx-auto">
+              Our AI-powered radiology solution integrates seamlessly across your entire healthcare ecosystem, 
+              from emergency departments to patient management systems.
+            </p>
+          </div>
+          
+          <div className="flex justify-center">
+            <div className="glass-card p-8 rounded-2xl max-w-6xl w-full">
+              <img 
+                src="/attached_assets/image_1756364176481.png"
+                alt="Healthcare Workflow Integration showing ED Communication, AI Radiology Solution, Care Team Communication, and Patient Management systems"
+                className="w-full h-auto rounded-xl shadow-2xl"
+                loading="lazy"
+                data-testid="workflow-diagram"
+              />
+              
+              {/* Caption */}
+              <div className="mt-6 text-center">
+                <p className="text-zinc-400 text-sm">
+                  Complete workflow integration across emergency departments, radiology systems, 
+                  care team coordination, and patient management platforms
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Stats Strip */}
       <Section id="stats" background="black">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
