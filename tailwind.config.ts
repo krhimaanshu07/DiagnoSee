@@ -49,7 +49,7 @@ export default {
       },
       fontFamily: {
         'inter': ['Inter', 'sans-serif'],
-        'sora': ['Sora', 'sans-serif'],
+        'dm-sans': ['DM Sans', 'sans-serif'],
         'mono': ['JetBrains Mono', 'monospace'],
       },
       animation: {
