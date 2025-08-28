@@ -73,73 +73,49 @@ export default function Home() {
         <meta name="description" content={siteConfig.description} />
       </Helmet>
 
-      {/* Hero Section with Enhanced 3D Effects */}
-      <section className="min-h-screen flex items-center medical-grid pt-20 parallax-section relative overflow-hidden" data-testid="hero-section">
-        {/* Animated Background Layers */}
-        <div className="absolute inset-0 parallax-bg opacity-30">
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-transparent to-secondary/10 animate-pulse" />
-          <div className="absolute top-0 left-0 w-full h-full medical-grid" />
-        </div>
-        
-        <div className="absolute inset-0 parallax-mid opacity-20">
-          <div className="scanlines h-full w-full" />
-        </div>
-
-        <div className="container mx-auto px-6 py-20 parallax-front relative z-10">
+      {/* Hero Section */}
+      <section className="min-h-screen flex items-center medical-grid pt-20" data-testid="hero-section">
+        <div className="container mx-auto px-6 py-20">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
-            {/* Enhanced Hero Content */}
-            <div className="space-y-8 parallax-float">
+            {/* Hero Content */}
+            <div className="space-y-8">
               <div className="space-y-6">
-                <h1 className="text-5xl md:text-7xl font-dm-sans font-bold text-white leading-tight transform hover:scale-105 transition-all duration-500 perspective-1000">
-                  <span className="inline-block hover:rotate-y-6 transition-transform duration-300">OEM-Agnostic</span>{" "}
-                  <span className="text-gradient-medical inline-block hover:rotate-y-6 hover:scale-110 transition-all duration-300 cursor-pointer">GenAI</span>{" "}
-                  <span className="inline-block hover:rotate-y-6 transition-transform duration-300">for Medical Imaging</span>
+                <h1 className="text-5xl md:text-7xl font-dm-sans font-bold text-white leading-tight">
+                  OEM-Agnostic{" "}
+                  <span className="text-gradient-medical">GenAI</span>{" "}
+                  for Medical Imaging
                 </h1>
-                <p className="text-xl text-zinc-300 leading-relaxed transform hover:scale-105 hover:text-zinc-200 transition-all duration-300">
+                <p className="text-xl text-zinc-300 leading-relaxed">
                   {siteConfig.tagline}
                 </p>
               </div>
 
               <div className="flex flex-col sm:flex-row gap-4">
-                <div className="transform hover:scale-110 hover:rotate-1 transition-all duration-300">
-                  <CTA
-                    href="/demos"
-                    variant="primary"
-                    size="lg"
-                    icon={<i className="fas fa-arrow-right" />}
-                    data-testid="hero-demos-cta"
-                  >
-                    See Live Demos
-                  </CTA>
-                </div>
-                <div className="transform hover:scale-110 hover:rotate-1 transition-all duration-300">
-                  <CTA
-                    href="/contact"
-                    variant="outline"
-                    size="lg"
-                    data-testid="hero-contact-cta"
-                  >
-                    Talk to Us
-                  </CTA>
-                </div>
+                <CTA
+                  href="/demos"
+                  variant="primary"
+                  size="lg"
+                  icon={<i className="fas fa-arrow-right" />}
+                  data-testid="hero-demos-cta"
+                >
+                  See Live Demos
+                </CTA>
+                <CTA
+                  href="/contact"
+                  variant="outline"
+                  size="lg"
+                  data-testid="hero-contact-cta"
+                >
+                  Talk to Us
+                </CTA>
               </div>
             </div>
 
-            {/* Enhanced 3D Hero Video */}
-            <div className="flex items-center justify-center h-96 parallax-float">
-              <div className="transform hover:scale-105 hover:rotate-y-6 transition-all duration-500 perspective-1000">
-                <Hero3D />
-              </div>
+            {/* 3D Gantry Hero */}
+            <div className="flex items-center justify-center h-96">
+              <Hero3D />
             </div>
           </div>
-        </div>
-
-        {/* Floating Medical Elements */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute top-20 left-10 w-4 h-4 bg-primary/20 rounded-full animate-float" style={{animationDelay: '0s'}} />
-          <div className="absolute top-40 right-20 w-6 h-6 bg-secondary/20 rounded-full animate-float" style={{animationDelay: '2s'}} />
-          <div className="absolute bottom-40 left-20 w-3 h-3 bg-primary/30 rounded-full animate-float" style={{animationDelay: '4s'}} />
-          <div className="absolute bottom-20 right-10 w-5 h-5 bg-secondary/30 rounded-full animate-float" style={{animationDelay: '6s'}} />
         </div>
       </section>
 

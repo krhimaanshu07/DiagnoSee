@@ -37,12 +37,7 @@ export default function CTA({
   const buttonProps = {
     variant: variant as any,
     size: size as any,
-    className: cn(
-      "focus-visible transform hover:scale-110 hover:rotate-1 transition-all duration-300 perspective-1000 transform-gpu",
-      "hover:shadow-2xl hover:shadow-primary/25 hover:-translate-y-1",
-      "active:scale-95 active:rotate-0",
-      className
-    ),
+    className: cn("focus-visible transform hover:scale-105 transition-all", className),
     onClick,
     "data-testid": "cta-button",
   };

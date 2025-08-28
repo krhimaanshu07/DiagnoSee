@@ -25,43 +25,37 @@ export default function Navbar() {
 
   return (
     <nav 
-      className={`fixed top-0 w-full z-50 transition-all duration-500 transform-gpu perspective-1000 ${
-        isScrolled ? "nav-blur backdrop-blur-xl" : "glass-card border-b backdrop-blur-lg"
+      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+        isScrolled ? "nav-blur" : "glass-card border-b"
       }`}
-      style={{
-        transform: isScrolled ? "translateY(0) rotateX(0deg)" : "translateY(0) rotateX(2deg)",
-      }}
       data-testid="navbar"
     >
       <div className="container mx-auto px-6 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
-          <Link href="/" className="flex items-center space-x-3 group transform hover:scale-105 transition-all duration-300 perspective-1000" data-testid="logo-link">
-            <div className="w-8 h-8 bg-gradient-medical rounded-lg flex items-center justify-center group-hover:scale-110 group-hover:rotate-y-12 group-hover:shadow-lg group-hover:shadow-primary/50 transition-all duration-500 transform-gpu">
-              <i className="fas fa-atom text-white text-sm group-hover:animate-spin"></i>
+          <Link href="/" className="flex items-center space-x-3 group" data-testid="logo-link">
+            <div className="w-8 h-8 bg-gradient-medical rounded-lg flex items-center justify-center group-hover:animate-pulse-glow transition-all">
+              <i className="fas fa-atom text-white text-sm"></i>
             </div>
-            <span className="text-xl font-dm-sans font-bold text-foreground group-hover:text-primary transition-colors duration-300">
+            <span className="text-xl font-dm-sans font-bold text-foreground">
               {siteConfig.name}
             </span>
           </Link>
           
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
-            {siteConfig.nav.map((item, index) => (
+            {siteConfig.nav.map((item) => (
               <Link
                 key={item.name}
                 href={item.href}
-                className={`transition-all duration-300 transform hover:scale-110 hover:-translate-y-1 hover:rotate-1 magnetic perspective-1000 focus-visible ${
+                className={`transition-colors focus-visible ${
                   isActive(item.href) 
                     ? "text-primary" 
                     : "text-muted-foreground hover:text-primary"
                 }`}
-                style={{ transitionDelay: `${index * 50}ms` }}
                 data-testid={`nav-link-${item.name.toLowerCase()}`}
               >
-                <span className="inline-block hover:rotate-y-6 transition-transform duration-300">
-                  {item.name}
-                </span>
+                {item.name}
               </Link>
             ))}
           </div>
@@ -72,19 +66,15 @@ export default function Navbar() {
               variant="ghost"
               size="icon"
               onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-              className="text-muted-foreground hover:text-foreground transform hover:scale-110 hover:rotate-12 transition-all duration-300 magnetic"
+              className="text-muted-foreground hover:text-foreground"
               data-testid="theme-toggle"
             >
-              <span className="transform hover:rotate-y-180 transition-transform duration-500 inline-block">
-                {theme === "light" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
-              </span>
+              {theme === "light" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
               <span className="sr-only">Toggle theme</span>
             </Button>
             <Link href="/demos">
-              <Button className="bg-primary text-primary-foreground hover:bg-primary/90 transform hover:scale-110 hover:rotate-1 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 perspective-1000" data-testid="cta-demos">
-                <span className="inline-block hover:rotate-y-6 transition-transform duration-300">
-                  See Demos
-                </span>
+              <Button className="bg-primary text-primary-foreground hover:bg-primary/90" data-testid="cta-demos">
+                See Demos
               </Button>
             </Link>
           </div>

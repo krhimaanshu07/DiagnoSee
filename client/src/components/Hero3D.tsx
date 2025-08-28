@@ -11,11 +11,10 @@ export default function Hero3D() {
             loop
             muted
             playsInline
-            className="w-full h-full object-cover shadow-2xl"
-            style={{
-              filter: "drop-shadow(0 0 30px rgba(0, 229, 255, 0.4))",
-              borderRadius: "24px"
-            }}
+            className="w-full h-full object-cover rounded-xl"
+            onError={(e) => console.error('Video load error:', e)}
+            onLoadStart={() => console.log('Video loading started')}
+            onCanPlay={() => console.log('Video can play')}
             data-testid="hero-video"
           >
             <source src={heroVideo} type="video/mp4" />
