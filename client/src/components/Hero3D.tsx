@@ -14,7 +14,7 @@ export default function Hero3D() {
             className="w-full h-full object-cover shadow-2xl"
             style={{
               filter: "drop-shadow(0 0 30px rgba(0, 229, 255, 0.4))",
-              clipPath: "polygon(12% 0, 88% 0, 100% 12%, 100% 88%, 88% 100%, 12% 100%, 0 88%, 0 12%)"
+              borderRadius: "24px"
             }}
             data-testid="hero-video"
           >
@@ -24,10 +24,7 @@ export default function Hero3D() {
           
           {/* Video overlay with medical theme */}
           <div 
-            className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-background/20"
-            style={{
-              clipPath: "polygon(12% 0, 88% 0, 100% 12%, 100% 88%, 88% 100%, 12% 100%, 0 88%, 0 12%)"
-            }}
+            className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-background/20 rounded-3xl"
           />
           
           {/* Technical overlay elements */}
