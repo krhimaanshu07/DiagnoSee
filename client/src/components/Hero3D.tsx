@@ -2,7 +2,7 @@ import heroVideo from "@assets/WhatsApp Video 2025-08-27 at 17.21.38_17562978375
 
 export default function Hero3D() {
   return (
-    <div className="w-full h-full relative bg-gradient-to-br from-background via-muted/20 to-background" data-testid="hero-3d">
+    <div className="w-full h-full relative hero-gradient" data-testid="hero-3d">
       {/* Hero Video */}
       <div className="absolute inset-0 flex items-center justify-center">
         <div className="relative w-full h-full max-w-2xl hero-video-container">

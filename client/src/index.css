@@ -46,12 +46,12 @@
 }
 
 .dark {
-  /* Dark theme - pure black with medical accents */
-  --background: hsl(0, 0%, 0%);
+  /* Dark theme - sophisticated dark with subtle gradients */
+  --background: hsl(220, 15%, 8%);
   --foreground: hsl(0, 0%, 91.18%);
-  --card: hsl(0, 0%, 9.41%);
+  --card: hsl(220, 15%, 12%);
   --card-foreground: hsl(0, 0%, 85.1%);
-  --popover: hsl(0, 0%, 0%);
+  --popover: hsl(220, 15%, 8%);
   --popover-foreground: hsl(0, 0%, 91.18%);
   --primary: hsl(187, 100%, 45%);
   --primary-foreground: hsl(0, 0%, 0%);
@@ -285,6 +285,32 @@
 
   .animate-scroll-rtl:hover {
     animation-play-state: paused;
+  }
+
+  /* Attractive hero background gradient */
+  .hero-gradient {
+    background: linear-gradient(
+      135deg,
+      hsl(220, 25%, 6%) 0%,
+      hsl(230, 30%, 10%) 25%,
+      hsl(187, 20%, 8%) 50%,
+      hsl(262, 25%, 8%) 75%,
+      hsl(220, 25%, 6%) 100%
+    );
+    position: relative;
+  }
+  
+  .hero-gradient::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse at center,
+      hsla(187, 100%, 45%, 0.08) 0%,
+      hsla(262, 100%, 65%, 0.05) 40%,
+      transparent 70%
+    );
+    pointer-events: none;
   }
   
   /* Navigation blur effect */
