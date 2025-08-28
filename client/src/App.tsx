@@ -1,17 +1,11 @@
-import { Router, Route, Switch } from "wouter";
 import { ThemeProvider } from "@/contexts/ThemeContext";
-import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
-import Home from "@/pages/Home";
-import Solutions from "@/pages/Solutions";
-import Technology from "@/pages/Technology";
-import Demos from "@/pages/Demos";
-import Pricing from "@/pages/Pricing";
-import Security from "@/pages/Security";
-import About from "@/pages/About";
-import Contact from "@/pages/Contact";
-import Login from "@/pages/Login";
-import NotFound from "@/pages/not-found";
+import GlassNavbar from "@/sections/GlassNavbar";
+import GlassHero from "@/sections/GlassHero";
+import GlassFeatures from "@/sections/GlassFeatures";
+import GlassStats from "@/sections/GlassStats";
+import GlassPricing from "@/sections/GlassPricing";
+import GlassContact from "@/sections/GlassContact";
+import GlassFooter from "@/sections/GlassFooter";
 import { useGlobalStore } from "@/store/useGlobalStore";
 
 function App() {
@@ -19,23 +13,18 @@ function App() {
 
   return (
     <ThemeProvider defaultTheme="dark">
-      <div className="min-h-screen bg-background text-foreground">
-        <Navbar />
+      <div className="min-h-screen bg-animated text-white">
+        <GlassNavbar />
+        
         <main>
-          <Switch>
-            <Route path="/" component={Home} />
-            <Route path="/solutions" component={Solutions} />
-            <Route path="/technology" component={Technology} />
-            <Route path="/demos" component={Demos} />
-            <Route path="/pricing" component={Pricing} />
-            <Route path="/security" component={Security} />
-            <Route path="/about" component={About} />
-            <Route path="/contact" component={Contact} />
-            <Route path="/login" component={Login} />
-            <Route component={NotFound} />
-          </Switch>
+          <GlassHero />
+          <GlassFeatures />
+          <GlassStats />
+          <GlassPricing />
+          <GlassContact />
         </main>
-        <Footer />
+        
+        <GlassFooter />
         
         {/* Debug Panel */}
         {showDebugPanel && (
