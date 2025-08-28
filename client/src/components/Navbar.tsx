@@ -41,7 +41,7 @@ export default function Navbar() {
         {/* Top accent line */}
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent opacity-60"></div>
         
-        <div className="max-w-7xl mx-auto px-6 py-5 relative">
+        <div className="max-w-7xl mx-auto px-6 py-4 relative">
           <div className="flex items-center justify-between">
             {/* Enhanced Logo */}
             <Link href="/" className="flex items-center space-x-3 group" data-testid="logo-link">
@@ -251,8 +251,8 @@ export default function Navbar() {
         <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-secondary/60 to-transparent"></div>
       </nav>
       
-      {/* Navbar spacer */}
-      <div className="h-20"></div>
+      {/* Navbar spacer - adjusted for proper content spacing */}
+      <div className="h-16 lg:h-20"></div>
     </>
   );
 }
