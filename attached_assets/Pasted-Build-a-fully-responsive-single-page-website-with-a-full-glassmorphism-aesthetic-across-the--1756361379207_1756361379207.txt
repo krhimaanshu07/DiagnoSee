@@ -1,0 +1,63 @@
+Build a **fully responsive single-page website** with a **full-glassmorphism aesthetic** across the entire UI, **3D card styles**, and a **parallax (user wrote "paradox") scrolling effect**. Use **React + Vite + Tailwind CSS**. Keep the design premium, modern, and animated but performant.
+
+### Global Style & Theme
+- Apply **glassmorphism everywhere**: translucent frosted panels (backdrop-blur-xl), layered glass cards, soft inner shadows, subtle border gradients (1px), and bright highlights.
+- Background: animated gradient + blurred, glowing “blob” shapes with low opacity, and particle dots.
+- Support **dark mode** by default; ensure light mode also looks polished.
+- Use a clean, futuristic font pairing (e.g., Inter + Sora); big display headings, generous white space.
+- Motion: tasteful micro-interactions, springy transitions, and parallax depth.
+
+### Libraries
+- Tailwind CSS (with @tailwind forms/typography).
+- **GSAP + ScrollTrigger** (or Locomotive Scroll) for **parallax** sections and reveal animations.
+- **Vanilla-tilt** (or a small custom hook) for **3D hover tilt** and glare on cards.
+- **Framer Motion** for component entrances and hover/tap animations.
+- Optional icons: lucide-react.
+
+### Layout & Sections (one page)
+1. **Header/Nav**: Sticky, glass navbar; logo on left, nav links on right; scroll progress bar; mobile glass drawer.
+2. **Hero**: Full-viewport glass container with large headline, subcopy, CTA buttons; floating glass chips; layered **parallax** background (multiple depth layers); subtle particle field; animated arrow to scroll.
+3. **Features (3D Cards)**: Grid of differing **3D glass cards**:
+   - Card types: 
+     - Tilted “credit-card” with holographic gradient border,
+     - Stacked “depth” card with shadow layers,
+     - Rotating “cube” card (on hover rotates slightly in 3D),
+     - “Neumorphic-glass” hybrid with inner glow.
+   - Each card has icon, title, short copy, and a tiny CTA.
+   - Hover: **3D tilt**, glare, elevated shadow, floating icon parallax.
+4. **Showcase / Gallery**: Masonry or grid with **glass frames** and **parallax on scroll**; lightbox modal with glass UI.
+5. **Stats / Metrics**: Glass **counter cards** with gradient borders; count-up animation on scroll.
+6. **Testimonials**: Glass carousel (auto + drag) with profile chips; subtle tilt; background depth parallax.
+7. **Pricing**: Three glass pricing tiers; middle card emphasized with hover lift and gradient ring; monthly/yearly toggle.
+8. **Call to Action**: Wide glass banner with strong contrast, animated glow border.
+9. **Contact**: Glass form (name/email/message), floating labels, validation, success toast; includes a minimal map frame with glass overlay.
+10. **Footer**: Multi-column, glass; social icons; tiny shimmering border.
+
+### Parallax & Motion Details
+- Use **GSAP ScrollTrigger** to create 3–5 **parallax layers** in the Hero and Gallery. Elements farther back move slower; foreground chips move slightly faster.
+- Section reveals: staggered fade-up + slight z-depth.
+- Cards: `Vanilla-tilt` with max tilt ~10–15deg, glare reflection, subtle scale on hover.
+
+### Tailwind / Utility Details
+- Use container max-w-7xl and responsive paddings (px-4 md:px-8).
+- Glass utility example: `bg-white/10 dark:bg-white/5 backdrop-blur-xl border border-white/15 shadow-[inset_0_1px_0_0_rgba(255,255,255,.2)]`.
+- Gradient borders with pseudo-elements or mask-border trick; provide a reusable **GlassCard** component with `variant` prop for different 3D styles.
+
+### Code Structure
+- `src/components/GlassCard.tsx` (variants: "tilt", "stacked", "cube", "neoGlass")
+- `src/components/ParallaxLayer.tsx` (depth prop controls speed)
+- `src/components/GlowBlob.tsx` (animated SVG/canvas blobs)
+- `src/sections/*` for each section above
+- `src/hooks/useTilt.ts` (wrap vanilla-tilt)
+- `src/lib/animations.ts` (GSAP timelines)
+
+### Accessibility & Performance
+- Semantic HTML, proper headings, alt text, keyboard focus states on all CTAs.
+- Prefers-reduced-motion: reduce parallax/animations.
+- Lazy-load heavy imagery; compress and use modern formats.
+- Keep Lighthouse scores high; avoid jank (will-change, transform/opacity animations).
+
+### Deliverables
+- A complete running project on Replit (React + Vite + Tailwind).
+- All sections implemented with consistent **full-site glassmorphism**, rich **3D card variety**, and smooth **parallax**.
+- Clear README explaining how to tweak colors, add new card variants, and adjust parallax depth.

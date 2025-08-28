@@ -2,7 +2,7 @@
 
 ## Overview
 
-This is a production-ready marketing and demo website for Agnostic Imaging AI, a medical imaging GenAI SaaS platform. The application showcases an OEM-agnostic solution that provides super-resolution and enhancement for X-Ray, CT, MRI, and Digital Pathology imaging through advanced AI technology. The website features a modern 3D design with a pure black theme, interactive demonstrations, and comprehensive information about the platform's capabilities.
+This is a production-ready single-page marketing website for Agnostic Imaging AI, a medical imaging GenAI SaaS platform. The application features a comprehensive glassmorphism design system with 3D card interactions, parallax scrolling effects, and premium animations. The website showcases an OEM-agnostic solution that provides super-resolution and enhancement for X-Ray, CT, MRI, and Digital Pathology imaging through advanced AI technology.
 
 ## User Preferences
 
@@ -13,11 +13,13 @@ Preferred communication style: Simple, everyday language.
 ### Frontend Architecture
 - **React + TypeScript**: Modern React 18 with TypeScript for type safety and developer experience
 - **Vite**: Lightning-fast build tool and development server with hot module replacement
-- **Routing**: React Router DOM for client-side navigation with dedicated pages for each section
+- **Single Page Application**: All content on one scrollable page with smooth section navigation
 - **State Management**: Zustand for lightweight, performant global state management
-- **3D Graphics**: React Three Fiber ecosystem with Drei helpers for procedural 3D medical gantry visualization
-- **UI Framework**: Shadcn/ui components built on Radix UI primitives with full accessibility support
-- **Styling**: TailwindCSS with custom medical-themed color variables and design system
+- **Glassmorphism Design**: Full-site translucent frosted panels with backdrop-blur effects
+- **3D Interactions**: Vanilla-tilt for 3D card hover effects and parallax depth
+- **Animation System**: GSAP with ScrollTrigger for parallax scrolling and reveal animations
+- **UI Framework**: Custom glassmorphism components with Tailwind CSS utilities
+- **Styling**: TailwindCSS with glassmorphism utilities and premium gradient effects
 
 ### Backend Architecture
 - **Express.js**: RESTful API server with middleware for logging, JSON parsing, and error handling
