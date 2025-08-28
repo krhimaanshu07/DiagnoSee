@@ -14,7 +14,8 @@ export default function Hero3D() {
             className="w-full h-full object-cover shadow-2xl"
             style={{
               filter: "drop-shadow(0 0 30px rgba(0, 229, 255, 0.4))",
-              clipPath: "polygon(0 0, 70% 0, 100% 15%, 100% 100%, 30% 100%, 0 85%)"
+              clipPath: "polygon(8% 0, 70% 0, 100% 15%, 100% 92%, 30% 100%, 0 85%, 0 8%)",
+              borderRadius: "24px 0 24px 0"
             }}
             data-testid="hero-video"
           >
@@ -26,9 +27,14 @@ export default function Hero3D() {
           <div 
             className="absolute inset-0 bg-gradient-to-t from-background/60 via-transparent to-background/20"
             style={{
-              clipPath: "polygon(0 0, 70% 0, 100% 15%, 100% 100%, 30% 100%, 0 85%)"
+              clipPath: "polygon(8% 0, 70% 0, 100% 15%, 100% 92%, 30% 100%, 0 85%, 0 8%)",
+              borderRadius: "24px 0 24px 0"
             }}
           />
+          
+          {/* Corner accent elements */}
+          <div className="rounded-corner-tl"></div>
+          <div className="rounded-corner-br"></div>
           
           {/* Technical overlay elements */}
           <div className="absolute top-4 left-4 text-primary font-mono text-sm opacity-70">
