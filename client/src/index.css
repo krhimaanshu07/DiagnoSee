@@ -306,7 +306,7 @@
   
   .video-3d-frameless {
     border: none;
-    border-radius: 0;
+    border-radius: 24px;
     transform: rotateX(5deg) rotateY(-2deg) translateZ(50px);
     box-shadow: 
       0 30px 80px rgba(0, 0, 0, 0.8),
@@ -314,6 +314,7 @@
       0 5px 20px rgba(124, 77, 255, 0.1);
     filter: brightness(1.1) contrast(1.05);
     transition: all 0.3s ease;
+    overflow: hidden;
   }
   
   .video-3d-frameless:hover {
@@ -324,7 +325,7 @@
       0 10px 30px rgba(124, 77, 255, 0.15);
   }
   
-  /* 3D Shadow Layers */
+  /* 3D Shadow Layers with rounded corners */
   .video-shadow-layer-1 {
     position: absolute;
     inset: 0;
@@ -332,6 +333,7 @@
     transform: translateZ(-20px) translateY(20px);
     filter: blur(15px);
     z-index: -1;
+    border-radius: 24px;
   }
   
   .video-shadow-layer-2 {
@@ -341,6 +343,7 @@
     transform: translateZ(-40px) translateY(40px);
     filter: blur(25px);
     z-index: -2;
+    border-radius: 24px;
   }
   
   .video-shadow-layer-3 {
@@ -350,6 +353,7 @@
     transform: translateZ(-60px) translateY(60px);
     filter: blur(35px);
     z-index: -3;
+    border-radius: 24px;
   }
   
   /* 3D Particle Effects */
