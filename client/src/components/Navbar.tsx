@@ -41,7 +41,7 @@ export default function Navbar() {
         {/* Top accent line */}
         <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-primary to-transparent opacity-60"></div>
         
-        <div className="container mx-auto px-6 py-5 relative">
+        <div className="max-w-7xl mx-auto px-6 py-5 relative">
           <div className="flex items-center justify-between">
             {/* Enhanced Logo */}
             <Link href="/" className="flex items-center space-x-3 group" data-testid="logo-link">
@@ -63,12 +63,13 @@ export default function Navbar() {
             </Link>
             
             {/* Enhanced Desktop Navigation */}
-            <div className="hidden lg:flex items-center space-x-1">
-              {siteConfig.nav.map((item, index) => (
+            <div className="hidden lg:flex items-center justify-center flex-1 max-w-2xl mx-8">
+              <div className="flex items-center space-x-2 xl:space-x-4">
+                {siteConfig.nav.map((item, index) => (
                 <div key={item.name} className="relative">
                   <Link
                     href={item.href}
-                    className={`relative px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center space-x-2 group ${
+                    className={`relative px-4 xl:px-6 py-3 rounded-lg font-medium transition-all duration-300 flex items-center space-x-2 group ${
                       isActive(item.href) 
                         ? "text-primary bg-primary/10 shadow-lg shadow-primary/20" 
                         : "text-zinc-300 hover:text-white hover:bg-white/5"
@@ -92,11 +93,12 @@ export default function Navbar() {
                   
 
                 </div>
-              ))}
+                ))}
+              </div>
             </div>
             
             {/* Enhanced Action Buttons */}
-            <div className="hidden lg:flex items-center space-x-3">
+            <div className="hidden lg:flex items-center space-x-2 xl:space-x-3">
               {/* Theme Toggle with enhanced design */}
               <Button
                 variant="ghost"
@@ -115,7 +117,7 @@ export default function Navbar() {
               {/* Enhanced Demo Button */}
               <Link href="/demos">
                 <Button 
-                  className="relative px-6 py-3 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-xl hover:scale-105 transition-all duration-300 shadow-xl shadow-primary/25 group overflow-hidden"
+                  className="relative px-4 xl:px-6 py-3 bg-gradient-to-r from-primary to-secondary text-white font-semibold rounded-xl hover:scale-105 transition-all duration-300 shadow-xl shadow-primary/25 group overflow-hidden"
                   data-testid="cta-demos"
                 >
                   <div className="relative z-10 flex items-center space-x-2">
@@ -131,7 +133,7 @@ export default function Navbar() {
               <Link href="/contact">
                 <Button 
                   variant="outline"
-                  className="px-6 py-3 border-white/20 text-zinc-300 hover:text-white hover:border-primary/50 hover:bg-primary/10 transition-all duration-300 rounded-xl group"
+                  className="px-4 xl:px-6 py-3 border-white/20 text-zinc-300 hover:text-white hover:border-primary/50 hover:bg-primary/10 transition-all duration-300 rounded-xl group"
                   data-testid="cta-contact"
                 >
                   <div className="flex items-center space-x-2">
