@@ -7,8 +7,7 @@ import FeatureCard from "@/components/FeatureCard";
 import CTA from "@/components/CTA";
 import Badge from "@/components/Badge";
 import { siteConfig } from "@/site.config";
-// Import workflow image
-const workflowImage = "/attached_assets/image_1756364176481.png";
+import workflowImage from "@assets/image_1756364176481.png";
 
 export default function Home() {
   const [counters, setCounters] = useState({
