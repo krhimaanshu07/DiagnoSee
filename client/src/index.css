@@ -268,6 +268,24 @@
       0 8px 32px rgba(124, 77, 255, 0.2),
       inset 0 1px 0 rgba(255, 255, 255, 0.05);
   }
+
+  /* Smooth scrolling animation for partner logos */
+  @keyframes scroll-rtl {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(-50%);
+    }
+  }
+
+  .animate-scroll-rtl {
+    animation: scroll-rtl 30s linear infinite;
+  }
+
+  .animate-scroll-rtl:hover {
+    animation-play-state: paused;
+  }
   
   /* Navigation blur effect */
   .nav-blur {

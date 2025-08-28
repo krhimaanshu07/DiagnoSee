@@ -272,24 +272,63 @@ export default function Home() {
             </p>
           </div>
           
-          {/* Animated partner showcase */}
+          {/* Animated partner showcase with scrolling */}
           <div className="relative overflow-hidden">
-            <div className="flex justify-center items-center space-x-8 flex-wrap gap-4">
-              <div className="glass-card px-8 py-4 rounded-xl group hover:scale-110 transition-all duration-300 cursor-pointer">
-                <div className="text-xl font-bold text-zinc-300 group-hover:text-primary transition-colors">HOSPITAL A</div>
-                <div className="text-xs text-zinc-500 mt-1">Major Health System</div>
+            <div className="flex animate-scroll-rtl space-x-8 whitespace-nowrap">
+              {/* First set of partners */}
+              <div className="flex space-x-8 shrink-0">
+                <div className="glass-card px-8 py-4 rounded-xl group hover:scale-110 transition-all duration-300 cursor-pointer">
+                  <div className="text-xl font-bold text-zinc-300 group-hover:text-primary transition-colors">HOSPITAL A</div>
+                  <div className="text-xs text-zinc-500 mt-1">Major Health System</div>
+                </div>
+                <div className="glass-card px-8 py-4 rounded-xl group hover:scale-110 transition-all duration-300 cursor-pointer">
+                  <div className="text-xl font-bold text-zinc-300 group-hover:text-secondary transition-colors">MEDICAL CENTER B</div>
+                  <div className="text-xs text-zinc-500 mt-1">Academic Medical Center</div>
+                </div>
+                <div className="glass-card px-8 py-4 rounded-xl group hover:scale-110 transition-all duration-300 cursor-pointer">
+                  <div className="text-xl font-bold text-zinc-300 group-hover:text-primary transition-colors">CLINIC GROUP C</div>
+                  <div className="text-xs text-zinc-500 mt-1">Regional Healthcare Network</div>
+                </div>
+                <div className="glass-card px-8 py-4 rounded-xl group hover:scale-110 transition-all duration-300 cursor-pointer">
+                  <div className="text-xl font-bold text-zinc-300 group-hover:text-secondary transition-colors">RADIOLOGY D</div>
+                  <div className="text-xs text-zinc-500 mt-1">Specialized Imaging Center</div>
+                </div>
+                <div className="glass-card px-8 py-4 rounded-xl group hover:scale-110 transition-all duration-300 cursor-pointer">
+                  <div className="text-xl font-bold text-zinc-300 group-hover:text-primary transition-colors">UNIVERSITY HOSPITAL</div>
+                  <div className="text-xs text-zinc-500 mt-1">Research Institution</div>
+                </div>
+                <div className="glass-card px-8 py-4 rounded-xl group hover:scale-110 transition-all duration-300 cursor-pointer">
+                  <div className="text-xl font-bold text-zinc-300 group-hover:text-secondary transition-colors">IMAGING CENTER F</div>
+                  <div className="text-xs text-zinc-500 mt-1">Diagnostic Specialists</div>
+                </div>
               </div>
-              <div className="glass-card px-8 py-4 rounded-xl group hover:scale-110 transition-all duration-300 cursor-pointer">
-                <div className="text-xl font-bold text-zinc-300 group-hover:text-secondary transition-colors">MEDICAL CENTER B</div>
-                <div className="text-xs text-zinc-500 mt-1">Academic Medical Center</div>
-              </div>
-              <div className="glass-card px-8 py-4 rounded-xl group hover:scale-110 transition-all duration-300 cursor-pointer">
-                <div className="text-xl font-bold text-zinc-300 group-hover:text-primary transition-colors">CLINIC GROUP C</div>
-                <div className="text-xs text-zinc-500 mt-1">Regional Healthcare Network</div>
-              </div>
-              <div className="glass-card px-8 py-4 rounded-xl group hover:scale-110 transition-all duration-300 cursor-pointer">
-                <div className="text-xl font-bold text-zinc-300 group-hover:text-secondary transition-colors">RADIOLOGY D</div>
-                <div className="text-xs text-zinc-500 mt-1">Specialized Imaging Center</div>
+              
+              {/* Duplicate set for seamless loop */}
+              <div className="flex space-x-8 shrink-0">
+                <div className="glass-card px-8 py-4 rounded-xl group hover:scale-110 transition-all duration-300 cursor-pointer">
+                  <div className="text-xl font-bold text-zinc-300 group-hover:text-primary transition-colors">HOSPITAL A</div>
+                  <div className="text-xs text-zinc-500 mt-1">Major Health System</div>
+                </div>
+                <div className="glass-card px-8 py-4 rounded-xl group hover:scale-110 transition-all duration-300 cursor-pointer">
+                  <div className="text-xl font-bold text-zinc-300 group-hover:text-secondary transition-colors">MEDICAL CENTER B</div>
+                  <div className="text-xs text-zinc-500 mt-1">Academic Medical Center</div>
+                </div>
+                <div className="glass-card px-8 py-4 rounded-xl group hover:scale-110 transition-all duration-300 cursor-pointer">
+                  <div className="text-xl font-bold text-zinc-300 group-hover:text-primary transition-colors">CLINIC GROUP C</div>
+                  <div className="text-xs text-zinc-500 mt-1">Regional Healthcare Network</div>
+                </div>
+                <div className="glass-card px-8 py-4 rounded-xl group hover:scale-110 transition-all duration-300 cursor-pointer">
+                  <div className="text-xl font-bold text-zinc-300 group-hover:text-secondary transition-colors">RADIOLOGY D</div>
+                  <div className="text-xs text-zinc-500 mt-1">Specialized Imaging Center</div>
+                </div>
+                <div className="glass-card px-8 py-4 rounded-xl group hover:scale-110 transition-all duration-300 cursor-pointer">
+                  <div className="text-xl font-bold text-zinc-300 group-hover:text-primary transition-colors">UNIVERSITY HOSPITAL</div>
+                  <div className="text-xs text-zinc-500 mt-1">Research Institution</div>
+                </div>
+                <div className="glass-card px-8 py-4 rounded-xl group hover:scale-110 transition-all duration-300 cursor-pointer">
+                  <div className="text-xl font-bold text-zinc-300 group-hover:text-secondary transition-colors">IMAGING CENTER F</div>
+                  <div className="text-xs text-zinc-500 mt-1">Diagnostic Specialists</div>
+                </div>
               </div>
             </div>
           </div>
