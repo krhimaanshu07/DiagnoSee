@@ -7,6 +7,8 @@ import FeatureCard from "@/components/FeatureCard";
 import CTA from "@/components/CTA";
 import Badge from "@/components/Badge";
 import { siteConfig } from "@/site.config";
+// Import workflow image
+const workflowImage = "/attached_assets/image_1756364176481.png";
 
 export default function Home() {
   const [counters, setCounters] = useState({
@@ -135,7 +137,7 @@ export default function Home() {
           <div className="flex justify-center">
             <div className="glass-card p-8 rounded-2xl max-w-6xl w-full">
               <img 
-                src="/attached_assets/image_1756364176481.png"
+                src={workflowImage}
                 alt="Healthcare Workflow Integration showing ED Communication, AI Radiology Solution, Care Team Communication, and Patient Management systems"
                 className="w-full h-auto rounded-xl shadow-2xl"
                 loading="lazy"
