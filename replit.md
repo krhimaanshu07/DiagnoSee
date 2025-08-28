@@ -7,6 +7,7 @@ This is a production-ready marketing and demo website for Agnostic Imaging AI, a
 ## User Preferences
 
 Preferred communication style: Simple, everyday language.
+Design preference: Dark mode only - light mode option disabled.
 
 ## System Architecture
 

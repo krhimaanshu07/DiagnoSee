@@ -3,14 +3,13 @@ import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { siteConfig } from "@/site.config";
-import { Menu, X, Sun, Moon } from "lucide-react";
-import { useTheme } from "@/contexts/ThemeContext";
+import { Menu, X } from "lucide-react";
 
 export default function Navbar() {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [location] = useLocation();
-  const { theme, setTheme } = useTheme();
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -60,18 +59,8 @@ export default function Navbar() {
             ))}
           </div>
           
-          {/* Theme Toggle and CTA Buttons */}
+          {/* CTA Buttons */}
           <div className="hidden md:flex items-center space-x-4">
-            <Button
-              variant="ghost"
-              size="icon"
-              onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-              className="text-muted-foreground hover:text-foreground"
-              data-testid="theme-toggle"
-            >
-              {theme === "light" ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
-              <span className="sr-only">Toggle theme</span>
-            </Button>
             <Link href="/demos">
               <Button className="bg-primary text-primary-foreground hover:bg-primary/90" data-testid="cta-demos">
                 See Demos
@@ -109,15 +98,6 @@ export default function Navbar() {
                   </Link>
                 ))}
                 <div className="pt-6 border-t border-zinc-800 space-y-4">
-                  <Button
-                    variant="ghost"
-                    onClick={() => setTheme(theme === "light" ? "dark" : "light")}
-                    className="w-full justify-start text-zinc-300 hover:text-white"
-                    data-testid="mobile-theme-toggle"
-                  >
-                    {theme === "light" ? <Moon className="h-4 w-4 mr-2" /> : <Sun className="h-4 w-4 mr-2" />}
-                    {theme === "light" ? "Dark mode" : "Light mode"}
-                  </Button>
                   <Link href="/demos" onClick={() => setIsMobileMenuOpen(false)}>
                     <Button className="w-full bg-primary text-primary-foreground hover:bg-primary/90">
                       See Demos

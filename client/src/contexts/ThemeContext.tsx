@@ -22,28 +22,28 @@ const ThemeProviderContext = createContext<ThemeProviderState>(initialState);
 
 export function ThemeProvider({
   children,
-  defaultTheme = "dark", // Default to dark mode
+  defaultTheme = "dark", // Always dark mode
   storageKey = "vite-ui-theme",
   ...props
 }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<Theme>(() => {
-    // Always default to dark first, then check localStorage
-    const stored = localStorage.getItem(storageKey) as Theme;
-    return stored || defaultTheme;
-  });
+  // Force dark mode only - no theme switching allowed
+  const [theme] = useState<Theme>("dark");
 
   useEffect(() => {
     const root = window.document.documentElement;
-
+    // Force dark mode
     root.classList.remove("light", "dark");
-    root.classList.add(theme);
-  }, [theme]);
+    root.classList.add("dark");
+    
+    // Clear any existing theme preference to ensure dark mode
+    localStorage.removeItem(storageKey);
+  }, [storageKey]);
 
   const value = {
-    theme,
-    setTheme: (theme: Theme) => {
-      localStorage.setItem(storageKey, theme);
-      setTheme(theme);
+    theme: "dark" as Theme,
+    setTheme: () => {
+      // Disabled - no theme switching allowed
+      console.log("Theme switching is disabled - website is dark mode only");
     },
   };
 
