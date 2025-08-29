@@ -8,20 +8,16 @@ export default function Hero3D() {
 
   const returnToOriginal = useCallback(() => {
     if (cardRef.current) {
-      console.log('ELASTIC RETURN - Snapping back to original position');
+      console.log('ELASTIC RETURN - Forcing return to center position');
       setIsDragging(false);
       cardRef.current.classList.remove('dragging');
       cardRef.current.classList.add('returning');
       
-      // Immediate elastic return
-      cardRef.current.style.transform = `
-        perspective(clamp(800px, 120vw, 1200px)) 
-        rotateX(clamp(2deg, 0.8vw, 4deg)) 
-        rotateY(clamp(-1deg, -0.5vw, -3deg))
-        translateX(0px) 
-        translateY(0px)
-        scale(1)
-      `;
+      // Force immediate return to original position - remove all transforms
+      cardRef.current.style.transform = '';
+      cardRef.current.style.left = '';
+      cardRef.current.style.top = '';
+      cardRef.current.style.position = '';
       
       // Clean up after animation
       setTimeout(() => {
@@ -38,6 +34,8 @@ export default function Hero3D() {
       const deltaX = e.clientX - dragStartRef.current.x;
       const deltaY = e.clientY - dragStartRef.current.y;
       
+      console.log(`Dragging to: ${deltaX}, ${deltaY}`);
+      
       cardRef.current.style.transform = `
         perspective(1200px) 
         rotateX(0deg) 
@@ -50,14 +48,13 @@ export default function Hero3D() {
   }, [isDragging]);
 
   const handleMouseUp = useCallback(() => {
-    console.log('MOUSE UP - Triggering elastic return');
-    if (isDragging) {
-      returnToOriginal();
-      // Remove listeners
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-    }
-  }, [isDragging, returnToOriginal, handleMouseMove]);
+    console.log('MOUSE UP - Triggering elastic return, isDragging:', isDragging);
+    // Always trigger return regardless of isDragging state
+    returnToOriginal();
+    // Remove listeners
+    document.removeEventListener('mousemove', handleMouseMove);
+    document.removeEventListener('mouseup', handleMouseUp);
+  }, [returnToOriginal, handleMouseMove]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault();

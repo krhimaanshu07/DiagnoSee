@@ -484,8 +484,9 @@
   }
 
   .video-card-container.returning {
-    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55) !important;
     cursor: grab;
+    transform: perspective(clamp(800px, 120vw, 1200px)) rotateX(clamp(2deg, 0.8vw, 4deg)) rotateY(clamp(-1deg, -0.5vw, -3deg)) translateX(0px) translateY(0px) scale(1) !important;
   }
 
   .video-card-container::before {
