@@ -31,7 +31,7 @@ export default function Hero3D() {
         cardRef.current.classList.remove('dragging');
         cardRef.current.classList.add('returning');
         
-        // Return to original position
+        // Immediate elastic return to original position
         cardRef.current.style.transform = `
           perspective(clamp(800px, 120vw, 1200px)) 
           rotateX(clamp(2deg, 0.8vw, 4deg)) 
@@ -42,12 +42,12 @@ export default function Hero3D() {
         
         setPosition({ x: 0, y: 0 });
         
-        // Remove returning class after animation
+        // Remove returning class after quick elastic animation
         setTimeout(() => {
           if (cardRef.current) {
             cardRef.current.classList.remove('returning');
           }
-        }, 800);
+        }, 400);
       }
     };
 
