@@ -28,14 +28,15 @@ export default function Hero3D() {
             </div>
           </div>
 
-          {/* Video Content Area */}
-          <div className="video-card-content mt-16 mb-16">
+          {/* Video Content Area - Full Frame */}
+          <div className="absolute inset-2 rounded-[20px] overflow-hidden">
             <video
               autoPlay
               loop
               muted
               playsInline
-              className="video-in-card"
+              className="w-full h-full object-cover"
+              style={{ filter: 'brightness(1.08) contrast(1.12) saturate(1.15)' }}
               onError={(e) => console.error('Video load error:', e)}
               onLoadStart={() => console.log('Video loading started')}
               onCanPlay={() => console.log('Video can play')}
