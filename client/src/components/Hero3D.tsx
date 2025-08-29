@@ -93,6 +93,17 @@ export default function Hero3D() {
       {/* Hero Lamp Glow Effect */}
       <div ref={glowRef} className="hero-lamp-glow"></div>
       
+      {/* Background Fill Layer */}
+      <div className="absolute inset-0 z-5" style={{
+        background: `linear-gradient(
+          135deg,
+          hsl(140, 30%, 3%) 0%,
+          hsl(145, 25%, 5%) 25%,
+          hsl(135, 20%, 4%) 50%,
+          hsl(140, 30%, 3%) 100%
+        )`
+      }}></div>
+      
       {/* Dynamic Video Card Container */}
       <div className="absolute inset-0 flex items-center justify-center z-10 p-2 sm:p-4 md:p-6">
         <div 
