@@ -11,7 +11,7 @@ export default function Hero3D() {
             loop
             muted
             playsInline
-            className="w-full h-full object-cover video-synced-seamless"
+            className="w-full h-full object-cover video-completely-synced"
             onError={(e) => console.error('Video load error:', e)}
             onLoadStart={() => console.log('Video loading started')}
             onCanPlay={() => console.log('Video can play')}

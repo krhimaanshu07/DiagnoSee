@@ -380,6 +380,95 @@
     background: rgba(15, 35, 15, 0.85);
     border-bottom: 1px solid rgba(34, 139, 34, 0.3);
   }
+
+  /* Navbar Lamp Glow Effect */
+  .navbar-glow-effect {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 300px;
+    pointer-events: none;
+    z-index: 40;
+    overflow: hidden;
+  }
+
+  .navbar-glow-radial {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background: radial-gradient(
+      ellipse 120% 60% at center top,
+      hsla(140, 70%, 35%, 0.15) 0%,
+      hsla(140, 50%, 25%, 0.08) 30%,
+      hsla(140, 30%, 15%, 0.04) 60%,
+      transparent 80%
+    );
+    filter: blur(8px);
+    mix-blend-mode: screen;
+  }
+
+  .navbar-glow-linear {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 250px;
+    background: linear-gradient(
+      180deg,
+      hsla(140, 60%, 30%, 0.12) 0%,
+      hsla(140, 40%, 20%, 0.06) 40%,
+      hsla(140, 30%, 15%, 0.03) 70%,
+      transparent 100%
+    );
+    filter: blur(12px);
+    mix-blend-mode: soft-light;
+  }
+
+  .navbar-glow-fade {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 120px;
+    background: linear-gradient(
+      180deg,
+      hsla(140, 50%, 25%, 0.08) 0%,
+      hsla(140, 40%, 20%, 0.04) 50%,
+      transparent 100%
+    );
+    filter: blur(4px);
+  }
+
+  /* Completely Synced Video Container */
+  .video-synced-container {
+    transform: none;
+    animation: none;
+    position: relative;
+  }
+  
+  .video-completely-synced {
+    border: none;
+    border-radius: 24px;
+    transform: none;
+    box-shadow: 
+      0 20px 60px rgba(0, 0, 0, 0.6),
+      0 8px 25px rgba(34, 139, 34, 0.1),
+      0 3px 12px rgba(85, 139, 85, 0.08);
+    filter: brightness(1.05) contrast(1.02);
+    transition: all 0.3s ease;
+    overflow: hidden;
+  }
+  
+  .video-completely-synced:hover {
+    transform: none;
+    box-shadow: 
+      0 25px 80px rgba(0, 0, 0, 0.7),
+      0 10px 35px rgba(34, 139, 34, 0.15),
+      0 5px 18px rgba(85, 139, 85, 0.12);
+  }
   
   /* Focus styles for accessibility */
   .focus-visible {
