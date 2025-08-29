@@ -9,8 +9,10 @@ This is a production-ready marketing and demo website for Agnostic Imaging AI, a
 Preferred communication style: Simple, everyday language.
 Design preference: Dark mode only - light mode option disabled.
 Hero background: Deep complete dark black background for clean professional look.
-Video design: 3D frameless video with rounded corners (24px radius) for modern aesthetic.
+Video design: 3D frameless video with rounded corners (24px radius) for modern aesthetic with elastic drag functionality.
 Theme: Deep forest theme with rich dark greens, emerald accents, and natural forest tones.
+Solutions section: Must contain exactly 4 Medical3DCard components with holographic effects.
+X-Ray card: Uses specific attached X-ray image (x-rayy_1756472628643.png) with realistic medical scanning effects.
 
 ## System Architecture
 

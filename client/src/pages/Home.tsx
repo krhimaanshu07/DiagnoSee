@@ -9,7 +9,7 @@ import CTA from "@/components/CTA";
 import Badge from "@/components/Badge";
 import { siteConfig } from "@/site.config";
 import workflowImage from "@assets/image_1756364176481.png";
-import xrayImage from "@assets/xray_1756467366095.png";
+import xrayImage from "@assets/x-rayy_1756472628643.png";
 
 export default function Home() {
   const [counters, setCounters] = useState({
@@ -382,7 +382,7 @@ export default function Home() {
         </div>
 
         {/* Additional Solutions Row */}
-        <div className="grid md:grid-cols-3 gap-8 mt-12">
+        <div className="grid md:grid-cols-2 gap-8 mt-12">
           <Medical3DCard
             title="Digital Pathology AI"
             description="Enhance microscopy images with AI-powered super-resolution for cellular and tissue analysis."
@@ -401,17 +401,6 @@ export default function Home() {
               "Micro-calcification clarity",
               "Dense tissue visualization",
               "FDA-cleared technology"
-            ]}
-            isXRay={false}
-          />
-
-          <Medical3DCard
-            title="Ultrasound Optimization"
-            description="Real-time ultrasound image enhancement for improved diagnostic accuracy across all modalities."
-            features={[
-              "Real-time processing",
-              "Doppler enhancement",
-              "Multi-frequency support"
             ]}
             isXRay={false}
           />
