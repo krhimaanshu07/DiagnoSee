@@ -24,6 +24,8 @@ export default function Hero3D() {
       const deltaX = e.clientX - dragStartRef.current.x;
       const deltaY = e.clientY - dragStartRef.current.y;
       
+      // Apply drag transform with no transition during dragging
+      cardRef.current.style.transition = 'none';
       cardRef.current.style.transform = `
         perspective(1200px) 
         rotateX(0deg) 
@@ -35,29 +37,29 @@ export default function Hero3D() {
     };
 
     const handleMouseUp = () => {
-      console.log('MOUSE UP - Elastic return triggered');
+      console.log('MOUSE UP - Immediate elastic snap-back');
       isDraggingRef.current = false;
       
       if (cardRef.current) {
+        // Remove dragging state immediately
         cardRef.current.classList.remove('dragging');
         cardRef.current.classList.add('returning');
         
-        // Force return to original position
-        cardRef.current.style.transform = `
-          perspective(clamp(800px, 120vw, 1200px)) 
-          rotateX(clamp(2deg, 0.8vw, 4deg)) 
-          rotateY(clamp(-1deg, -0.5vw, -3deg))
-          translateX(0px) 
-          translateY(0px) 
-          scale(1)
-        `;
-        
-        // Clean up after animation
-        setTimeout(() => {
+        // Force immediate return to center with no delay
+        requestAnimationFrame(() => {
           if (cardRef.current) {
-            cardRef.current.classList.remove('returning');
+            cardRef.current.style.transform = '';
+            cardRef.current.style.transition = 'all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+            
+            // Clean up after animation
+            setTimeout(() => {
+              if (cardRef.current) {
+                cardRef.current.classList.remove('returning');
+                cardRef.current.style.transition = '';
+              }
+            }, 300);
           }
-        }, 400);
+        });
       }
       
       // Remove listeners
