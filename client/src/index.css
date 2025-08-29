@@ -366,42 +366,6 @@
     opacity: 0.6;
   }
   
-  /* Spotlight Effect */
-  .spotlight-container {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    pointer-events: none;
-    z-index: 40;
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-  }
-
-  .spotlight-container.visible {
-    opacity: 1;
-  }
-
-  .spotlight-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: radial-gradient(
-      circle 200px at var(--mouse-x, 50%) var(--mouse-y, 50%),
-      transparent 0%,
-      transparent 25%,
-      rgba(15, 35, 15, 0.3) 50%,
-      rgba(10, 25, 10, 0.6) 70%,
-      rgba(5, 15, 5, 0.8) 90%,
-      rgba(2, 10, 2, 0.9) 100%
-    );
-    transition: all 0.08s ease-out;
-    backdrop-filter: blur(1px);
-  }
-
   /* Professional Status Indicators */
   .glass-card {
     background: rgba(34, 139, 34, 0.1);

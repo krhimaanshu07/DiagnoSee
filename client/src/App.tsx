@@ -1,7 +1,6 @@
 import { Router, Route, Switch } from "wouter";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import Navbar from "@/components/Navbar";
-import SpotlightEffect from "@/components/SpotlightEffect";
 import Footer from "@/components/Footer";
 import Home from "@/pages/Home";
 import Solutions from "@/pages/Solutions";
@@ -22,7 +21,6 @@ function App() {
     <ThemeProvider defaultTheme="dark">
       <div className="min-h-screen bg-background text-foreground">
         <Navbar />
-        <SpotlightEffect />
         <main>
           <Switch>
             <Route path="/" component={Home} />
