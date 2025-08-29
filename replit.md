@@ -10,6 +10,7 @@ Preferred communication style: Simple, everyday language.
 Design preference: Dark mode only - light mode option disabled.
 Hero background: Deep complete dark black background for clean professional look.
 Video design: 3D frameless video with rounded corners (24px radius) for modern aesthetic.
+Theme: Deep forest theme with rich dark greens, emerald accents, and natural forest tones.
 
 ## System Architecture
 

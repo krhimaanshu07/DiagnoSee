@@ -13,12 +13,12 @@
   --popover: hsl(0, 0%, 100%);
   --popover-foreground: hsl(240, 10%, 3.9%);
   
-  /* Medical cyan primary */
-  --primary: hsl(187, 100%, 45%);
+  /* Deep forest emerald primary */
+  --primary: hsl(140, 70%, 35%);
   --primary-foreground: hsl(0, 0%, 100%);
   
-  /* Medical violet secondary */
-  --secondary: hsl(262, 100%, 65%);
+  /* Forest sage secondary */
+  --secondary: hsl(120, 30%, 45%);
   --secondary-foreground: hsl(0, 0%, 100%);
   
   --muted: hsl(240, 4.8%, 95.9%);
@@ -31,11 +31,11 @@
   --input: hsl(240, 5.9%, 90%);
   --ring: hsl(187, 100%, 45%);
   
-  /* Medical theme colors */
-  --medical-cyan: hsl(187, 100%, 45%);
-  --medical-violet: hsl(262, 100%, 65%);
-  --zinc-800: hsl(0, 0%, 20%);
-  --zinc-900: hsl(0, 0%, 9%);
+  /* Deep forest theme colors */
+  --forest-emerald: hsl(140, 70%, 35%);
+  --forest-sage: hsl(120, 30%, 45%);
+  --forest-dark: hsl(140, 25%, 8%);
+  --forest-deepest: hsl(140, 30%, 3%);
   
   /* Typography */
   --font-inter: 'Inter', sans-serif;
@@ -46,26 +46,26 @@
 }
 
 .dark {
-  /* Dark theme - sophisticated dark with subtle gradients */
-  --background: hsl(220, 15%, 8%);
-  --foreground: hsl(0, 0%, 91.18%);
-  --card: hsl(220, 15%, 12%);
-  --card-foreground: hsl(0, 0%, 85.1%);
-  --popover: hsl(220, 15%, 8%);
-  --popover-foreground: hsl(0, 0%, 91.18%);
-  --primary: hsl(187, 100%, 45%);
-  --primary-foreground: hsl(0, 0%, 0%);
-  --secondary: hsl(262, 100%, 65%);
+  /* Deep forest theme - rich dark greens with natural tones */
+  --background: hsl(140, 25%, 5%);
+  --foreground: hsl(120, 15%, 90%);
+  --card: hsl(140, 20%, 8%);
+  --card-foreground: hsl(120, 15%, 85%);
+  --popover: hsl(140, 25%, 5%);
+  --popover-foreground: hsl(120, 15%, 90%);
+  --primary: hsl(140, 70%, 35%);
+  --primary-foreground: hsl(0, 0%, 100%);
+  --secondary: hsl(120, 30%, 45%);
   --secondary-foreground: hsl(0, 0%, 100%);
-  --muted: hsl(0, 0%, 14.9%);
-  --muted-foreground: hsl(0, 0%, 63.92%);
-  --accent: hsl(0, 0%, 14.9%);
-  --accent-foreground: hsl(187, 100%, 45%);
+  --muted: hsl(140, 20%, 12%);
+  --muted-foreground: hsl(120, 10%, 60%);
+  --accent: hsl(140, 20%, 12%);
+  --accent-foreground: hsl(140, 70%, 35%);
   --destructive: hsl(0, 84%, 60%);
   --destructive-foreground: hsl(0, 0%, 100%);
-  --border: hsl(0, 0%, 20%);
-  --input: hsl(0, 0%, 14.9%);
-  --ring: hsl(187, 100%, 45%);
+  --border: hsl(140, 15%, 18%);
+  --input: hsl(140, 20%, 12%);
+  --ring: hsl(140, 70%, 35%);
 }
 
 @layer base {
@@ -287,10 +287,29 @@
     animation-play-state: paused;
   }
 
-  /* Deep dark black hero background */
+  /* Deep forest hero background */
   .hero-gradient {
-    background: hsl(0, 0%, 0%);
+    background: linear-gradient(
+      135deg,
+      hsl(140, 30%, 3%) 0%,
+      hsl(145, 25%, 5%) 25%,
+      hsl(135, 20%, 4%) 50%,
+      hsl(140, 30%, 3%) 100%
+    );
     position: relative;
+  }
+  
+  .hero-gradient::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse at center,
+      hsla(140, 70%, 35%, 0.08) 0%,
+      hsla(120, 30%, 45%, 0.05) 40%,
+      transparent 70%
+    );
+    pointer-events: none;
   }
 
   /* 3D Frameless Video Container */
@@ -310,8 +329,8 @@
     transform: rotateX(5deg) rotateY(-2deg) translateZ(50px);
     box-shadow: 
       0 30px 80px rgba(0, 0, 0, 0.8),
-      0 15px 40px rgba(0, 229, 255, 0.15),
-      0 5px 20px rgba(124, 77, 255, 0.1);
+      0 15px 40px rgba(34, 139, 34, 0.15),
+      0 5px 20px rgba(85, 139, 85, 0.1);
     filter: brightness(1.1) contrast(1.05);
     transition: all 0.3s ease;
     overflow: hidden;
@@ -321,8 +340,8 @@
     transform: rotateX(2deg) rotateY(-1deg) translateZ(70px);
     box-shadow: 
       0 40px 100px rgba(0, 0, 0, 0.9),
-      0 20px 50px rgba(0, 229, 255, 0.2),
-      0 10px 30px rgba(124, 77, 255, 0.15);
+      0 20px 50px rgba(34, 139, 34, 0.2),
+      0 10px 30px rgba(85, 139, 85, 0.15);
   }
   
   /* 3D Shadow Layers with rounded corners */
@@ -339,7 +358,7 @@
   .video-shadow-layer-2 {
     position: absolute;
     inset: 0;
-    background: rgba(0, 229, 255, 0.1);
+    background: rgba(34, 139, 34, 0.1);
     transform: translateZ(-40px) translateY(40px);
     filter: blur(25px);
     z-index: -2;
@@ -349,7 +368,7 @@
   .video-shadow-layer-3 {
     position: absolute;
     inset: 0;
-    background: rgba(124, 77, 255, 0.08);
+    background: rgba(85, 139, 85, 0.08);
     transform: translateZ(-60px) translateY(60px);
     filter: blur(35px);
     z-index: -3;
@@ -371,10 +390,10 @@
     left: 10%;
     width: 4px;
     height: 4px;
-    background: rgba(0, 229, 255, 0.6);
+    background: rgba(34, 139, 34, 0.6);
     border-radius: 50%;
     animation: particle-float-1 4s ease-in-out infinite;
-    box-shadow: 0 0 10px rgba(0, 229, 255, 0.4);
+    box-shadow: 0 0 10px rgba(34, 139, 34, 0.4);
   }
   
   .video-particles::after {
@@ -384,15 +403,17 @@
     right: 15%;
     width: 3px;
     height: 3px;
-    background: rgba(124, 77, 255, 0.6);
+    background: rgba(85, 139, 85, 0.6);
     border-radius: 50%;
     animation: particle-float-2 5s ease-in-out infinite;
-    box-shadow: 0 0 8px rgba(124, 77, 255, 0.4);
+    box-shadow: 0 0 8px rgba(85, 139, 85, 0.4);
   }
   
-  /* Navigation blur effect */
+  /* Navigation blur effect with forest theme */
   .nav-blur {
-    @apply backdrop-blur-xl bg-black/80 border-b border-zinc-800;
+    backdrop-filter: blur(12px);
+    background: rgba(15, 35, 15, 0.85);
+    border-bottom: 1px solid rgba(34, 139, 34, 0.3);
   }
   
   /* Focus styles for accessibility */
@@ -527,12 +548,12 @@
   
   /* Medical gradient */
   .bg-gradient-medical {
-    background: linear-gradient(135deg, hsl(187, 100%, 45%) 0%, hsl(262, 100%, 65%) 100%);
+    background: linear-gradient(135deg, hsl(140, 70%, 35%) 0%, hsl(120, 30%, 45%) 100%);
   }
   
   /* Text gradient */
   .text-gradient-medical {
-    background: linear-gradient(135deg, hsl(187, 100%, 45%) 0%, hsl(262, 100%, 65%) 100%);
+    background: linear-gradient(135deg, hsl(140, 70%, 35%) 0%, hsl(120, 30%, 45%) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
