@@ -10,6 +10,7 @@ import Badge from "@/components/Badge";
 import { siteConfig } from "@/site.config";
 import workflowImage from "@assets/image_1756364176481.png";
 import xrayImage from "@assets/x-rayy_1756472628643.png";
+import mriImage from "@assets/image_1756472973761.png";
 
 export default function Home() {
   const [counters, setCounters] = useState({
@@ -377,6 +378,7 @@ export default function Home() {
               "Physics-informed processing",
               "Cloud or hybrid deployment"
             ]}
+            image={mriImage}
             isXRay={false}
           />
         </div>
