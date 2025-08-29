@@ -6,9 +6,9 @@ export default function Hero3D() {
       {/* Hero Lamp Glow Effect */}
       <div className="hero-lamp-glow"></div>
       
-      {/* Enhanced Video Card Container */}
-      <div className="absolute inset-0 flex items-center justify-center z-10 p-4">
-        <div className="relative w-full max-w-3xl aspect-[16/10] video-card-container">
+      {/* Dynamic Video Card Container */}
+      <div className="absolute inset-0 flex items-center justify-center z-10 p-2 sm:p-4 md:p-6">
+        <div className="relative w-full max-w-[90vw] sm:max-w-4xl lg:max-w-5xl xl:max-w-6xl video-card-container">
           
           {/* Card Header with Browser Controls */}
           <div className="video-card-header">
@@ -28,18 +28,22 @@ export default function Hero3D() {
             </div>
           </div>
 
-          {/* Video Content Area - Completely Synced */}
-          <div className="absolute inset-0 rounded-[24px] overflow-hidden">
+          {/* Video Content Area - Dynamically Synced */}
+          <div className="absolute inset-0 overflow-hidden" style={{ borderRadius: 'inherit' }}>
             <video
               autoPlay
               loop
               muted
               playsInline
-              className="w-full h-full object-cover"
+              className="w-full h-full"
               style={{ 
                 filter: 'brightness(1.08) contrast(1.12) saturate(1.15)',
                 objectFit: 'cover',
-                objectPosition: 'center'
+                objectPosition: 'center',
+                width: '100%',
+                height: '100%',
+                display: 'block',
+                borderRadius: 'inherit'
               }}
               onError={(e) => console.error('Video load error:', e)}
               onLoadStart={() => console.log('Video loading started')}
