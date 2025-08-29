@@ -1,109 +1,77 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useCallback } from "react";
 import heroVideo from "@assets/WhatsApp Video 2025-08-27 at 17.21.38_1756297837502.mp4";
 
 export default function Hero3D() {
   const cardRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
-  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
-  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const dragStartRef = useRef({ x: 0, y: 0 });
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (isDragging && cardRef.current) {
-        e.preventDefault();
-        const deltaX = e.clientX - dragStart.x;
-        const deltaY = e.clientY - dragStart.y;
-        setPosition({ x: deltaX, y: deltaY });
-        
-        cardRef.current.style.transform = `
-          perspective(1200px) 
-          rotateX(0deg) 
-          rotateY(0deg) 
-          translateX(${deltaX}px) 
-          translateY(${deltaY}px) 
-          scale(1.05)
-        `;
-      }
-    };
-
-    const returnToOriginal = () => {
-      if (cardRef.current) {
-        console.log('Returning card to original position');
-        setIsDragging(false);
-        cardRef.current.classList.remove('dragging');
-        cardRef.current.classList.add('returning');
-        
-        // Force return to original position
-        cardRef.current.style.transform = `
-          perspective(clamp(800px, 120vw, 1200px)) 
-          rotateX(clamp(2deg, 0.8vw, 4deg)) 
-          rotateY(clamp(-1deg, -0.5vw, -3deg))
-          translateX(0px) 
-          translateY(0px)
-          scale(1)
-        `;
-        
-        setPosition({ x: 0, y: 0 });
-        
-        // Remove returning class after animation
-        setTimeout(() => {
-          if (cardRef.current) {
-            cardRef.current.classList.remove('returning');
-          }
-        }, 400);
-      }
-    };
-
-    const handleMouseUp = (e: MouseEvent) => {
-      console.log('Mouse up detected, isDragging:', isDragging);
-      if (isDragging) {
-        returnToOriginal();
-      }
-    };
-
-    const handleTouchEnd = (e: TouchEvent) => {
-      console.log('Touch end detected, isDragging:', isDragging);
-      if (isDragging) {
-        returnToOriginal();
-      }
-    };
-
-    // Only add listeners when dragging
-    if (isDragging) {
-      document.addEventListener('mousemove', handleMouseMove, { passive: false });
-      document.addEventListener('mouseup', handleMouseUp, { passive: false });
-      document.addEventListener('touchmove', handleMouseMove, { passive: false });
-      document.addEventListener('touchend', handleTouchEnd, { passive: false });
+  const returnToOriginal = useCallback(() => {
+    if (cardRef.current) {
+      console.log('ELASTIC RETURN - Snapping back to original position');
+      setIsDragging(false);
+      cardRef.current.classList.remove('dragging');
+      cardRef.current.classList.add('returning');
       
-      return () => {
-        document.removeEventListener('mousemove', handleMouseMove);
-        document.removeEventListener('mouseup', handleMouseUp);
-        document.removeEventListener('touchmove', handleMouseMove);
-        document.removeEventListener('touchend', handleTouchEnd);
-      };
+      // Immediate elastic return
+      cardRef.current.style.transform = `
+        perspective(clamp(800px, 120vw, 1200px)) 
+        rotateX(clamp(2deg, 0.8vw, 4deg)) 
+        rotateY(clamp(-1deg, -0.5vw, -3deg))
+        translateX(0px) 
+        translateY(0px)
+        scale(1)
+      `;
+      
+      // Clean up after animation
+      setTimeout(() => {
+        if (cardRef.current) {
+          cardRef.current.classList.remove('returning');
+        }
+      }, 400);
     }
-  }, [isDragging, dragStart.x, dragStart.y]);
+  }, []);
+
+  const handleMouseMove = useCallback((e: MouseEvent) => {
+    if (isDragging && cardRef.current) {
+      e.preventDefault();
+      const deltaX = e.clientX - dragStartRef.current.x;
+      const deltaY = e.clientY - dragStartRef.current.y;
+      
+      cardRef.current.style.transform = `
+        perspective(1200px) 
+        rotateX(0deg) 
+        rotateY(0deg) 
+        translateX(${deltaX}px) 
+        translateY(${deltaY}px) 
+        scale(1.05)
+      `;
+    }
+  }, [isDragging]);
+
+  const handleMouseUp = useCallback(() => {
+    console.log('MOUSE UP - Triggering elastic return');
+    if (isDragging) {
+      returnToOriginal();
+      // Remove listeners
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    }
+  }, [isDragging, returnToOriginal, handleMouseMove]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
+    
     if (cardRef.current) {
-      console.log('Mouse down - starting drag at:', e.clientX, e.clientY);
+      console.log('MOUSE DOWN - Starting drag');
       setIsDragging(true);
-      setDragStart({ x: e.clientX, y: e.clientY });
+      dragStartRef.current = { x: e.clientX, y: e.clientY };
       cardRef.current.classList.add('dragging');
-    }
-  };
-
-  const handleTouchStart = (e: React.TouchEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    if (cardRef.current && e.touches.length === 1) {
-      const touch = e.touches[0];
-      console.log('Touch start - starting drag at:', touch.clientX, touch.clientY);
-      setIsDragging(true);
-      setDragStart({ x: touch.clientX, y: touch.clientY });
-      cardRef.current.classList.add('dragging');
+      
+      // Add global listeners
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
     }
   };
 
@@ -118,7 +86,6 @@ export default function Hero3D() {
           ref={cardRef}
           className="relative w-full max-w-[90vw] sm:max-w-4xl lg:max-w-5xl xl:max-w-6xl video-card-container"
           onMouseDown={handleMouseDown}
-          onTouchStart={handleTouchStart}
         >
           
           {/* Card Header with Browser Controls */}
@@ -180,7 +147,6 @@ export default function Hero3D() {
               </div>
             </div>
           </div>
-
         </div>
       </div>
       
