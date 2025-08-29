@@ -3,6 +3,7 @@ import heroVideo from "@assets/WhatsApp Video 2025-08-27 at 17.21.38_17562978375
 
 export default function Hero3D() {
   const cardRef = useRef<HTMLDivElement>(null);
+  const glowRef = useRef<HTMLDivElement>(null);
   const isDraggingRef = useRef(false);
   const dragStartRef = useRef({ x: 0, y: 0 });
 
@@ -24,7 +25,7 @@ export default function Hero3D() {
       const deltaX = e.clientX - dragStartRef.current.x;
       const deltaY = e.clientY - dragStartRef.current.y;
       
-      // Apply drag transform with no transition during dragging
+      // Apply drag transform to card with no transition during dragging
       cardRef.current.style.transition = 'none';
       cardRef.current.style.transform = `
         perspective(1200px) 
@@ -34,6 +35,12 @@ export default function Hero3D() {
         translateY(${deltaY}px) 
         scale(1.05)
       `;
+      
+      // Move background glow effect with the card
+      if (glowRef.current) {
+        glowRef.current.style.transition = 'none';
+        glowRef.current.style.transform = `translateX(${deltaX * 0.3}px) translateY(${deltaY * 0.3}px)`;
+      }
     };
 
     const handleMouseUp = () => {
@@ -51,11 +58,20 @@ export default function Hero3D() {
             cardRef.current.style.transform = '';
             cardRef.current.style.transition = 'all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
             
+            // Return background glow to original position
+            if (glowRef.current) {
+              glowRef.current.style.transform = '';
+              glowRef.current.style.transition = 'all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+            }
+            
             // Clean up after animation
             setTimeout(() => {
               if (cardRef.current) {
                 cardRef.current.classList.remove('returning');
                 cardRef.current.style.transition = '';
+              }
+              if (glowRef.current) {
+                glowRef.current.style.transition = '';
               }
             }, 300);
           }
@@ -75,7 +91,7 @@ export default function Hero3D() {
   return (
     <div className="w-full h-full relative hero-gradient" data-testid="hero-3d">
       {/* Hero Lamp Glow Effect */}
-      <div className="hero-lamp-glow"></div>
+      <div ref={glowRef} className="hero-lamp-glow"></div>
       
       {/* Dynamic Video Card Container */}
       <div className="absolute inset-0 flex items-center justify-center z-10 p-2 sm:p-4 md:p-6">
