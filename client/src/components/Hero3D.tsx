@@ -93,27 +93,6 @@ export default function Hero3D() {
       {/* Hero Lamp Glow Effect */}
       <div ref={glowRef} className="hero-lamp-glow"></div>
       
-      {/* Extended Background Fill Layer for Drag Area */}
-      <div className="absolute inset-0 z-5" style={{
-        background: `
-          radial-gradient(ellipse 120% 80% at 50% 0%, hsla(140, 60%, 25%, 0.15) 0%, transparent 50%),
-          radial-gradient(ellipse 100% 100% at 80% 20%, hsla(145, 70%, 30%, 0.12) 0%, transparent 60%),
-          radial-gradient(ellipse 80% 120% at 20% 70%, hsla(135, 65%, 28%, 0.1) 0%, transparent 55%),
-          linear-gradient(
-            135deg,
-            hsl(140, 40%, 2%) 0%,
-            hsl(145, 35%, 3%) 15%,
-            hsl(140, 45%, 4%) 35%,
-            hsl(135, 40%, 3%) 65%,
-            hsl(140, 35%, 2%) 100%
-          )
-        `,
-        width: '300vw',
-        height: '300vh',
-        left: '-100vw',
-        top: '-100vh'
-      }}></div>
-      
       {/* Dynamic Video Card Container */}
       <div className="absolute inset-0 flex items-center justify-center z-10 p-2 sm:p-4 md:p-6">
         <div 

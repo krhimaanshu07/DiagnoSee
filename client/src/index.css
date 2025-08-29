@@ -88,17 +88,6 @@
   body {
     @apply bg-background text-foreground antialiased;
     font-family: var(--font-inter);
-    background: 
-      radial-gradient(ellipse 100% 80% at 50% 0%, hsla(140, 50%, 20%, 0.08) 0%, transparent 60%),
-      radial-gradient(ellipse 80% 100% at 100% 50%, hsla(145, 60%, 25%, 0.06) 0%, transparent 50%),
-      linear-gradient(
-        135deg,
-        hsl(140, 35%, 1%) 0%,
-        hsl(145, 30%, 2%) 25%,
-        hsl(140, 40%, 2%) 50%,
-        hsl(135, 35%, 1%) 100%
-      );
-    min-height: 100vh;
   }
   
   /* Reduced motion preferences */
@@ -298,96 +287,29 @@
     animation-play-state: paused;
   }
 
-  /* Deep forest hero background with enhanced glow */
+  /* Deep forest hero background */
   .hero-gradient {
-    background: 
-      radial-gradient(ellipse 120% 80% at 50% 0%, hsla(140, 60%, 25%, 0.15) 0%, transparent 50%),
-      radial-gradient(ellipse 100% 100% at 80% 20%, hsla(145, 70%, 30%, 0.12) 0%, transparent 60%),
-      radial-gradient(ellipse 80% 120% at 20% 70%, hsla(135, 65%, 28%, 0.1) 0%, transparent 55%),
-      linear-gradient(
-        135deg,
-        hsl(140, 40%, 2%) 0%,
-        hsl(145, 35%, 3%) 15%,
-        hsl(140, 45%, 4%) 35%,
-        hsl(135, 40%, 3%) 65%,
-        hsl(140, 35%, 2%) 100%
-      );
+    background: linear-gradient(
+      135deg,
+      hsl(140, 30%, 3%) 0%,
+      hsl(145, 25%, 5%) 25%,
+      hsl(135, 20%, 4%) 50%,
+      hsl(140, 30%, 3%) 100%
+    );
     position: relative;
-    animation: forest-breathe 12s ease-in-out infinite;
   }
   
   .hero-gradient::before {
     content: '';
     position: absolute;
     inset: 0;
-    background: 
-      radial-gradient(
-        ellipse 150% 100% at center 20%,
-        hsla(140, 80%, 40%, 0.12) 0%,
-        hsla(145, 70%, 35%, 0.08) 25%,
-        hsla(135, 60%, 30%, 0.06) 50%,
-        transparent 75%
-      ),
-      conic-gradient(from 45deg at 30% 30%, 
-        hsla(140, 70%, 35%, 0.05) 0deg,
-        transparent 90deg,
-        hsla(145, 60%, 40%, 0.04) 180deg,
-        transparent 270deg
-      );
+    background: radial-gradient(
+      ellipse at center,
+      hsla(140, 70%, 35%, 0.08) 0%,
+      hsla(120, 30%, 45%, 0.05) 40%,
+      transparent 70%
+    );
     pointer-events: none;
-    animation: glow-pulse 8s ease-in-out infinite alternate;
-  }
-  
-  .hero-gradient::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: 
-      radial-gradient(circle at 70% 80%, hsla(140, 60%, 35%, 0.08) 0%, transparent 40%),
-      radial-gradient(circle at 20% 40%, hsla(145, 70%, 30%, 0.06) 0%, transparent 35%);
-    pointer-events: none;
-    animation: forest-shimmer 15s linear infinite;
-  }
-
-  @keyframes forest-breathe {
-    0%, 100% { 
-      filter: brightness(1) contrast(1.05) saturate(1.1);
-    }
-    50% { 
-      filter: brightness(1.08) contrast(1.1) saturate(1.2);
-    }
-  }
-
-  @keyframes glow-pulse {
-    0% { 
-      opacity: 0.6;
-      transform: scale(1);
-    }
-    100% { 
-      opacity: 1;
-      transform: scale(1.02);
-    }
-  }
-
-  @keyframes forest-shimmer {
-    0% { 
-      transform: rotate(0deg) scale(1);
-      opacity: 0.4;
-    }
-    25% { 
-      opacity: 0.6;
-    }
-    50% { 
-      transform: rotate(180deg) scale(1.1);
-      opacity: 0.5;
-    }
-    75% { 
-      opacity: 0.7;
-    }
-    100% { 
-      transform: rotate(360deg) scale(1);
-      opacity: 0.4;
-    }
   }
 
   /* Perfectly Synced Video Container */
@@ -474,91 +396,48 @@
   .hero-lamp-glow::before {
     content: '';
     position: absolute;
-    top: -30%;
-    left: -20%;
-    right: -20%;
-    bottom: -30%;
-    background: 
-      radial-gradient(
-        ellipse 100% 70% at center 25%,
-        hsla(140, 80%, 45%, 0.5) 0%,
-        hsla(145, 70%, 40%, 0.35) 15%,
-        hsla(140, 60%, 35%, 0.25) 30%,
-        hsla(135, 50%, 30%, 0.15) 50%,
-        hsla(140, 40%, 25%, 0.08) 70%,
-        transparent 85%
-      ),
-      radial-gradient(
-        ellipse 60% 40% at 70% 60%,
-        hsla(145, 70%, 40%, 0.3) 0%,
-        hsla(140, 60%, 35%, 0.15) 40%,
-        transparent 70%
-      );
-    filter: blur(80px);
+    top: -20%;
+    left: -10%;
+    right: -10%;
+    bottom: -20%;
+    background: radial-gradient(
+      ellipse 80% 60% at center 30%,
+      hsla(140, 60%, 40%, 0.4) 0%,
+      hsla(140, 50%, 30%, 0.25) 20%,
+      hsla(140, 40%, 25%, 0.15) 40%,
+      hsla(140, 30%, 20%, 0.08) 60%,
+      transparent 80%
+    );
+    filter: blur(60px);
     mix-blend-mode: screen;
-    animation: enhanced-lamp-pulse 10s ease-in-out infinite;
+    animation: lamp-pulse 8s ease-in-out infinite;
   }
 
   .hero-lamp-glow::after {
     content: '';
     position: absolute;
-    top: -10%;
-    left: -10%;
-    right: -10%;
-    bottom: -10%;
-    background: 
-      conic-gradient(from 45deg at 40% 30%, 
-        hsla(140, 60%, 35%, 0.25) 0deg,
-        hsla(145, 70%, 40%, 0.15) 90deg,
-        transparent 180deg,
-        hsla(135, 50%, 30%, 0.2) 270deg
-      ),
-      linear-gradient(
-        135deg,
-        hsla(140, 50%, 35%, 0.3) 0%,
-        hsla(145, 40%, 30%, 0.2) 30%,
-        hsla(140, 30%, 25%, 0.15) 60%,
-        transparent 100%
-      );
-    filter: blur(50px);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      135deg,
+      hsla(140, 40%, 30%, 0.2) 0%,
+      hsla(140, 30%, 25%, 0.1) 50%,
+      transparent 100%
+    );
+    filter: blur(40px);
     mix-blend-mode: overlay;
-    animation: glow-rotation 20s linear infinite;
   }
 
-  @keyframes enhanced-lamp-pulse {
+  @keyframes lamp-pulse {
     0%, 100% { 
-      opacity: 0.7;
-      transform: scale(1) rotate(0deg);
-    }
-    25% { 
-      opacity: 0.9;
-      transform: scale(1.03) rotate(1deg);
+      opacity: 0.8;
+      transform: scale(1);
     }
     50% { 
       opacity: 1;
-      transform: scale(1.08) rotate(0deg);
-    }
-    75% { 
-      opacity: 0.85;
-      transform: scale(1.02) rotate(-1deg);
-    }
-  }
-
-  @keyframes glow-rotation {
-    0% { 
-      transform: rotate(0deg) scale(1);
-    }
-    25% { 
-      transform: rotate(90deg) scale(1.05);
-    }
-    50% { 
-      transform: rotate(180deg) scale(1.1);
-    }
-    75% { 
-      transform: rotate(270deg) scale(1.05);
-    }
-    100% { 
-      transform: rotate(360deg) scale(1);
+      transform: scale(1.05);
     }
   }
 
