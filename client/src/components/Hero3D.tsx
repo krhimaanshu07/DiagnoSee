@@ -6,48 +6,66 @@ export default function Hero3D() {
       {/* Hero Lamp Glow Effect */}
       <div className="hero-lamp-glow"></div>
       
-      {/* Video Card Container */}
-      <div className="absolute inset-0 flex items-center justify-center z-10 p-8">
-        <div className="relative w-full max-w-2xl aspect-video video-card-container">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className="video-in-card"
-            onError={(e) => console.error('Video load error:', e)}
-            onLoadStart={() => console.log('Video loading started')}
-            onCanPlay={() => console.log('Video can play')}
-            data-testid="hero-video"
-          >
-            <source src={heroVideo} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+      {/* Enhanced Video Card Container */}
+      <div className="absolute inset-0 flex items-center justify-center z-10 p-4">
+        <div className="relative w-full max-w-3xl aspect-[16/10] video-card-container">
           
-          {/* Card Header */}
-          <div className="absolute top-4 left-4 flex items-center space-x-3 z-20">
-            <div className="flex space-x-1">
-              <div className="w-3 h-3 bg-red-500 rounded-full"></div>
-              <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-            </div>
-            <span className="text-primary font-mono text-sm font-semibold">FDA-Cleared Enterprise Imaging AI</span>
-          </div>
-          
-          {/* Card Footer */}
-          <div className="absolute bottom-4 right-4 z-20">
-            <div className="glass-card px-4 py-2 rounded-lg">
-              <div className="text-secondary font-mono text-xs font-semibold">
-                Radiology Automation Simplified
+          {/* Card Header with Browser Controls */}
+          <div className="video-card-header">
+            <div className="flex items-center space-x-3">
+              <div className="flex space-x-2">
+                <div className="w-3 h-3 bg-red-500 rounded-full shadow-sm"></div>
+                <div className="w-3 h-3 bg-yellow-500 rounded-full shadow-sm"></div>
+                <div className="w-3 h-3 bg-green-500 rounded-full shadow-sm"></div>
+              </div>
+              <div className="flex-1 text-center">
+                <span className="text-white/80 font-mono text-sm">FDA-Cleared Enterprise Imaging AI Platform</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse shadow-sm"></div>
+                <span className="text-green-400 font-mono text-xs font-bold">LIVE</span>
               </div>
             </div>
           </div>
-          
-          {/* Live Status Indicator */}
-          <div className="absolute top-4 right-4 flex items-center space-x-2 z-20">
-            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
-            <span className="text-green-400 font-mono text-xs font-semibold">LIVE</span>
+
+          {/* Video Content Area */}
+          <div className="video-card-content mt-16 mb-16">
+            <video
+              autoPlay
+              loop
+              muted
+              playsInline
+              className="video-in-card"
+              onError={(e) => console.error('Video load error:', e)}
+              onLoadStart={() => console.log('Video loading started')}
+              onCanPlay={() => console.log('Video can play')}
+              data-testid="hero-video"
+            >
+              <source src={heroVideo} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
           </div>
+
+          {/* Card Footer with Controls */}
+          <div className="video-card-footer">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center space-x-3">
+                <div className="w-8 h-8 bg-primary/20 rounded-lg flex items-center justify-center">
+                  <i className="fas fa-brain text-primary text-sm"></i>
+                </div>
+                <div>
+                  <div className="text-white font-semibold text-sm">Radiology Automation Simplified</div>
+                  <div className="text-white/60 text-xs">AI-Enhanced Medical Imaging</div>
+                </div>
+              </div>
+              <div className="flex items-center space-x-2">
+                <div className="px-3 py-1 bg-secondary/20 text-secondary text-xs font-mono rounded-full border border-secondary/30">
+                  Real-time Processing
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
       

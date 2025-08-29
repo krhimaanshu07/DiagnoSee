@@ -130,7 +130,7 @@ export default function Home() {
             </div>
 
             {/* Hero Video Card */}
-            <div className="relative h-96 lg:h-[500px]">
+            <div className="relative h-[400px] lg:h-[600px] w-full">
               <Hero3D />
             </div>
           </div>
