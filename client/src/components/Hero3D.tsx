@@ -10,6 +10,7 @@ export default function Hero3D() {
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
       if (isDragging && cardRef.current) {
+        e.preventDefault();
         const deltaX = e.clientX - dragStart.x;
         const deltaY = e.clientY - dragStart.y;
         setPosition({ x: deltaX, y: deltaY });
@@ -25,25 +26,26 @@ export default function Hero3D() {
       }
     };
 
-    const handleMouseUp = () => {
-      if (isDragging && cardRef.current) {
-        console.log('Mouse up - returning to position');
+    const returnToOriginal = () => {
+      if (cardRef.current) {
+        console.log('Returning card to original position');
         setIsDragging(false);
         cardRef.current.classList.remove('dragging');
         cardRef.current.classList.add('returning');
         
-        // Immediate elastic return to original position
+        // Force return to original position
         cardRef.current.style.transform = `
           perspective(clamp(800px, 120vw, 1200px)) 
           rotateX(clamp(2deg, 0.8vw, 4deg)) 
           rotateY(clamp(-1deg, -0.5vw, -3deg))
           translateX(0px) 
           translateY(0px)
+          scale(1)
         `;
         
         setPosition({ x: 0, y: 0 });
         
-        // Remove returning class after quick elastic animation
+        // Remove returning class after animation
         setTimeout(() => {
           if (cardRef.current) {
             cardRef.current.classList.remove('returning');
@@ -52,26 +54,41 @@ export default function Hero3D() {
       }
     };
 
-    const handleTouchEnd = () => {
-      handleMouseUp();
+    const handleMouseUp = (e: MouseEvent) => {
+      console.log('Mouse up detected, isDragging:', isDragging);
+      if (isDragging) {
+        returnToOriginal();
+      }
     };
 
-    // Add event listeners immediately when component mounts
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
-    document.addEventListener('touchend', handleTouchEnd);
-
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-      document.removeEventListener('touchend', handleTouchEnd);
+    const handleTouchEnd = (e: TouchEvent) => {
+      console.log('Touch end detected, isDragging:', isDragging);
+      if (isDragging) {
+        returnToOriginal();
+      }
     };
-  }, [isDragging, dragStart]);
+
+    // Only add listeners when dragging
+    if (isDragging) {
+      document.addEventListener('mousemove', handleMouseMove, { passive: false });
+      document.addEventListener('mouseup', handleMouseUp, { passive: false });
+      document.addEventListener('touchmove', handleMouseMove, { passive: false });
+      document.addEventListener('touchend', handleTouchEnd, { passive: false });
+      
+      return () => {
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', handleMouseUp);
+        document.removeEventListener('touchmove', handleMouseMove);
+        document.removeEventListener('touchend', handleTouchEnd);
+      };
+    }
+  }, [isDragging, dragStart.x, dragStart.y]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault();
+    e.stopPropagation();
     if (cardRef.current) {
-      console.log('Mouse down - starting drag');
+      console.log('Mouse down - starting drag at:', e.clientX, e.clientY);
       setIsDragging(true);
       setDragStart({ x: e.clientX, y: e.clientY });
       cardRef.current.classList.add('dragging');
@@ -80,8 +97,10 @@ export default function Hero3D() {
 
   const handleTouchStart = (e: React.TouchEvent) => {
     e.preventDefault();
+    e.stopPropagation();
     if (cardRef.current && e.touches.length === 1) {
       const touch = e.touches[0];
+      console.log('Touch start - starting drag at:', touch.clientX, touch.clientY);
       setIsDragging(true);
       setDragStart({ x: touch.clientX, y: touch.clientY });
       cardRef.current.classList.add('dragging');
