@@ -27,6 +27,7 @@ export default function Hero3D() {
 
     const handleMouseUp = () => {
       if (isDragging && cardRef.current) {
+        console.log('Mouse up - returning to position');
         setIsDragging(false);
         cardRef.current.classList.remove('dragging');
         cardRef.current.classList.add('returning');
@@ -51,21 +52,38 @@ export default function Hero3D() {
       }
     };
 
-    if (isDragging) {
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
-    }
+    const handleTouchEnd = () => {
+      handleMouseUp();
+    };
+
+    // Add event listeners immediately when component mounts
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
+    document.addEventListener('touchend', handleTouchEnd);
 
     return () => {
       document.removeEventListener('mousemove', handleMouseMove);
       document.removeEventListener('mouseup', handleMouseUp);
+      document.removeEventListener('touchend', handleTouchEnd);
     };
   }, [isDragging, dragStart]);
 
   const handleMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
     if (cardRef.current) {
+      console.log('Mouse down - starting drag');
       setIsDragging(true);
       setDragStart({ x: e.clientX, y: e.clientY });
+      cardRef.current.classList.add('dragging');
+    }
+  };
+
+  const handleTouchStart = (e: React.TouchEvent) => {
+    e.preventDefault();
+    if (cardRef.current && e.touches.length === 1) {
+      const touch = e.touches[0];
+      setIsDragging(true);
+      setDragStart({ x: touch.clientX, y: touch.clientY });
       cardRef.current.classList.add('dragging');
     }
   };
@@ -81,6 +99,7 @@ export default function Hero3D() {
           ref={cardRef}
           className="relative w-full max-w-[90vw] sm:max-w-4xl lg:max-w-5xl xl:max-w-6xl video-card-container"
           onMouseDown={handleMouseDown}
+          onTouchStart={handleTouchStart}
         >
           
           {/* Card Header with Browser Controls */}
