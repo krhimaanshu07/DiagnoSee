@@ -312,101 +312,66 @@
     pointer-events: none;
   }
 
-  /* 3D Frameless Video Container */
-  .perspective-1000 {
-    perspective: 1000px;
-  }
-  
-  .video-3d-container {
-    transform-style: preserve-3d;
-    animation: float-3d 6s ease-in-out infinite;
+  /* Perfectly Synced Video Container */
+  .video-synced-container {
     position: relative;
+    animation: subtle-float 8s ease-in-out infinite;
   }
   
-  .video-3d-frameless {
+  .video-synced-seamless {
     border: none;
-    border-radius: 24px;
-    transform: rotateX(5deg) rotateY(-2deg) translateZ(50px);
+    border-radius: 16px;
     box-shadow: 
-      0 30px 80px rgba(0, 0, 0, 0.8),
-      0 15px 40px rgba(34, 139, 34, 0.15),
-      0 5px 20px rgba(85, 139, 85, 0.1);
-    filter: brightness(1.1) contrast(1.05);
-    transition: all 0.3s ease;
+      0 20px 60px rgba(0, 0, 0, 0.4),
+      0 8px 24px rgba(34, 139, 34, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    filter: brightness(1.05) contrast(1.02) saturate(1.1);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
     overflow: hidden;
+    transform: translateZ(0);
   }
   
-  .video-3d-frameless:hover {
-    transform: rotateX(2deg) rotateY(-1deg) translateZ(70px);
+  .video-synced-seamless:hover {
     box-shadow: 
-      0 40px 100px rgba(0, 0, 0, 0.9),
-      0 20px 50px rgba(34, 139, 34, 0.2),
-      0 10px 30px rgba(85, 139, 85, 0.15);
+      0 24px 70px rgba(0, 0, 0, 0.5),
+      0 12px 30px rgba(34, 139, 34, 0.15),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    transform: translateY(-2px) scale(1.01);
   }
   
-  /* 3D Shadow Layers with rounded corners */
-  .video-shadow-layer-1 {
+  /* Seamless Integration Effects */
+  .video-integration-overlay {
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.3);
-    transform: translateZ(-20px) translateY(20px);
-    filter: blur(15px);
-    z-index: -1;
-    border-radius: 24px;
-  }
-  
-  .video-shadow-layer-2 {
-    position: absolute;
-    inset: 0;
-    background: rgba(34, 139, 34, 0.1);
-    transform: translateZ(-40px) translateY(40px);
-    filter: blur(25px);
-    z-index: -2;
-    border-radius: 24px;
-  }
-  
-  .video-shadow-layer-3 {
-    position: absolute;
-    inset: 0;
-    background: rgba(85, 139, 85, 0.08);
-    transform: translateZ(-60px) translateY(60px);
-    filter: blur(35px);
-    z-index: -3;
-    border-radius: 24px;
-  }
-  
-  /* 3D Particle Effects */
-  .video-particles {
-    position: absolute;
-    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(34, 139, 34, 0.03) 0%,
+      transparent 30%,
+      transparent 70%,
+      rgba(85, 139, 85, 0.02) 100%
+    );
+    border-radius: 16px;
     pointer-events: none;
     z-index: 10;
   }
   
-  .video-particles::before {
-    content: '';
+  .video-depth-layer {
     position: absolute;
-    top: 20%;
-    left: 10%;
-    width: 4px;
-    height: 4px;
-    background: rgba(34, 139, 34, 0.6);
-    border-radius: 50%;
-    animation: particle-float-1 4s ease-in-out infinite;
-    box-shadow: 0 0 10px rgba(34, 139, 34, 0.4);
+    inset: 2px;
+    background: rgba(0, 0, 0, 0.1);
+    border-radius: 14px;
+    filter: blur(8px);
+    z-index: -1;
+    transform: translateY(4px);
+    opacity: 0.6;
   }
   
-  .video-particles::after {
-    content: '';
-    position: absolute;
-    top: 60%;
-    right: 15%;
-    width: 3px;
-    height: 3px;
-    background: rgba(85, 139, 85, 0.6);
-    border-radius: 50%;
-    animation: particle-float-2 5s ease-in-out infinite;
-    box-shadow: 0 0 8px rgba(85, 139, 85, 0.4);
+  /* Professional Status Indicators */
+  .glass-card {
+    background: rgba(34, 139, 34, 0.1);
+    backdrop-filter: blur(8px);
+    border: 1px solid rgba(34, 139, 34, 0.2);
+    border-radius: 6px;
   }
   
   /* Navigation blur effect with forest theme */
@@ -451,36 +416,13 @@
 }
 
 @layer utilities {
-  /* 3D Video Float Animation */
-  @keyframes float-3d {
+  /* Subtle Professional Float Animation */
+  @keyframes subtle-float {
     0%, 100% { 
-      transform: translateY(0px) rotateX(5deg) rotateY(-2deg);
+      transform: translateY(0px);
     }
     50% { 
-      transform: translateY(-10px) rotateX(3deg) rotateY(-1deg);
-    }
-  }
-
-  /* 3D Particle Animations */
-  @keyframes particle-float-1 {
-    0%, 100% { 
-      transform: translateY(0px) translateX(0px);
-      opacity: 0.6;
-    }
-    50% { 
-      transform: translateY(-20px) translateX(10px);
-      opacity: 1;
-    }
-  }
-
-  @keyframes particle-float-2 {
-    0%, 100% { 
-      transform: translateY(0px) translateX(0px);
-      opacity: 0.5;
-    }
-    50% { 
-      transform: translateY(-15px) translateX(-10px);
-      opacity: 0.9;
+      transform: translateY(-6px);
     }
   }
 
