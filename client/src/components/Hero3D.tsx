@@ -1,40 +1,28 @@
-import { useRef, useState, useCallback } from "react";
+import { useRef } from "react";
 import heroVideo from "@assets/WhatsApp Video 2025-08-27 at 17.21.38_1756297837502.mp4";
 
 export default function Hero3D() {
   const cardRef = useRef<HTMLDivElement>(null);
-  const [isDragging, setIsDragging] = useState(false);
+  const isDraggingRef = useRef(false);
   const dragStartRef = useRef({ x: 0, y: 0 });
 
-  const returnToOriginal = useCallback(() => {
-    if (cardRef.current) {
-      console.log('ELASTIC RETURN - Forcing return to center position');
-      setIsDragging(false);
-      cardRef.current.classList.remove('dragging');
-      cardRef.current.classList.add('returning');
-      
-      // Force immediate return to original position - remove all transforms
-      cardRef.current.style.transform = '';
-      cardRef.current.style.left = '';
-      cardRef.current.style.top = '';
-      cardRef.current.style.position = '';
-      
-      // Clean up after animation
-      setTimeout(() => {
-        if (cardRef.current) {
-          cardRef.current.classList.remove('returning');
-        }
-      }, 400);
-    }
-  }, []);
+  const handleMouseDown = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    
+    if (!cardRef.current) return;
 
-  const handleMouseMove = useCallback((e: MouseEvent) => {
-    if (isDragging && cardRef.current) {
+    console.log('MOUSE DOWN - Starting drag');
+    isDraggingRef.current = true;
+    dragStartRef.current = { x: e.clientX, y: e.clientY };
+    cardRef.current.classList.add('dragging');
+
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!isDraggingRef.current || !cardRef.current) return;
+      
       e.preventDefault();
       const deltaX = e.clientX - dragStartRef.current.x;
       const deltaY = e.clientY - dragStartRef.current.y;
-      
-      console.log(`Dragging to: ${deltaX}, ${deltaY}`);
       
       cardRef.current.style.transform = `
         perspective(1200px) 
@@ -44,32 +32,42 @@ export default function Hero3D() {
         translateY(${deltaY}px) 
         scale(1.05)
       `;
-    }
-  }, [isDragging]);
+    };
 
-  const handleMouseUp = useCallback(() => {
-    console.log('MOUSE UP - Triggering elastic return, isDragging:', isDragging);
-    // Always trigger return regardless of isDragging state
-    returnToOriginal();
-    // Remove listeners
-    document.removeEventListener('mousemove', handleMouseMove);
-    document.removeEventListener('mouseup', handleMouseUp);
-  }, [returnToOriginal, handleMouseMove]);
-
-  const handleMouseDown = (e: React.MouseEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    
-    if (cardRef.current) {
-      console.log('MOUSE DOWN - Starting drag');
-      setIsDragging(true);
-      dragStartRef.current = { x: e.clientX, y: e.clientY };
-      cardRef.current.classList.add('dragging');
+    const handleMouseUp = () => {
+      console.log('MOUSE UP - Elastic return triggered');
+      isDraggingRef.current = false;
       
-      // Add global listeners
-      document.addEventListener('mousemove', handleMouseMove);
-      document.addEventListener('mouseup', handleMouseUp);
-    }
+      if (cardRef.current) {
+        cardRef.current.classList.remove('dragging');
+        cardRef.current.classList.add('returning');
+        
+        // Force return to original position
+        cardRef.current.style.transform = `
+          perspective(clamp(800px, 120vw, 1200px)) 
+          rotateX(clamp(2deg, 0.8vw, 4deg)) 
+          rotateY(clamp(-1deg, -0.5vw, -3deg))
+          translateX(0px) 
+          translateY(0px) 
+          scale(1)
+        `;
+        
+        // Clean up after animation
+        setTimeout(() => {
+          if (cardRef.current) {
+            cardRef.current.classList.remove('returning');
+          }
+        }, 400);
+      }
+      
+      // Remove listeners
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+
+    // Add global listeners
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleMouseUp);
   };
 
   return (
