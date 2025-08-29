@@ -1,6 +1,75 @@
+import { useRef, useState, useEffect } from "react";
 import heroVideo from "@assets/WhatsApp Video 2025-08-27 at 17.21.38_1756297837502.mp4";
 
 export default function Hero3D() {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const [dragStart, setDragStart] = useState({ x: 0, y: 0 });
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (isDragging && cardRef.current) {
+        const deltaX = e.clientX - dragStart.x;
+        const deltaY = e.clientY - dragStart.y;
+        setPosition({ x: deltaX, y: deltaY });
+        
+        cardRef.current.style.transform = `
+          perspective(1200px) 
+          rotateX(0deg) 
+          rotateY(0deg) 
+          translateX(${deltaX}px) 
+          translateY(${deltaY}px) 
+          scale(1.05)
+        `;
+      }
+    };
+
+    const handleMouseUp = () => {
+      if (isDragging && cardRef.current) {
+        setIsDragging(false);
+        cardRef.current.classList.remove('dragging');
+        cardRef.current.classList.add('returning');
+        
+        // Return to original position
+        cardRef.current.style.transform = `
+          perspective(clamp(800px, 120vw, 1200px)) 
+          rotateX(clamp(2deg, 0.8vw, 4deg)) 
+          rotateY(clamp(-1deg, -0.5vw, -3deg))
+          translateX(0px) 
+          translateY(0px)
+        `;
+        
+        setPosition({ x: 0, y: 0 });
+        
+        // Remove returning class after animation
+        setTimeout(() => {
+          if (cardRef.current) {
+            cardRef.current.classList.remove('returning');
+          }
+        }, 800);
+      }
+    };
+
+    if (isDragging) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+    }
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging, dragStart]);
+
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (cardRef.current) {
+      setIsDragging(true);
+      setDragStart({ x: e.clientX, y: e.clientY });
+      cardRef.current.classList.add('dragging');
+    }
+  };
+
   return (
     <div className="w-full h-full relative hero-gradient" data-testid="hero-3d">
       {/* Hero Lamp Glow Effect */}
@@ -8,7 +77,11 @@ export default function Hero3D() {
       
       {/* Dynamic Video Card Container */}
       <div className="absolute inset-0 flex items-center justify-center z-10 p-2 sm:p-4 md:p-6">
-        <div className="relative w-full max-w-[90vw] sm:max-w-4xl lg:max-w-5xl xl:max-w-6xl video-card-container">
+        <div 
+          ref={cardRef}
+          className="relative w-full max-w-[90vw] sm:max-w-4xl lg:max-w-5xl xl:max-w-6xl video-card-container"
+          onMouseDown={handleMouseDown}
+        >
           
           {/* Card Header with Browser Controls */}
           <div className="video-card-header">
