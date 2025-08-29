@@ -4,10 +4,12 @@ import { Link } from "wouter";
 import Hero3D from "@/components/Hero3D";
 import Section from "@/components/Section";
 import FeatureCard from "@/components/FeatureCard";
+import Medical3DCard from "@/components/Medical3DCard";
 import CTA from "@/components/CTA";
 import Badge from "@/components/Badge";
 import { siteConfig } from "@/site.config";
 import workflowImage from "@assets/image_1756364176481.png";
+import xrayImage from "@assets/xray_1756467366095.png";
 
 export default function Home() {
   const [counters, setCounters] = useState({
@@ -352,23 +354,22 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* Feature Highlights */}
+      {/* Revolutionary Solutions with 3D Cards */}
       <Section title="Revolutionary Solutions" subtitle="Upgrade your imaging quality without hardware replacement" background="gradient">
-        <div className="grid md:grid-cols-2 gap-8">
-          <FeatureCard
-            icon={<i className="fas fa-x-ray text-primary text-xl"></i>}
+        <div className="grid md:grid-cols-2 gap-12">
+          <Medical3DCard
             title="X-Ray Super-Resolution"
             description="Transform legacy computed radiography to digital radiography equivalent quality through AI enhancement."
             features={[
               "From ~200 µm CR → ~50 µm DR-equivalent",
-              "Preserve diagnostic fidelity",
+              "Preserve diagnostic fidelity", 
               "Pay-per-use; OEM-agnostic"
             ]}
-            href="/solutions"
+            image={xrayImage}
+            isXRay={true}
           />
           
-          <FeatureCard
-            icon={<i className="fas fa-microscope text-primary text-xl"></i>}
+          <Medical3DCard
             title="CT & MRI Enhancement"
             description="Upgrade slice thickness and spatial resolution for legacy CT and MRI systems using physics-informed AI."
             features={[
@@ -376,11 +377,47 @@ export default function Home() {
               "Physics-informed processing",
               "Cloud or hybrid deployment"
             ]}
-            href="/solutions"
+            isXRay={false}
+          />
+        </div>
+
+        {/* Additional Solutions Row */}
+        <div className="grid md:grid-cols-3 gap-8 mt-12">
+          <Medical3DCard
+            title="Digital Pathology AI"
+            description="Enhance microscopy images with AI-powered super-resolution for cellular and tissue analysis."
+            features={[
+              "Cellular detail enhancement",
+              "Multi-stain compatibility",
+              "Pathologist workflow integration"
+            ]}
+            isXRay={false}
+          />
+
+          <Medical3DCard
+            title="Mammography Enhancement"
+            description="Improve breast imaging quality and early detection capabilities with AI-driven enhancement."
+            features={[
+              "Micro-calcification clarity",
+              "Dense tissue visualization",
+              "FDA-cleared technology"
+            ]}
+            isXRay={false}
+          />
+
+          <Medical3DCard
+            title="Ultrasound Optimization"
+            description="Real-time ultrasound image enhancement for improved diagnostic accuracy across all modalities."
+            features={[
+              "Real-time processing",
+              "Doppler enhancement",
+              "Multi-frequency support"
+            ]}
+            isXRay={false}
           />
         </div>
         
-        <div className="text-center mt-12">
+        <div className="text-center mt-16">
           <CTA
             href="/solutions"
             variant="primary"
