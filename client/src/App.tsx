@@ -22,7 +22,7 @@ function App() {
     <ThemeProvider defaultTheme="dark">
       <div className="min-h-screen bg-background text-foreground">
         <Navbar />
-        <NavbarGlow />
+
         <main>
           <Switch>
             <Route path="/" component={Home} />

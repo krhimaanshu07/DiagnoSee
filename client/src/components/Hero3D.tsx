@@ -3,15 +3,18 @@ import heroVideo from "@assets/WhatsApp Video 2025-08-27 at 17.21.38_17562978375
 export default function Hero3D() {
   return (
     <div className="w-full h-full relative hero-gradient" data-testid="hero-3d">
-      {/* Perfectly Synced Hero Video */}
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="relative w-full h-full max-w-5xl video-synced-container">
+      {/* Hero Lamp Glow Effect */}
+      <div className="hero-lamp-glow"></div>
+      
+      {/* Video Card Container */}
+      <div className="absolute inset-0 flex items-center justify-center z-10 p-8">
+        <div className="relative w-full max-w-2xl aspect-video video-card-container">
           <video
             autoPlay
             loop
             muted
             playsInline
-            className="w-full h-full object-cover video-completely-synced"
+            className="video-in-card"
             onError={(e) => console.error('Video load error:', e)}
             onLoadStart={() => console.log('Video loading started')}
             onCanPlay={() => console.log('Video can play')}
@@ -21,31 +24,35 @@ export default function Hero3D() {
             Your browser does not support the video tag.
           </video>
           
-          {/* Seamless integration overlay */}
-          <div className="video-integration-overlay"></div>
-          
-          {/* Professional status indicators */}
-          <div className="absolute top-4 left-4 flex items-center space-x-2 z-20">
-            <div className="w-2 h-2 bg-primary rounded-full animate-pulse"></div>
-            <span className="text-primary font-mono text-xs tracking-wide">FDA-CLEARED ENTERPRISE IMAGING AI PLATFORM</span>
+          {/* Card Header */}
+          <div className="absolute top-4 left-4 flex items-center space-x-3 z-20">
+            <div className="flex space-x-1">
+              <div className="w-3 h-3 bg-red-500 rounded-full"></div>
+              <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
+              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+            </div>
+            <span className="text-primary font-mono text-sm font-semibold">FDA-Cleared Enterprise Imaging AI</span>
           </div>
           
+          {/* Card Footer */}
           <div className="absolute bottom-4 right-4 z-20">
-            <div className="glass-card px-3 py-1 text-xs font-mono text-secondary">
-              Radiology Automation Simplified
+            <div className="glass-card px-4 py-2 rounded-lg">
+              <div className="text-secondary font-mono text-xs font-semibold">
+                Radiology Automation Simplified
+              </div>
             </div>
           </div>
           
-          {/* Subtle depth enhancement */}
-          <div className="video-depth-layer"></div>
+          {/* Live Status Indicator */}
+          <div className="absolute top-4 right-4 flex items-center space-x-2 z-20">
+            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse"></div>
+            <span className="text-green-400 font-mono text-xs font-semibold">LIVE</span>
+          </div>
         </div>
       </div>
       
-      {/* Medical grid overlay */}
-      <div className="absolute inset-0 medical-grid opacity-5" />
-      
-      {/* Overlay scanlines effect */}
-      <div className="absolute inset-0 scanlines pointer-events-none opacity-10" />
+      {/* Subtle background elements */}
+      <div className="absolute inset-0 medical-grid opacity-3" />
     </div>
   );
 }

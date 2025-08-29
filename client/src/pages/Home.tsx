@@ -79,15 +79,19 @@ export default function Home() {
         <div className="container mx-auto px-6 py-20">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Hero Content */}
-            <div className="space-y-8">
+            <div className="space-y-8 z-20 relative">
               <div className="space-y-6">
-                <h1 className="text-5xl md:text-7xl font-dm-sans font-bold text-white leading-tight">
-                  OEM-Agnostic{" "}
-                  <span className="text-gradient-medical">GenAI</span>{" "}
-                  for Medical Imaging
+                <div className="text-primary font-mono text-sm font-semibold tracking-wide uppercase mb-4">
+                  OEM-Agnostic Medical Imaging AI Platform
+                </div>
+                <h1 className="text-5xl md:text-6xl font-dm-sans font-bold text-white leading-tight">
+                  Prime Quality{" "}
+                  <span className="text-gradient-medical">Premium Design</span>
                 </h1>
-                <p className="text-xl text-zinc-300 leading-relaxed">
-                  {siteConfig.tagline}
+                <p className="text-xl text-zinc-300 leading-relaxed max-w-lg">
+                  Craft a beautiful and high-converting medical imaging platform with 
+                  advanced AI technology. Optimized for enhanced patient care, speed 
+                  and user experiences.
                 </p>
               </div>
 
@@ -96,10 +100,10 @@ export default function Home() {
                   href="/demos"
                   variant="primary"
                   size="lg"
-                  icon={<i className="fas fa-arrow-right" />}
+                  icon={<i className="fas fa-play" />}
                   data-testid="hero-demos-cta"
                 >
-                  See Live Demos
+                  Explore Demos
                 </CTA>
                 <CTA
                   href="/contact"
@@ -107,13 +111,26 @@ export default function Home() {
                   size="lg"
                   data-testid="hero-contact-cta"
                 >
-                  Talk to Us
+                  Open Store Free
                 </CTA>
+              </div>
+              
+              {/* Trust Badge */}
+              <div className="pt-8">
+                <div className="flex items-center space-x-3">
+                  <div className="w-12 h-12 bg-primary/20 rounded-lg flex items-center justify-center">
+                    <i className="fas fa-certificate text-primary text-lg"></i>
+                  </div>
+                  <div>
+                    <div className="text-white font-semibold">Get 3 months trial with medical imaging platform</div>
+                    <div className="text-zinc-400 text-sm">Exclusive platform deal for elite customers</div>
+                  </div>
+                </div>
               </div>
             </div>
 
-            {/* 3D Gantry Hero */}
-            <div className="flex items-center justify-center h-96">
+            {/* Hero Video Card */}
+            <div className="relative h-96 lg:h-[500px]">
               <Hero3D />
             </div>
           </div>
