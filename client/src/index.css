@@ -671,6 +671,155 @@
     100% { background-position: 200% 200%; }
   }
 
+  /* News Strip Styles */
+  .news-strip {
+    background: linear-gradient(90deg, 
+      rgba(34, 139, 34, 0.15) 0%,
+      rgba(0, 0, 0, 0.9) 50%,
+      rgba(34, 139, 34, 0.15) 100%
+    );
+    border-bottom: 1px solid rgba(34, 139, 34, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    position: relative;
+    overflow: hidden;
+    z-index: 100;
+  }
+
+  .news-strip::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+      90deg,
+      transparent 0%,
+      rgba(34, 139, 34, 0.1) 50%,
+      transparent 100%
+    );
+    animation: news-glow 3s ease-in-out infinite;
+  }
+
+  @keyframes news-glow {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.7; }
+  }
+
+  .news-strip-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 8px 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    position: relative;
+    z-index: 2;
+  }
+
+  .news-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #22c55e;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    white-space: nowrap;
+  }
+
+  .news-content {
+    flex: 1;
+    overflow: hidden;
+    text-align: center;
+  }
+
+  .news-ticker {
+    font-size: 14px;
+    color: #ffffff;
+    font-weight: 500;
+    animation: news-fade-in 0.5s ease-in-out;
+    line-height: 1.4;
+  }
+
+  @keyframes news-fade-in {
+    0% { opacity: 0; transform: translateY(-10px); }
+    100% { opacity: 1; transform: translateY(0); }
+  }
+
+  .news-controls {
+    display: flex;
+    gap: 8px;
+  }
+
+  .news-nav-btn {
+    background: rgba(34, 139, 34, 0.2);
+    border: 1px solid rgba(34, 139, 34, 0.3);
+    border-radius: 4px;
+    padding: 4px 8px;
+    color: #22c55e;
+    font-size: 10px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .news-nav-btn:hover {
+    background: rgba(34, 139, 34, 0.3);
+    border-color: rgba(34, 139, 34, 0.5);
+    transform: scale(1.05);
+  }
+
+  /* Medical 3D Card Focus Effects */
+  .medical-3d-card {
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .medical-3d-card:focus,
+  .medical-3d-card:focus-within {
+    outline: none;
+    transform: perspective(1200px) rotateX(0deg) rotateY(0deg) translateY(-12px) scale(1.02);
+    border-color: rgba(34, 139, 34, 0.7);
+    box-shadow: 
+      0 50px 140px rgba(0, 0, 0, 0.7),
+      0 25px 80px rgba(34, 139, 34, 0.25),
+      inset 0 1px 0 rgba(255, 255, 255, 0.2),
+      0 0 0 2px rgba(34, 139, 34, 0.4);
+  }
+
+  .medical-3d-card:focus .medical-holographic-border,
+  .medical-3d-card:focus-within .medical-holographic-border {
+    opacity: 1;
+    animation: holographic-focus 2s linear infinite;
+  }
+
+  @keyframes holographic-focus {
+    0% { 
+      background-position: 0% 0%;
+      filter: brightness(1);
+    }
+    50% { 
+      background-position: 100% 100%;
+      filter: brightness(1.3);
+    }
+    100% { 
+      background-position: 200% 200%;
+      filter: brightness(1);
+    }
+  }
+
+  .medical-3d-card:focus .medical-scan-lines,
+  .medical-3d-card:focus-within .medical-scan-lines {
+    animation: scan-lines 1s infinite linear;
+  }
+
+  .medical-3d-card:focus .medical-glow-overlay,
+  .medical-3d-card:focus-within .medical-glow-overlay {
+    animation: glow-pulse 1.5s ease-in-out infinite;
+  }
+
   .video-card-container::before {
     content: '';
     position: absolute;

@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "Agnostic Imaging AI",
+  name: "DiagnoSee",
   description: "OEM-Agnostic GenAI for Medical Imaging",
   tagline: "Super-resolution and enhancement for X-Ray, CT, MRI, and Digital Pathology — as a Service",
   

@@ -24,6 +24,9 @@ export default function Medical3DCard({
       className={`medical-3d-card-container ${className}`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
+      tabIndex={0}
+      role="button"
+      aria-label={`${title} medical imaging solution`}
     >
       {/* 3D Card Frame */}
       <div className="medical-3d-card">

@@ -2,6 +2,7 @@ import { Router, Route, Switch } from "wouter";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import Navbar from "@/components/Navbar";
 import NavbarGlow from "@/components/NavbarGlow";
+import NewsStrip from "@/components/NewsStrip";
 import Footer from "@/components/Footer";
 import Home from "@/pages/Home";
 import Solutions from "@/pages/Solutions";
@@ -21,6 +22,7 @@ function App() {
   return (
     <ThemeProvider defaultTheme="dark">
       <div className="min-h-screen bg-background text-foreground">
+        <NewsStrip />
         <Navbar />
 
         <main>

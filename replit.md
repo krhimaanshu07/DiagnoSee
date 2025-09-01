@@ -1,8 +1,8 @@
-# Agnostic Imaging AI - Medical Imaging GenAI SaaS
+# DiagnoSee - Medical Imaging GenAI SaaS
 
 ## Overview
 
-This is a production-ready marketing and demo website for Agnostic Imaging AI, a medical imaging GenAI SaaS platform. The application showcases an OEM-agnostic solution that provides super-resolution and enhancement for X-Ray, CT, MRI, and Digital Pathology imaging through advanced AI technology. The website features a modern 3D design with a pure black theme, interactive demonstrations, and comprehensive information about the platform's capabilities.
+This is a production-ready marketing and demo website for DiagnoSee, a medical imaging GenAI SaaS platform. The application showcases an OEM-agnostic solution that provides super-resolution and enhancement for X-Ray, CT, MRI, and Digital Pathology imaging through advanced AI technology. The website features a modern 3D design with a pure black theme, interactive demonstrations, and comprehensive information about the platform's capabilities.
 
 ## User Preferences
 
