@@ -78,7 +78,7 @@ export default function Home() {
       </Helmet>
 
       {/* Hero Section */}
-      <section className="min-h-screen flex items-center medical-grid pt-20 hero-gradient" data-testid="hero-section">
+      <section className="min-h-screen flex items-center medical-grid hero-gradient" style={{ paddingTop: '120px' }} data-testid="hero-section">
         <div className="container mx-auto px-6 py-20">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Hero Content */}

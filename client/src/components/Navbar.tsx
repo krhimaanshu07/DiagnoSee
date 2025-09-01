@@ -24,9 +24,10 @@ export default function Navbar() {
 
   return (
     <nav 
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+      className={`fixed w-full z-50 transition-all duration-300 ${
         isScrolled ? "nav-blur" : "glass-card border-b"
       }`}
+      style={{ top: '40px' }}
       data-testid="navbar"
     >
       <div className="container mx-auto px-6 py-4">

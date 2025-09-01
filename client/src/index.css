@@ -681,9 +681,12 @@
     border-bottom: 1px solid rgba(34, 139, 34, 0.3);
     backdrop-filter: blur(8px);
     -webkit-backdrop-filter: blur(8px);
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
     overflow: hidden;
-    z-index: 100;
+    z-index: 101;
   }
 
   .news-strip::before {
@@ -741,36 +744,19 @@
     font-size: 14px;
     color: #ffffff;
     font-weight: 500;
-    animation: news-fade-in 0.5s ease-in-out;
     line-height: 1.4;
+    white-space: nowrap;
+    animation: scroll-right-to-left 30s linear infinite;
+    display: inline-block;
+    padding-left: 100%;
   }
 
-  @keyframes news-fade-in {
-    0% { opacity: 0; transform: translateY(-10px); }
-    100% { opacity: 1; transform: translateY(0); }
+  @keyframes scroll-right-to-left {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
   }
 
-  .news-controls {
-    display: flex;
-    gap: 8px;
-  }
 
-  .news-nav-btn {
-    background: rgba(34, 139, 34, 0.2);
-    border: 1px solid rgba(34, 139, 34, 0.3);
-    border-radius: 4px;
-    padding: 4px 8px;
-    color: #22c55e;
-    font-size: 10px;
-    cursor: pointer;
-    transition: all 0.2s ease;
-  }
-
-  .news-nav-btn:hover {
-    background: rgba(34, 139, 34, 0.3);
-    border-color: rgba(34, 139, 34, 0.5);
-    transform: scale(1.05);
-  }
 
   /* Medical 3D Card Focus Effects */
   .medical-3d-card {
