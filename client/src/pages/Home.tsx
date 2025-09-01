@@ -436,11 +436,11 @@ export default function Home() {
             <source src={ctaBackgroundVideo} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
-          {/* Dark overlay for readability */}
-          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+          {/* Light overlay for subtle contrast */}
+          <div className="absolute inset-0 bg-black/20"></div>
         </div>
         
-        <div className="glass-card p-12 rounded-xl text-center max-w-4xl mx-auto relative z-10">
+        <div className="cta-transparent-card p-12 rounded-xl text-center max-w-4xl mx-auto relative z-10">
           <h2 className="text-3xl md:text-4xl font-dm-sans font-bold text-white mb-6">
             Ready to Transform Your Medical Imaging?
           </h2>
