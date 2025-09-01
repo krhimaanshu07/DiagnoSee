@@ -11,6 +11,7 @@ import { siteConfig } from "@/site.config";
 import workflowImage from "@assets/image_1756364176481.png";
 import xrayImage from "@assets/x-rayy_1756472628643.png";
 import mriImage from "@assets/image_1756472973761.png";
+import ctaBackgroundVideo from "@assets/GettyImages-876902786_1756708988158.mov";
 
 export default function Home() {
   const [counters, setCounters] = useState({
@@ -421,9 +422,25 @@ export default function Home() {
         </div>
       </Section>
 
-      {/* CTA Section */}
-      <Section background="black">
-        <div className="glass-card p-12 rounded-xl text-center max-w-4xl mx-auto">
+      {/* CTA Section with Video Background */}
+      <Section background="black" className="relative overflow-hidden">
+        {/* Video Background */}
+        <div className="absolute inset-0 z-0">
+          <video 
+            autoPlay 
+            loop 
+            muted 
+            playsInline 
+            className="cta-background-video"
+          >
+            <source src={ctaBackgroundVideo} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          {/* Dark overlay for readability */}
+          <div className="absolute inset-0 bg-black/70 backdrop-blur-sm"></div>
+        </div>
+        
+        <div className="glass-card p-12 rounded-xl text-center max-w-4xl mx-auto relative z-10">
           <h2 className="text-3xl md:text-4xl font-dm-sans font-bold text-white mb-6">
             Ready to Transform Your Medical Imaging?
           </h2>
