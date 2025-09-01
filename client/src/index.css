@@ -759,14 +759,28 @@
 
 
 
-  /* Medical 3D Card Focus Effects */
+  /* Medical 3D Card Blur/Focus Effects */
+  .medical-3d-card-container {
+    filter: blur(3px);
+    opacity: 0.6;
+    transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  .medical-3d-card-container:hover,
+  .medical-3d-card-container:focus,
+  .medical-3d-card-container:focus-within {
+    filter: blur(0px);
+    opacity: 1;
+    outline: none;
+  }
+
   .medical-3d-card {
     transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
-  .medical-3d-card:focus,
-  .medical-3d-card:focus-within {
-    outline: none;
+  .medical-3d-card-container:hover .medical-3d-card,
+  .medical-3d-card-container:focus .medical-3d-card,
+  .medical-3d-card-container:focus-within .medical-3d-card {
     transform: perspective(1200px) rotateX(0deg) rotateY(0deg) translateY(-12px) scale(1.02);
     border-color: rgba(34, 139, 34, 0.7);
     box-shadow: 
@@ -776,8 +790,9 @@
       0 0 0 2px rgba(34, 139, 34, 0.4);
   }
 
-  .medical-3d-card:focus .medical-holographic-border,
-  .medical-3d-card:focus-within .medical-holographic-border {
+  .medical-3d-card-container:hover .medical-holographic-border,
+  .medical-3d-card-container:focus .medical-holographic-border,
+  .medical-3d-card-container:focus-within .medical-holographic-border {
     opacity: 1;
     animation: holographic-focus 2s linear infinite;
   }
@@ -797,13 +812,15 @@
     }
   }
 
-  .medical-3d-card:focus .medical-scan-lines,
-  .medical-3d-card:focus-within .medical-scan-lines {
+  .medical-3d-card-container:hover .medical-scan-lines,
+  .medical-3d-card-container:focus .medical-scan-lines,
+  .medical-3d-card-container:focus-within .medical-scan-lines {
     animation: scan-lines 1s infinite linear;
   }
 
-  .medical-3d-card:focus .medical-glow-overlay,
-  .medical-3d-card:focus-within .medical-glow-overlay {
+  .medical-3d-card-container:hover .medical-glow-overlay,
+  .medical-3d-card-container:focus .medical-glow-overlay,
+  .medical-3d-card-container:focus-within .medical-glow-overlay {
     animation: glow-pulse 1.5s ease-in-out infinite;
   }
 
