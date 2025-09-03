@@ -222,20 +222,20 @@ export default function Contact() {
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel className="text-zinc-300">Role</FormLabel>
-                            <Select onValueChange={field.onChange} value={field.value}>
-                              <FormControl>
-                                <SelectTrigger className="bg-zinc-800/50 border-zinc-600 text-white focus:border-primary backdrop-blur-sm" data-testid="select-role">
-                                  <SelectValue placeholder="Select your role" />
-                                </SelectTrigger>
-                              </FormControl>
-                              <SelectContent className="bg-zinc-900 border-zinc-700">
+                            <FormControl>
+                              <select 
+                                {...field} 
+                                className="flex h-10 w-full items-center justify-between rounded-md border border-zinc-600 bg-zinc-800/50 px-3 py-2 text-sm text-white ring-offset-background placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 backdrop-blur-sm"
+                                data-testid="select-role"
+                              >
+                                <option value="" className="text-zinc-400">Select your role</option>
                                 {roles.map((role) => (
-                                  <SelectItem key={role.value} value={role.value} className="text-white focus:bg-zinc-800">
+                                  <option key={role.value} value={role.value} className="bg-zinc-800 text-white">
                                     {role.label}
-                                  </SelectItem>
+                                  </option>
                                 ))}
-                              </SelectContent>
-                            </Select>
+                              </select>
+                            </FormControl>
                             <FormMessage />
                           </FormItem>
                         )}
@@ -248,20 +248,20 @@ export default function Contact() {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="text-zinc-300">Primary Interest</FormLabel>
-                          <Select onValueChange={field.onChange} value={field.value}>
-                            <FormControl>
-                              <SelectTrigger className="bg-zinc-800/50 border-zinc-600 text-white focus:border-primary backdrop-blur-sm" data-testid="select-interest">
-                                <SelectValue placeholder="Select your primary interest" />
-                              </SelectTrigger>
-                            </FormControl>
-                            <SelectContent className="bg-zinc-900 border-zinc-700">
+                          <FormControl>
+                            <select 
+                              {...field} 
+                              className="flex h-10 w-full items-center justify-between rounded-md border border-zinc-600 bg-zinc-800/50 px-3 py-2 text-sm text-white ring-offset-background placeholder:text-zinc-400 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 backdrop-blur-sm"
+                              data-testid="select-interest"
+                            >
+                              <option value="" className="text-zinc-400">Select your primary interest</option>
                               {interests.map((interest) => (
-                                <SelectItem key={interest.value} value={interest.value} className="text-white focus:bg-zinc-800">
+                                <option key={interest.value} value={interest.value} className="bg-zinc-800 text-white">
                                   {interest.label}
-                                </SelectItem>
+                                </option>
                               ))}
-                            </SelectContent>
-                          </Select>
+                            </select>
+                          </FormControl>
                           <FormMessage />
                         </FormItem>
                       )}
