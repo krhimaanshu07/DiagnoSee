@@ -2,6 +2,7 @@ import type { Express } from "express";
 import { createServer, type Server } from "http";
 import { z } from "zod";
 import { storage } from "./storage";
+import { sendContactFormEmail } from "./emailService";
 
 // Contact form schema
 const contactFormSchema = z.object({
@@ -34,10 +35,14 @@ export async function registerRoutes(app: Express): Promise<Server> {
       // Store the contact submission
       const submission = await storage.createContactSubmission(contactData);
       
+      // Send email notification
+      const emailSent = await sendContactFormEmail(contactData);
+      
       console.log("Contact form submission:", {
         id: submission.id,
         email: contactData.email,
         organization: contactData.organization,
+        emailSent: emailSent,
         timestamp: new Date().toISOString(),
       });
       

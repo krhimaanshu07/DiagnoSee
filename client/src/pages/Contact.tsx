@@ -51,17 +51,19 @@ export default function Contact() {
     mutationFn: async (data: ContactFormData) => {
       return apiRequest("POST", "/api/contact", data);
     },
-    onSuccess: () => {
+    onSuccess: (response: any) => {
       toast({
-        title: "Message Sent Successfully",
-        description: "Thank you for your message! We'll be in touch soon.",
+        title: "Message sent successfully!",
+        description: "Thank you for contacting DiagnoSee. We'll be in touch within 24 hours to discuss your medical imaging needs.",
       });
       form.reset();
+      console.log("Contact form submitted successfully:", response);
     },
-    onError: (error: Error) => {
+    onError: (error: any) => {
+      console.error("Contact form submission error:", error);
       toast({
-        title: "Error Sending Message",
-        description: error.message || "Please try again later.",
+        title: "Failed to send message",
+        description: "Please check your internet connection and try again. If the problem persists, email us directly.",
         variant: "destructive",
       });
     },
