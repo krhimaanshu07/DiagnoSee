@@ -13,7 +13,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { siteConfig } from "@/site.config";
-import contactBackgroundVideo from "@assets/5534943_Coll_wavebreak_Animation_1920x1080_1756886679021.mov";
+// Removed video import - using CSS animations instead for better compatibility
 
 const contactSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
@@ -95,40 +95,16 @@ export default function Contact() {
         <meta name="description" content="Get in touch with our medical imaging AI experts. Schedule a demo or discuss your imaging enhancement needs." />
       </Helmet>
 
-      {/* Full Screen Video Background Section */}
+      {/* Full Screen Animated Background Section */}
       <section className="relative min-h-screen overflow-hidden bg-black">
-        {/* Animated Background with Video */}
+        {/* Dynamic Wave Animation Background */}
         <div className="absolute inset-0 z-0">
-          <video 
-            autoPlay 
-            loop 
-            muted 
-            playsInline 
-            className="w-full h-full object-cover"
-            style={{ 
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              width: '100%',
-              height: '100%',
-              zIndex: 1,
-              opacity: 0.8
-            }}
-            onLoadStart={() => console.log("Contact video loading started")}
-            onCanPlay={() => console.log("Contact video can play")}
-            onError={(e) => console.error("Video error:", e)}
-            onLoadedData={() => console.log("Video loaded data")}
-          >
-            <source src={contactBackgroundVideo} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-          
-          {/* Fallback animated background */}
-          <div className="absolute inset-0 contact-animated-bg z-0"></div>
+          <div className="contact-wave-bg"></div>
+          <div className="contact-particles"></div>
         </div>
         
-        {/* Light overlay for better readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/40 z-10"></div>
+        {/* Subtle overlay for content readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/30 z-10"></div>
         
         {/* Content Container */}
         <div className="relative z-20 min-h-screen flex flex-col">
