@@ -920,6 +920,30 @@
     object-fit: cover;
   }
 
+  /* Dark theme dropdown styling */
+  [data-radix-popper-content-wrapper] {
+    z-index: 50 !important;
+  }
+
+  .dark [data-state="open"] > [data-radix-select-trigger] {
+    background: rgba(39, 39, 42, 0.8) !important;
+  }
+
+  /* Custom select content styling */
+  [data-radix-select-content] {
+    z-index: 50 !important;
+    background: rgb(24, 24, 27) !important;
+    border-color: rgb(63, 63, 70) !important;
+  }
+
+  [data-radix-select-item] {
+    color: white !important;
+  }
+
+  [data-radix-select-item]:focus {
+    background: rgb(39, 39, 42) !important;
+  }
+
   .video-card-container::before {
     content: '';
     position: absolute;

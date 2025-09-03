@@ -222,15 +222,15 @@ export default function Contact() {
                         render={({ field }) => (
                           <FormItem>
                             <FormLabel className="text-zinc-300">Role</FormLabel>
-                            <Select onValueChange={field.onChange} defaultValue={field.value}>
+                            <Select onValueChange={field.onChange} value={field.value}>
                               <FormControl>
                                 <SelectTrigger className="bg-zinc-800/50 border-zinc-600 text-white focus:border-primary backdrop-blur-sm" data-testid="select-role">
                                   <SelectValue placeholder="Select your role" />
                                 </SelectTrigger>
                               </FormControl>
-                              <SelectContent>
+                              <SelectContent className="bg-zinc-900 border-zinc-700">
                                 {roles.map((role) => (
-                                  <SelectItem key={role.value} value={role.value}>
+                                  <SelectItem key={role.value} value={role.value} className="text-white focus:bg-zinc-800">
                                     {role.label}
                                   </SelectItem>
                                 ))}
@@ -248,15 +248,15 @@ export default function Contact() {
                       render={({ field }) => (
                         <FormItem>
                           <FormLabel className="text-zinc-300">Primary Interest</FormLabel>
-                          <Select onValueChange={field.onChange} defaultValue={field.value}>
+                          <Select onValueChange={field.onChange} value={field.value}>
                             <FormControl>
                               <SelectTrigger className="bg-zinc-800/50 border-zinc-600 text-white focus:border-primary backdrop-blur-sm" data-testid="select-interest">
                                 <SelectValue placeholder="Select your primary interest" />
                               </SelectTrigger>
                             </FormControl>
-                            <SelectContent>
+                            <SelectContent className="bg-zinc-900 border-zinc-700">
                               {interests.map((interest) => (
-                                <SelectItem key={interest.value} value={interest.value}>
+                                <SelectItem key={interest.value} value={interest.value} className="text-white focus:bg-zinc-800">
                                   {interest.label}
                                 </SelectItem>
                               ))}
