@@ -115,8 +115,8 @@ export default function Contact() {
           </video>
         </div>
         
-        {/* Light overlay for text readability */}
-        <div className="absolute inset-0 bg-black/40 z-10"></div>
+        {/* Very light overlay for text readability */}
+        <div className="absolute inset-0 bg-black/25 z-10"></div>
         
         {/* Content Container */}
         <div className="relative z-20 min-h-screen flex flex-col">
