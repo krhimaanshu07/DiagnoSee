@@ -856,9 +856,9 @@
     position: absolute;
     top: 0;
     left: 0;
-    z-index: -1;
-    opacity: 1;
-    filter: none;
+    z-index: 0;
+    opacity: 0.9;
+    filter: brightness(0.7) saturate(1.2);
   }
 
   /* Contact 3D Cards */

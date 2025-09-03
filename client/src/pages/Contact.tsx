@@ -110,8 +110,11 @@ export default function Contact() {
             muted 
             playsInline 
             className="contact-background-video"
+            onLoadStart={() => console.log("Contact video loading started")}
+            onCanPlay={() => console.log("Contact video can play")}
           >
             <source src={contactBackgroundVideo} type="video/mp4" />
+            <source src={contactBackgroundVideo} type="video/mov" />
             Your browser does not support the video tag.
           </video>
           {/* Subtle overlay for text readability */}
