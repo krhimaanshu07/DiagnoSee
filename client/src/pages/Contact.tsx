@@ -14,6 +14,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { siteConfig } from "@/site.config";
+import contactBackgroundVideo from "@assets/5534943_Coll_wavebreak_Animation_1920x1080_1756886679021.mov";
 
 const contactSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
@@ -99,11 +100,26 @@ export default function Contact() {
         title="Get in Touch"
         subtitle="Ready to transform your medical imaging capabilities? Contact us to learn more about our GenAI solutions."
         background="gradient"
-        className="pt-32"
+        className="pt-32 relative overflow-hidden"
       >
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+        {/* Video Background */}
+        <div className="absolute inset-0 z-0">
+          <video 
+            autoPlay 
+            loop 
+            muted 
+            playsInline 
+            className="contact-background-video"
+          >
+            <source src={contactBackgroundVideo} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          {/* Subtle overlay for text readability */}
+          <div className="absolute inset-0 bg-black/30"></div>
+        </div>
+        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto relative z-10">
           {/* Contact Form */}
-          <div className="glass-card p-8 rounded-xl">
+          <div className="contact-3d-card p-8 rounded-xl">
             <h3 className="text-xl font-dm-sans font-bold text-white mb-6">Send us a message</h3>
             
             <Form {...form}>
@@ -300,7 +316,7 @@ export default function Contact() {
           
           {/* Contact Information */}
           <div className="space-y-8">
-            <div className="glass-card p-8 rounded-xl">
+            <div className="contact-3d-card p-8 rounded-xl">
               <h3 className="text-xl font-dm-sans font-bold text-white mb-6">Contact Information</h3>
               
               <div className="space-y-6">
@@ -339,7 +355,7 @@ export default function Contact() {
               </div>
             </div>
             
-            <div className="glass-card p-8 rounded-xl">
+            <div className="contact-3d-card p-8 rounded-xl">
               <h3 className="text-xl font-dm-sans font-bold text-white mb-6">Follow Us</h3>
               
               <div className="flex space-x-4">
