@@ -13,7 +13,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { siteConfig } from "@/site.config";
-// Removed video import - using CSS animations instead for better compatibility
+import contactBackgroundVideo from "@assets/contact-background.mp4";
 
 const contactSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
@@ -95,16 +95,28 @@ export default function Contact() {
         <meta name="description" content="Get in touch with our medical imaging AI experts. Schedule a demo or discuss your imaging enhancement needs." />
       </Helmet>
 
-      {/* Full Screen Animated Background Section */}
+      {/* Full Screen Video Background Section */}
       <section className="relative min-h-screen overflow-hidden bg-black">
-        {/* Dynamic Wave Animation Background */}
-        <div className="absolute inset-0 z-0">
-          <div className="contact-wave-bg"></div>
-          <div className="contact-particles"></div>
+        {/* Video Background */}
+        <div className="video-container">
+          <video 
+            className="video-bg"
+            autoPlay 
+            loop 
+            muted 
+            playsInline
+            preload="auto"
+            onLoadStart={() => console.log("Contact video loading started")}
+            onCanPlay={() => console.log("Contact video can play")}
+            onError={(e) => console.error("Video error:", e)}
+          >
+            <source src={contactBackgroundVideo} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
         </div>
         
-        {/* Subtle overlay for content readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/20 via-transparent to-black/30 z-10"></div>
+        {/* Light overlay for text readability */}
+        <div className="absolute inset-0 bg-black/40 z-10"></div>
         
         {/* Content Container */}
         <div className="relative z-20 min-h-screen flex flex-col">
