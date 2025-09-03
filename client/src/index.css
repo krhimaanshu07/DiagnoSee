@@ -850,9 +850,9 @@
 
   /* Contact Transparent Cards with 3D Effects */
   .contact-transparent-card {
-    background: rgba(0, 0, 0, 0.3);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     border: 2px solid rgba(34, 139, 34, 0.3);
     box-shadow: 
       0 25px 50px rgba(0, 0, 0, 0.4),
@@ -891,6 +891,35 @@
     );
     pointer-events: none;
     z-index: -1;
+  }
+
+  /* Animated Background Fallback */
+  .contact-animated-bg {
+    background: linear-gradient(
+      45deg,
+      rgba(34, 139, 34, 0.1) 0%,
+      rgba(0, 50, 0, 0.3) 25%,
+      rgba(34, 139, 34, 0.2) 50%,
+      rgba(0, 100, 0, 0.2) 75%,
+      rgba(34, 139, 34, 0.1) 100%
+    );
+    background-size: 400% 400%;
+    animation: wave-background 20s ease-in-out infinite;
+  }
+
+  @keyframes wave-background {
+    0%, 100% {
+      background-position: 0% 50%;
+    }
+    25% {
+      background-position: 100% 25%;
+    }
+    50% {
+      background-position: 50% 100%;
+    }
+    75% {
+      background-position: 25% 0%;
+    }
   }
 
   .video-card-container::before {

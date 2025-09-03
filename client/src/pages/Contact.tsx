@@ -96,24 +96,39 @@ export default function Contact() {
       </Helmet>
 
       {/* Full Screen Video Background Section */}
-      <section className="relative min-h-screen overflow-hidden">
-        {/* Video Background */}
-        <video 
-          autoPlay 
-          loop 
-          muted 
-          playsInline 
-          className="absolute inset-0 w-full h-full object-cover z-0"
-          onLoadStart={() => console.log("Contact video loading started")}
-          onCanPlay={() => console.log("Contact video can play")}
-        >
-          <source src={contactBackgroundVideo} type="video/mp4" />
-          <source src={contactBackgroundVideo} type="video/mov" />
-          Your browser does not support the video tag.
-        </video>
+      <section className="relative min-h-screen overflow-hidden bg-black">
+        {/* Animated Background with Video */}
+        <div className="absolute inset-0 z-0">
+          <video 
+            autoPlay 
+            loop 
+            muted 
+            playsInline 
+            className="w-full h-full object-cover"
+            style={{ 
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              width: '100%',
+              height: '100%',
+              zIndex: 1,
+              opacity: 0.8
+            }}
+            onLoadStart={() => console.log("Contact video loading started")}
+            onCanPlay={() => console.log("Contact video can play")}
+            onError={(e) => console.error("Video error:", e)}
+            onLoadedData={() => console.log("Video loaded data")}
+          >
+            <source src={contactBackgroundVideo} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+          
+          {/* Fallback animated background */}
+          <div className="absolute inset-0 contact-animated-bg z-0"></div>
+        </div>
         
-        {/* Gradient overlay for better readability */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/40 via-black/30 to-black/50 z-10"></div>
+        {/* Light overlay for better readability */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/40 z-10"></div>
         
         {/* Content Container */}
         <div className="relative z-20 min-h-screen flex flex-col">
