@@ -96,31 +96,34 @@ export default function Contact() {
         <meta name="description" content="Get in touch with our medical imaging AI experts. Schedule a demo or discuss your imaging enhancement needs." />
       </Helmet>
 
-      <Section 
-        title="Get in Touch"
-        subtitle="Ready to transform your medical imaging capabilities? Contact us to learn more about our GenAI solutions."
-        background="gradient"
-        className="pt-32 relative overflow-hidden"
-      >
-        {/* Video Background */}
-        <div className="absolute inset-0 z-0">
-          <video 
-            autoPlay 
-            loop 
-            muted 
-            playsInline 
-            className="contact-background-video"
-            onLoadStart={() => console.log("Contact video loading started")}
-            onCanPlay={() => console.log("Contact video can play")}
+      {/* Video Background Container */}
+      <div className="relative overflow-hidden min-h-screen">
+        <video 
+          autoPlay 
+          loop 
+          muted 
+          playsInline 
+          className="contact-background-video"
+          onLoadStart={() => console.log("Contact video loading started")}
+          onCanPlay={() => console.log("Contact video can play")}
+        >
+          <source src={contactBackgroundVideo} type="video/mp4" />
+          <source src={contactBackgroundVideo} type="video/mov" />
+          Your browser does not support the video tag.
+        </video>
+        
+        {/* Dark overlay for readability */}
+        <div className="absolute inset-0 bg-black/50 z-10"></div>
+        
+        {/* Content overlay */}
+        <div className="absolute inset-0 z-20">
+          <Section 
+            title="Get in Touch"
+            subtitle="Ready to transform your medical imaging capabilities? Contact us to learn more about our GenAI solutions."
+            background="black"
+            className="pt-32 bg-transparent"
           >
-            <source src={contactBackgroundVideo} type="video/mp4" />
-            <source src={contactBackgroundVideo} type="video/mov" />
-            Your browser does not support the video tag.
-          </video>
-          {/* Subtle overlay for text readability */}
-          <div className="absolute inset-0 bg-black/30"></div>
-        </div>
-        <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto relative z-10">
+            <div className="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto relative z-20">
           {/* Contact Form */}
           <div className="contact-3d-card p-8 rounded-xl">
             <h3 className="text-xl font-dm-sans font-bold text-white mb-6">Send us a message</h3>
@@ -386,7 +389,7 @@ export default function Contact() {
               </div>
             </div>
             
-            <div className="glass-card p-8 rounded-xl">
+            <div className="contact-3d-card p-8 rounded-xl">
               <h3 className="text-xl font-dm-sans font-bold text-white mb-4">Schedule a Demo</h3>
               <p className="text-zinc-300 mb-6">
                 See our technology in action with a personalized demonstration using your imaging data.
@@ -404,8 +407,10 @@ export default function Contact() {
               </Button>
             </div>
           </div>
+            </div>
+          </Section>
         </div>
-      </Section>
+      </div>
     </>
   );
 }
