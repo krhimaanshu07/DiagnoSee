@@ -11,7 +11,7 @@ import { siteConfig } from "@/site.config";
 import workflowImage from "@assets/image_1756364176481.png";
 import xrayImage from "@assets/x-rayy_1756472628643.png";
 import mriImage from "@assets/image_1756472973761.png";
-import ctaBackgroundVideo from "@assets/GettyImages-876902786_1756708988158.mov";
+// import ctaBackgroundVideo from "@assets/GettyImages-876902786_1756708988158.mov";
 
 export default function Home() {
   const [counters, setCounters] = useState({
@@ -426,16 +426,8 @@ export default function Home() {
       <Section background="black" className="relative overflow-hidden">
         {/* Video Background */}
         <div className="absolute inset-0 z-0">
-          <video 
-            autoPlay 
-            loop 
-            muted 
-            playsInline 
-            className="cta-background-video"
-          >
-            <source src={ctaBackgroundVideo} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
+          {/* Static background instead of video for better performance */}
+          <div className="cta-background-video bg-gradient-to-br from-blue-900 via-purple-900 to-indigo-900"></div>
           {/* Light overlay for subtle contrast */}
           <div className="absolute inset-0 bg-black/20"></div>
         </div>
