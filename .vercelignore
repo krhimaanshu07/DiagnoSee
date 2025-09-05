@@ -1,6 +1,6 @@
-# Large video files that should be served from CDN
-attached_assets/*.mov
-attached_assets/*.mp4
+# Only exclude the largest video files (over 50MB)
+# attached_assets/*.mov
+# attached_assets/*.mp4
 
 # Development files
 .local/

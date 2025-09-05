@@ -13,7 +13,7 @@ import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "
 import { useToast } from "@/hooks/use-toast";
 import { apiRequest } from "@/lib/queryClient";
 import { siteConfig } from "@/site.config";
-// import contactBackgroundVideo from "@assets/contact-background.mp4";
+import contactBackgroundVideo from "@assets/contact-background.mp4";
 
 const contactSchema = z.object({
   firstName: z.string().min(1, "First name is required"),
@@ -101,8 +101,20 @@ export default function Contact() {
       <section className="relative min-h-screen overflow-hidden bg-black">
         {/* Video Background */}
         <div className="video-container">
-          {/* Static background instead of video for better performance */}
-          <div className="video-bg bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900"></div>
+          <video 
+            className="video-bg"
+            autoPlay 
+            loop 
+            muted 
+            playsInline
+            preload="auto"
+            onLoadStart={() => console.log("Contact video loading started")}
+            onCanPlay={() => console.log("Contact video can play")}
+            onError={(e) => console.error("Video error:", e)}
+          >
+            <source src={contactBackgroundVideo} type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
         </div>
         
         {/* Very light overlay for text readability */}
