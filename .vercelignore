@@ -1,9 +1,6 @@
-# Large media files that should be served from CDN
+# Large video files that should be served from CDN
 attached_assets/*.mov
 attached_assets/*.mp4
-attached_assets/*.png
-attached_assets/*.jpg
-attached_assets/*.jpeg
 
 # Development files
 .local/
