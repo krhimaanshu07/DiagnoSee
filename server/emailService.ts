@@ -1,11 +1,14 @@
 import { MailService } from '@sendgrid/mail';
 
-if (!process.env.SENDGRID_API_KEY) {
-  throw new Error("SENDGRID_API_KEY environment variable must be set");
-}
+// Initialize mail service only if API key is available
+let mailService: MailService | null = null;
 
-const mailService = new MailService();
-mailService.setApiKey(process.env.SENDGRID_API_KEY);
+if (process.env.SENDGRID_API_KEY) {
+  mailService = new MailService();
+  mailService.setApiKey(process.env.SENDGRID_API_KEY);
+} else {
+  console.warn("SENDGRID_API_KEY not set - email functionality will be disabled");
+}
 
 interface ContactFormData {
   firstName: string;
@@ -18,6 +21,11 @@ interface ContactFormData {
 }
 
 export async function sendContactFormEmail(formData: ContactFormData): Promise<boolean> {
+  if (!mailService) {
+    console.warn("Email service not available - SENDGRID_API_KEY not configured");
+    return false;
+  }
+
   try {
     const emailContent = `
 New Contact Form Submission - DiagnoSee

@@ -1,0 +1,1681 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agnostic Imaging AI - OEM-Agnostic GenAI for Medical Imaging</title>
+    <meta name="description" content="Super-resolution and enhancement for X-Ray, CT, MRI, and Digital Pathology as a Service. OEM-agnostic GenAI SaaS for medical imaging.">
+    
+    <!-- Open Graph / Social Media -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Agnostic Imaging AI - Medical Imaging GenAI SaaS">
+    <meta property="og:description" content="Revolutionary GenAI technology for medical imaging super-resolution and enhancement">
+    <meta property="og:image" content="/social-preview.jpg">
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+    tailwind.config = {
+        theme: {
+            extend: {
+                fontFamily: {
+                    'inter': ['Inter', 'sans-serif'],
+                    'dm-sans': ['DM Sans', 'sans-serif'],
+                },
+                colors: {
+                    'medical-cyan': '#00E5FF',
+                    'medical-violet': '#7C4DFF',
+                },
+                animation: {
+                    'gantry-rotate': 'gantryRotate 20s linear infinite',
+                    'scan-beam': 'scanBeam 3s ease-in-out infinite',
+                    'float': 'float 6s ease-in-out infinite',
+                    'counter': 'counter 2s ease-out forwards',
+                }
+            }
+        }
+    };
+    </script>
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        @keyframes gantryRotate {
+            0% { transform: rotateY(0deg) rotateX(15deg); }
+            100% { transform: rotateY(360deg) rotateX(15deg); }
+        }
+        
+        @keyframes scanBeam {
+            0%, 100% { opacity: 0.3; transform: scaleX(0.8); }
+            50% { opacity: 0.8; transform: scaleX(1.2); }
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+        
+        @keyframes counter {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .gantry-ring {
+            width: 300px;
+            height: 300px;
+            border: 4px solid rgba(0, 229, 255, 0.3);
+            border-radius: 50%;
+            position: relative;
+            margin: 0 auto;
+            transform-style: preserve-3d;
+        }
+        
+        .gantry-inner {
+            width: 200px;
+            height: 200px;
+            border: 2px solid rgba(0, 229, 255, 0.5);
+            border-radius: 50%;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .scan-beam {
+            width: 2px;
+            height: 100px;
+            background: linear-gradient(0deg, transparent, #00E5FF, transparent);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            box-shadow: 0 0 20px #00E5FF;
+        }
+        
+        .glass-card {
+            background: rgba(24, 24, 27, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(113, 113, 122, 0.2);
+        }
+        
+        .medical-grid {
+            background-image: 
+                linear-gradient(rgba(0, 229, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 229, 255, 0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        
+        .compare-container {
+            position: relative;
+            width: 100%;
+            height: 400px;
+            overflow: hidden;
+            border-radius: 12px;
+        }
+        
+        .compare-slider {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            width: 4px;
+            height: 100%;
+            background: #00E5FF;
+            cursor: col-resize;
+            z-index: 10;
+            box-shadow: 0 0 10px rgba(0, 229, 255, 0.5);
+        }
+        
+        .compare-handle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            background: #00E5FF;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 15px rgba(0, 229, 255, 0.7);
+        }
+        
+        @media (prefers-reduced-motion: reduce) {
+            .animate-gantry-rotate,
+            .animate-scan-beam,
+            .animate-float {
+                animation: none;
+            }
+        }
+        
+        .nav-blur {
+            backdrop-filter: blur(20px);
+            background: rgba(0, 0, 0, 0.8);
+        }
+        
+        .focus-visible:focus {
+            outline: 2px solid #00E5FF;
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body class="bg-black text-zinc-200 font-inter">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 nav-blur border-b border-zinc-800" id="navbar">
+        <div class="container mx-auto px-6 py-4">
+            <div class="flex items-center justify-between">
+                <!-- Logo -->
+                <div class="flex items-center space-x-3">
+                    <div class="w-8 h-8 bg-gradient-to-r from-medical-cyan to-medical-violet rounded-lg flex items-center justify-center">
+                        <i class="fas fa-atom text-white text-sm"></i>
+                    </div>
+                    <span class="text-xl font-dm-sans font-bold text-white">Agnostic Imaging AI</span>
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <button onclick="scrollToSection('home')" class="nav-link text-zinc-300 hover:text-medical-cyan transition-colors focus-visible:focus">Home</button>
+                    <button onclick="scrollToSection('solutions')" class="nav-link text-zinc-300 hover:text-medical-cyan transition-colors focus-visible:focus">Solutions</button>
+                    <button onclick="scrollToSection('technology')" class="nav-link text-zinc-300 hover:text-medical-cyan transition-colors focus-visible:focus">Technology</button>
+                    <button onclick="scrollToSection('demos')" class="nav-link text-zinc-300 hover:text-medical-cyan transition-colors focus-visible:focus">Demos</button>
+                    <button onclick="scrollToSection('pricing')" class="nav-link text-zinc-300 hover:text-medical-cyan transition-colors focus-visible:focus">Pricing</button>
+                    <button onclick="scrollToSection('security')" class="nav-link text-zinc-300 hover:text-medical-cyan transition-colors focus-visible:focus">Security</button>
+                    <button onclick="scrollToSection('about')" class="nav-link text-zinc-300 hover:text-medical-cyan transition-colors focus-visible:focus">About</button>
+                    <button onclick="scrollToSection('contact')" class="nav-link text-zinc-300 hover:text-medical-cyan transition-colors focus-visible:focus">Contact</button>
+                </div>
+                
+                <!-- CTA Button -->
+                <div class="hidden md:flex items-center space-x-4">
+                    <button onclick="showLogin()" class="px-4 py-2 text-zinc-300 hover:text-white transition-colors focus-visible:focus">Login</button>
+                    <button onclick="scrollToSection('demos')" class="px-6 py-2 bg-medical-cyan text-black font-medium rounded-lg hover:bg-cyan-400 transition-colors focus-visible:focus">See Demos</button>
+                </div>
+                
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-btn" class="md:hidden text-zinc-300 hover:text-white transition-colors focus-visible:focus">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="hidden md:hidden mt-4 py-4 border-t border-zinc-800">
+                <div class="flex flex-col space-y-4">
+                    <button onclick="scrollToSection('home')" class="text-left text-zinc-300 hover:text-medical-cyan transition-colors focus-visible:focus">Home</button>
+                    <button onclick="scrollToSection('solutions')" class="text-left text-zinc-300 hover:text-medical-cyan transition-colors focus-visible:focus">Solutions</button>
+                    <button onclick="scrollToSection('technology')" class="text-left text-zinc-300 hover:text-medical-cyan transition-colors focus-visible:focus">Technology</button>
+                    <button onclick="scrollToSection('demos')" class="text-left text-zinc-300 hover:text-medical-cyan transition-colors focus-visible:focus">Demos</button>
+                    <button onclick="scrollToSection('pricing')" class="text-left text-zinc-300 hover:text-medical-cyan transition-colors focus-visible:focus">Pricing</button>
+                    <button onclick="scrollToSection('security')" class="text-left text-zinc-300 hover:text-medical-cyan transition-colors focus-visible:focus">Security</button>
+                    <button onclick="scrollToSection('about')" class="text-left text-zinc-300 hover:text-medical-cyan transition-colors focus-visible:focus">About</button>
+                    <button onclick="scrollToSection('contact')" class="text-left text-zinc-300 hover:text-medical-cyan transition-colors focus-visible:focus">Contact</button>
+                    <div class="pt-4 border-t border-zinc-800">
+                        <button onclick="showLogin()" class="block w-full text-left mb-3 text-zinc-300 hover:text-white transition-colors focus-visible:focus">Login</button>
+                        <button onclick="scrollToSection('demos')" class="block w-full px-6 py-2 bg-medical-cyan text-black font-medium rounded-lg hover:bg-cyan-400 transition-colors focus-visible:focus">See Demos</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Home Section -->
+    <section id="home" class="min-h-screen flex items-center medical-grid">
+        <div class="container mx-auto px-6 py-20">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Hero Content -->
+                <div class="space-y-8">
+                    <div class="space-y-6">
+                        <h1 class="text-5xl md:text-7xl font-dm-sans font-bold text-white leading-tight">
+                            OEM-Agnostic
+                            <span class="bg-gradient-to-r from-medical-cyan to-medical-violet bg-clip-text text-transparent">
+                                GenAI
+                            </span>
+                            for Medical Imaging
+                        </h1>
+                        <p class="text-xl text-zinc-300 leading-relaxed">
+                            Super-resolution and enhancement for X-Ray, CT, MRI, and Digital Pathology — as a Service.
+                        </p>
+                    </div>
+                    
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button onclick="scrollToSection('demos')" class="px-8 py-4 bg-medical-cyan text-black font-semibold rounded-lg hover:bg-cyan-400 transition-all transform hover:scale-105 focus-visible:focus">
+                            See Live Demos
+                            <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
+                        <button onclick="scrollToSection('contact')" class="px-8 py-4 border-2 border-medical-cyan text-medical-cyan font-semibold rounded-lg hover:bg-medical-cyan hover:text-black transition-all focus-visible:focus">
+                            Talk to Us
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- 3D Gantry Hero -->
+                <div class="flex items-center justify-center">
+                    <div class="relative">
+                        <div class="gantry-ring animate-gantry-rotate">
+                            <div class="gantry-inner"></div>
+                            <div class="scan-beam animate-scan-beam"></div>
+                            <!-- Additional scan lines -->
+                            <div class="scan-beam animate-scan-beam" style="transform: translate(-50%, -50%) rotate(135deg); animation-delay: 1s;"></div>
+                            <div class="scan-beam animate-scan-beam" style="transform: translate(-50%, -50%) rotate(225deg); animation-delay: 2s;"></div>
+                        </div>
+                        
+                        <!-- Floating particles -->
+                        <div class="absolute -top-10 -left-10 w-2 h-2 bg-medical-cyan rounded-full animate-float opacity-60" style="animation-delay: 0s;"></div>
+                        <div class="absolute -top-5 -right-15 w-1 h-1 bg-medical-violet rounded-full animate-float opacity-40" style="animation-delay: 2s;"></div>
+                        <div class="absolute -bottom-8 -right-8 w-3 h-3 bg-medical-cyan rounded-full animate-float opacity-30" style="animation-delay: 4s;"></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Stats Strip -->
+            <div class="mt-20 grid grid-cols-1 md:grid-cols-3 gap-8">
+                <div class="glass-card p-6 rounded-xl text-center">
+                    <div class="text-3xl font-bold text-medical-cyan mb-2 animate-counter" data-target="4">0</div>
+                    <div class="text-zinc-400 font-mono text-sm">Up to 4× spatial upscaling (X-ray)</div>
+                </div>
+                <div class="glass-card p-6 rounded-xl text-center">
+                    <div class="text-3xl font-bold text-medical-cyan mb-2 animate-counter" data-target="0.5">0</div>
+                    <div class="text-zinc-400 font-mono text-sm">Down to 0.5 mm slice equivalent (CT)</div>
+                </div>
+                <div class="glass-card p-6 rounded-xl text-center">
+                    <div class="text-3xl font-bold text-medical-cyan mb-2 animate-counter" data-target="0.5">0</div>
+                    <div class="text-zinc-400 font-mono text-sm">0.5 mm³ voxel equivalence (MRI)</div>
+                </div>
+            </div>
+            
+            <!-- Trusted By Section -->
+            <div class="mt-16 text-center">
+                <p class="text-zinc-400 mb-8">Trusted by leading healthcare institutions</p>
+                <div class="flex justify-center items-center space-x-12 opacity-40">
+                    <div class="text-2xl font-bold text-zinc-500">HOSPITAL A</div>
+                    <div class="text-2xl font-bold text-zinc-500">MEDICAL CENTER B</div>
+                    <div class="text-2xl font-bold text-zinc-500">CLINIC GROUP C</div>
+                    <div class="text-2xl font-bold text-zinc-500">RADIOLOGY D</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Solutions Section -->
+    <section id="solutions" class="py-20 bg-gradient-to-b from-black to-zinc-900">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-dm-sans font-bold text-white mb-6">
+                    Advanced Solutions for Every Modality
+                </h2>
+                <p class="text-xl text-zinc-300 max-w-3xl mx-auto">
+                    Transform legacy imaging systems with cutting-edge GenAI technology. Upgrade image quality without hardware replacement.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-2 gap-8 mb-12">
+                <!-- X-Ray Imaging -->
+                <div class="glass-card p-8 rounded-xl group hover:border-medical-cyan transition-all duration-300">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-medical-cyan/20 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-x-ray text-medical-cyan text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-dm-sans font-bold text-white">X-Ray Imaging Super-Resolution</h3>
+                    </div>
+                    <ul class="space-y-3 text-zinc-300 mb-6">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-medical-cyan mt-1 mr-3 text-sm"></i>
+                            From ~200 µm CR → ~50 µm DR-equivalent via GenAI SaaS
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-medical-cyan mt-1 mr-3 text-sm"></i>
+                            Preserve diagnostic fidelity; reduce hardware upgrade pressure
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-medical-cyan mt-1 mr-3 text-sm"></i>
+                            Pay-per-use; OEM-agnostic implementation
+                        </li>
+                    </ul>
+                    <button class="text-medical-cyan hover:text-cyan-400 font-semibold group-hover:translate-x-2 transition-all duration-300 focus-visible:focus">
+                        Learn More <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+                
+                <!-- CT Imaging -->
+                <div class="glass-card p-8 rounded-xl group hover:border-medical-cyan transition-all duration-300">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-medical-cyan/20 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-microscope text-medical-cyan text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-dm-sans font-bold text-white">CT Imaging Super-Resolution & Enhancement</h3>
+                    </div>
+                    <ul class="space-y-3 text-zinc-300 mb-6">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-medical-cyan mt-1 mr-3 text-sm"></i>
+                            Legacy 4/16-slice (~2–3 mm) → ~0.5 mm slice thickness
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-medical-cyan mt-1 mr-3 text-sm"></i>
+                            Quality comparable to modern 256/320-slice systems
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-medical-cyan mt-1 mr-3 text-sm"></i>
+                            Fraction of capex; cloud or hybrid deployment
+                        </li>
+                    </ul>
+                    <button class="text-medical-cyan hover:text-cyan-400 font-semibold group-hover:translate-x-2 transition-all duration-300 focus-visible:focus">
+                        Learn More <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+                
+                <!-- MRI Imaging -->
+                <div class="glass-card p-8 rounded-xl group hover:border-medical-cyan transition-all duration-300">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-medical-cyan/20 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-brain text-medical-cyan text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-dm-sans font-bold text-white">MRI Imaging Super-Resolution & Enhancement</h3>
+                    </div>
+                    <ul class="space-y-3 text-zinc-300 mb-6">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-medical-cyan mt-1 mr-3 text-sm"></i>
+                            1.5T fast scans (~5×5×5 mm) → ~0.5×0.5×0.5 mm 3T/5T/7T-like
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-medical-cyan mt-1 mr-3 text-sm"></i>
+                            Maintain SNR and anatomical integrity with physics-informed priors
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-medical-cyan mt-1 mr-3 text-sm"></i>
+                            Throughput gains with shorter scan time + enhancement
+                        </li>
+                    </ul>
+                    <button class="text-medical-cyan hover:text-cyan-400 font-semibold group-hover:translate-x-2 transition-all duration-300 focus-visible:focus">
+                        Learn More <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+                
+                <!-- Digital Re-Staining -->
+                <div class="glass-card p-8 rounded-xl group hover:border-medical-cyan transition-all duration-300">
+                    <div class="flex items-center mb-6">
+                        <div class="w-12 h-12 bg-medical-cyan/20 rounded-lg flex items-center justify-center mr-4">
+                            <i class="fas fa-dna text-medical-cyan text-xl"></i>
+                        </div>
+                        <h3 class="text-2xl font-dm-sans font-bold text-white">Digital Re-Staining for WSI (Pathology)</h3>
+                    </div>
+                    <ul class="space-y-3 text-zinc-300 mb-6">
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-medical-cyan mt-1 mr-3 text-sm"></i>
+                            Predict alternative stain protocols digitally (cytology, histology, IHC)
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-medical-cyan mt-1 mr-3 text-sm"></i>
+                            Reduce multi-stain costs; enable re-analysis of archived slides
+                        </li>
+                        <li class="flex items-start">
+                            <i class="fas fa-check text-medical-cyan mt-1 mr-3 text-sm"></i>
+                            Patient-centric: digital ownership and portability
+                        </li>
+                    </ul>
+                    <button class="text-medical-cyan hover:text-cyan-400 font-semibold group-hover:translate-x-2 transition-all duration-300 focus-visible:focus">
+                        Learn More <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Executive Context -->
+            <div class="glass-card p-8 rounded-xl">
+                <h3 class="text-2xl font-dm-sans font-bold text-white mb-4">Executive Context</h3>
+                <p class="text-zinc-300 leading-relaxed">
+                    Medical imaging hardware advances rapidly, creating pressure on healthcare centers with 10–15 year equipment lifecycles. 
+                    Traditional OEM SaaS solutions present challenges including vendor lock-in and varying quality standards. Our OEM-agnostic 
+                    GenAI SaaS platform offers a transformative path to upgrade image quality without immediate capital expenditure, 
+                    enabling healthcare providers to deliver superior diagnostic capabilities while maximizing their existing infrastructure investments.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section id="technology" class="py-20 bg-black">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-dm-sans font-bold text-white mb-6">
+                    Cutting-Edge Technology Stack
+                </h2>
+                <p class="text-xl text-zinc-300 max-w-3xl mx-auto">
+                    Our approach combines deep neural networks with physics-informed constraints to deliver clinically validated results.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center mb-16">
+                <!-- Technology Approach -->
+                <div class="space-y-8">
+                    <div class="glass-card p-6 rounded-xl">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 bg-medical-cyan/20 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-robot text-medical-cyan"></i>
+                            </div>
+                            <h3 class="text-xl font-dm-sans font-bold text-white">Generative AI</h3>
+                        </div>
+                        <p class="text-zinc-300">Deep Neural Networks combined with adversarial learning for superior image enhancement and super-resolution capabilities.</p>
+                    </div>
+                    
+                    <div class="glass-card p-6 rounded-xl">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 bg-medical-cyan/20 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-atom text-medical-cyan"></i>
+                            </div>
+                            <h3 class="text-xl font-dm-sans font-bold text-white">Physics-Informed Loss</h3>
+                        </div>
+                        <p class="text-zinc-300">Respects modality-specific constraints and physical principles to ensure clinically accurate results.</p>
+                    </div>
+                    
+                    <div class="glass-card p-6 rounded-xl">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 bg-medical-cyan/20 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-network-wired text-medical-cyan"></i>
+                            </div>
+                            <h3 class="text-xl font-dm-sans font-bold text-white">OEM-Agnostic Training</h3>
+                        </div>
+                        <p class="text-zinc-300">Harmonization algorithms ensure consistent performance across different imaging equipment manufacturers.</p>
+                    </div>
+                    
+                    <div class="glass-card p-6 rounded-xl">
+                        <div class="flex items-center mb-4">
+                            <div class="w-10 h-10 bg-medical-cyan/20 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-shield-alt text-medical-cyan"></i>
+                            </div>
+                            <h3 class="text-xl font-dm-sans font-bold text-white">Uncertainty Maps & QA</h3>
+                        </div>
+                        <p class="text-zinc-300">Built-in quality assurance with uncertainty quantification and automated QA overlay generation.</p>
+                    </div>
+                </div>
+                
+                <!-- Pipeline Diagram -->
+                <div class="glass-card p-8 rounded-xl">
+                    <h3 class="text-xl font-dm-sans font-bold text-white mb-6 text-center">Processing Pipeline</h3>
+                    <div class="flex flex-col space-y-4">
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-zinc-800 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-upload text-medical-cyan"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-white">Input</div>
+                                <div class="text-sm text-zinc-400 font-mono">DICOM/Raw Image</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center justify-center">
+                            <i class="fas fa-arrow-down text-medical-cyan"></i>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-zinc-800 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-filter text-medical-cyan"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-white">Denoise</div>
+                                <div class="text-sm text-zinc-400 font-mono">Noise Reduction</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center justify-center">
+                            <i class="fas fa-arrow-down text-medical-cyan"></i>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-zinc-800 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-eye text-medical-cyan"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-white">Deblur</div>
+                                <div class="text-sm text-zinc-400 font-mono">Sharpness Enhancement</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center justify-center">
+                            <i class="fas fa-arrow-down text-medical-cyan"></i>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-zinc-800 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-expand-arrows-alt text-medical-cyan"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-white">Super-Resolution</div>
+                                <div class="text-sm text-zinc-400 font-mono">Resolution Enhancement</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center justify-center">
+                            <i class="fas fa-arrow-down text-medical-cyan"></i>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-zinc-800 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-balance-scale text-medical-cyan"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-white">Harmonize</div>
+                                <div class="text-sm text-zinc-400 font-mono">Cross-OEM Standardization</div>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center justify-center">
+                            <i class="fas fa-arrow-down text-medical-cyan"></i>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <div class="w-12 h-12 bg-medical-cyan/20 rounded-lg flex items-center justify-center mr-4">
+                                <i class="fas fa-check text-medical-cyan"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="font-semibold text-white">Enhanced Output</div>
+                                <div class="text-sm text-zinc-400 font-mono">Clinical-Ready Image</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Demos Section -->
+    <section id="demos" class="py-20 bg-gradient-to-b from-black to-zinc-900">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-dm-sans font-bold text-white mb-6">
+                    Interactive Demonstrations
+                </h2>
+                <p class="text-xl text-zinc-300 max-w-3xl mx-auto">
+                    Experience our GenAI technology in action with real-time image enhancement comparisons.
+                </p>
+                
+                <!-- Disclosure Banner -->
+                <div class="bg-yellow-500/10 border border-yellow-500/30 rounded-lg p-4 mt-8 max-w-4xl mx-auto">
+                    <p class="text-yellow-200 text-sm">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        Demo assets are synthetically generated or de-identified; results are illustrative of technology capabilities.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- X-Ray Comparison -->
+            <div class="mb-16">
+                <h3 class="text-2xl font-dm-sans font-bold text-white mb-8 text-center">X-Ray Super-Resolution</h3>
+                <div class="glass-card p-8 rounded-xl max-w-4xl mx-auto">
+                    <div class="compare-container mb-6">
+                        <!-- Chest X-ray comparison before/after images -->
+                        <!-- High-quality chest X-ray medical imaging showing lung structures -->
+                        <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400&q=80" 
+                             alt="Original chest X-ray showing lung structures" 
+                             class="absolute inset-0 w-full h-full object-cover" id="xray-before">
+                        
+                        <!-- Enhanced chest X-ray with improved clarity and detail -->
+                        <img src="https://pixabay.com/get/gc2f70591815a6cd0f52340cd10680be7003e12cbc5c76f0d4650dbedcee65e033be5f329152ba91e8e270661376960ad_1280.jpg" 
+                             alt="Enhanced chest X-ray with super-resolution processing" 
+                             class="absolute inset-0 w-full h-full object-cover" 
+                             id="xray-after" 
+                             style="clip-path: inset(0 0 0 50%);">
+                        
+                        <div class="compare-slider" id="xray-slider">
+                            <div class="compare-handle"></div>
+                        </div>
+                    </div>
+                    
+                    <!-- Controls -->
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div>
+                            <label class="block text-sm font-medium text-zinc-300 mb-2">Window Level</label>
+                            <input type="range" min="0" max="100" value="50" class="w-full accent-medical-cyan focus-visible:focus">
+                            <div class="text-xs text-zinc-400 font-mono mt-1">-400 HU</div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-zinc-300 mb-2">Window Width</label>
+                            <input type="range" min="0" max="100" value="70" class="w-full accent-medical-cyan focus-visible:focus">
+                            <div class="text-xs text-zinc-400 font-mono mt-1">1500 HU</div>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-zinc-300 mb-2">SR Strength</label>
+                            <input type="range" min="0" max="100" value="85" class="w-full accent-medical-cyan focus-visible:focus">
+                            <div class="text-xs text-zinc-400 font-mono mt-1">85%</div>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-6 flex items-center justify-between">
+                        <button class="px-4 py-2 bg-zinc-800 text-zinc-300 rounded-lg hover:bg-zinc-700 transition-colors focus-visible:focus">
+                            <i class="fas fa-undo mr-2"></i>Reset
+                        </button>
+                        <button class="px-4 py-2 bg-zinc-800 text-zinc-300 rounded-lg hover:bg-zinc-700 transition-colors focus-visible:focus">
+                            <i class="fas fa-adjust mr-2"></i>Invert
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- CT Comparison -->
+            <div class="mb-16">
+                <h3 class="text-2xl font-dm-sans font-bold text-white mb-8 text-center">CT Super-Resolution</h3>
+                <div class="glass-card p-8 rounded-xl max-w-4xl mx-auto">
+                    <div class="compare-container mb-6">
+                        <!-- CT scan images showing thoracic region -->
+                        <!-- Medical CT scan of thoracic cavity showing detailed anatomy -->
+                        <img src="https://images.unsplash.com/photo-1516549655169-df83a0774514?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400&q=80" 
+                             alt="Original CT scan of thoracic cavity" 
+                             class="absolute inset-0 w-full h-full object-cover" id="ct-before">
+                        
+                        <!-- Enhanced CT scan with super-resolution improvements -->
+                        <img src="https://images.unsplash.com/photo-1559757175-0eb30cd8c063?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400&q=80" 
+                             alt="Enhanced CT scan with improved resolution and clarity" 
+                             class="absolute inset-0 w-full h-full object-cover" 
+                             id="ct-after" 
+                             style="clip-path: inset(0 0 0 50%);">
+                        
+                        <div class="compare-slider" id="ct-slider">
+                            <div class="compare-handle"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center text-zinc-400 text-sm">
+                        Legacy 16-slice (2.5mm) → Enhanced 0.5mm equivalent slice thickness
+                    </div>
+                </div>
+            </div>
+            
+            <!-- MRI Comparison -->
+            <div class="mb-16">
+                <h3 class="text-2xl font-dm-sans font-bold text-white mb-8 text-center">MRI Super-Resolution</h3>
+                <div class="glass-card p-8 rounded-xl max-w-4xl mx-auto">
+                    <div class="compare-container mb-6">
+                        <!-- MRI scan images showing anatomical detail -->
+                        <!-- High-resolution MRI scan showing detailed soft tissue contrast -->
+                        <img src="https://images.unsplash.com/photo-1559757148-5c350d0d3c56?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=400&q=80&sat=-100" 
+                             alt="Original 1.5T MRI scan with standard resolution" 
+                             class="absolute inset-0 w-full h-full object-cover grayscale" id="mri-before">
+                        
+                        <!-- Enhanced MRI with superior detail and resolution -->
+                        <img src="https://pixabay.com/get/g4cae63f252bc3e5083c6912a16770425a0529e948d78cdb0ba3fc7437d80a3a697afcd968eeb7d2c80f8a9f02aadb3f0_1280.jpg" 
+                             alt="Enhanced MRI with 3T/7T-equivalent detail and resolution" 
+                             class="absolute inset-0 w-full h-full object-cover grayscale" 
+                             id="mri-after" 
+                             style="clip-path: inset(0 0 0 50%);">
+                        
+                        <div class="compare-slider" id="mri-slider">
+                            <div class="compare-handle"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="text-center text-zinc-400 text-sm">
+                        1.5T Fast Scan (5×5×5 mm) → 3T/7T-equivalent (0.5×0.5×0.5 mm)
+                    </div>
+                </div>
+            </div>
+            
+            <!-- DICOM Viewer -->
+            <div class="mb-16">
+                <h3 class="text-2xl font-dm-sans font-bold text-white mb-8 text-center">DICOM Viewer</h3>
+                <div class="glass-card p-8 rounded-xl max-w-4xl mx-auto">
+                    <div class="border-2 border-dashed border-zinc-600 rounded-lg p-12 text-center mb-6" id="dicom-drop-zone">
+                        <i class="fas fa-cloud-upload-alt text-4xl text-zinc-400 mb-4"></i>
+                        <p class="text-zinc-300 mb-2">Drag and drop DICOM files here</p>
+                        <p class="text-zinc-500 text-sm">Supports .dcm files and simple series</p>
+                        <button class="mt-4 px-6 py-2 bg-medical-cyan text-black rounded-lg hover:bg-cyan-400 transition-colors focus-visible:focus">
+                            Browse Files
+                        </button>
+                    </div>
+                    
+                    <!-- DICOM Viewer Controls -->
+                    <div class="flex flex-wrap gap-4 justify-center">
+                        <button class="px-4 py-2 bg-zinc-800 text-zinc-300 rounded-lg hover:bg-zinc-700 transition-colors focus-visible:focus">
+                            <i class="fas fa-search-plus mr-2"></i>Zoom In
+                        </button>
+                        <button class="px-4 py-2 bg-zinc-800 text-zinc-300 rounded-lg hover:bg-zinc-700 transition-colors focus-visible:focus">
+                            <i class="fas fa-search-minus mr-2"></i>Zoom Out
+                        </button>
+                        <button class="px-4 py-2 bg-zinc-800 text-zinc-300 rounded-lg hover:bg-zinc-700 transition-colors focus-visible:focus">
+                            <i class="fas fa-hand-paper mr-2"></i>Pan
+                        </button>
+                        <button class="px-4 py-2 bg-zinc-800 text-zinc-300 rounded-lg hover:bg-zinc-700 transition-colors focus-visible:focus">
+                            <i class="fas fa-adjust mr-2"></i>W/L
+                        </button>
+                        <button class="px-4 py-2 bg-zinc-800 text-zinc-300 rounded-lg hover:bg-zinc-700 transition-colors focus-visible:focus">
+                            <i class="fas fa-undo mr-2"></i>Reset
+                        </button>
+                        <button class="px-4 py-2 bg-zinc-800 text-zinc-300 rounded-lg hover:bg-zinc-700 transition-colors focus-visible:focus">
+                            <i class="fas fa-ruler mr-2"></i>Measure
+                        </button>
+                    </div>
+                    
+                    <!-- Pixel readout -->
+                    <div class="mt-4 text-center text-zinc-400 font-mono text-sm">
+                        Pixel Value: <span class="text-medical-cyan">-150 HU</span> | 
+                        Position: <span class="text-medical-cyan">256, 256</span> | 
+                        Scale: <span class="text-medical-cyan">0.5 mm/px</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-20 bg-black">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-dm-sans font-bold text-white mb-6">
+                    Flexible Pricing Plans
+                </h2>
+                <p class="text-xl text-zinc-300 max-w-3xl mx-auto">
+                    Choose the plan that fits your healthcare organization's needs. Scale from per-study pricing to enterprise deployments.
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                <!-- Pay-Per-Use -->
+                <div class="glass-card p-8 rounded-xl">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-dm-sans font-bold text-white mb-4">Pay-Per-Use</h3>
+                        <div class="text-4xl font-bold text-medical-cyan mb-2">$12</div>
+                        <div class="text-zinc-400">per study</div>
+                    </div>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-medical-cyan mr-3"></i>
+                            <span class="text-zinc-300">All imaging modalities</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-medical-cyan mr-3"></i>
+                            <span class="text-zinc-300">Super-resolution enhancement</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-medical-cyan mr-3"></i>
+                            <span class="text-zinc-300">Basic API access</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-medical-cyan mr-3"></i>
+                            <span class="text-zinc-300">Email support</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-medical-cyan mr-3"></i>
+                            <span class="text-zinc-300">HIPAA compliance</span>
+                        </li>
+                    </ul>
+                    
+                    <button class="w-full px-6 py-3 border-2 border-medical-cyan text-medical-cyan rounded-lg hover:bg-medical-cyan hover:text-black transition-all focus-visible:focus">
+                        Get Started
+                    </button>
+                </div>
+                
+                <!-- Clinical -->
+                <div class="glass-card p-8 rounded-xl border-medical-cyan relative">
+                    <div class="absolute -top-4 left-1/2 transform -translate-x-1/2">
+                        <div class="bg-medical-cyan text-black px-4 py-1 rounded-full text-sm font-semibold">
+                            Most Popular
+                        </div>
+                    </div>
+                    
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-dm-sans font-bold text-white mb-4">Clinical</h3>
+                        <div class="text-4xl font-bold text-medical-cyan mb-2">$8</div>
+                        <div class="text-zinc-400">per study</div>
+                        <div class="text-sm text-zinc-500 mt-1">with 1000+ studies/month</div>
+                    </div>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-medical-cyan mr-3"></i>
+                            <span class="text-zinc-300">Everything in Pay-Per-Use</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-medical-cyan mr-3"></i>
+                            <span class="text-zinc-300">Volume discounts</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-medical-cyan mr-3"></i>
+                            <span class="text-zinc-300">SSO integration</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-medical-cyan mr-3"></i>
+                            <span class="text-zinc-300">Audit logs</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-medical-cyan mr-3"></i>
+                            <span class="text-zinc-300">Priority support</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-medical-cyan mr-3"></i>
+                            <span class="text-zinc-300">Custom DICOM routing</span>
+                        </li>
+                    </ul>
+                    
+                    <button class="w-full px-6 py-3 bg-medical-cyan text-black rounded-lg hover:bg-cyan-400 transition-all focus-visible:focus">
+                        Start Trial
+                    </button>
+                </div>
+                
+                <!-- Enterprise/OEM -->
+                <div class="glass-card p-8 rounded-xl">
+                    <div class="text-center mb-8">
+                        <h3 class="text-2xl font-dm-sans font-bold text-white mb-4">Enterprise/OEM</h3>
+                        <div class="text-4xl font-bold text-medical-cyan mb-2">Custom</div>
+                        <div class="text-zinc-400">pricing</div>
+                    </div>
+                    
+                    <ul class="space-y-4 mb-8">
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-medical-cyan mr-3"></i>
+                            <span class="text-zinc-300">Everything in Clinical</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-medical-cyan mr-3"></i>
+                            <span class="text-zinc-300">On-premises deployment</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-medical-cyan mr-3"></i>
+                            <span class="text-zinc-300">Hybrid cloud options</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-medical-cyan mr-3"></i>
+                            <span class="text-zinc-300">Custom SLAs</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-medical-cyan mr-3"></i>
+                            <span class="text-zinc-300">PHI segmentation</span>
+                        </li>
+                        <li class="flex items-center">
+                            <i class="fas fa-check text-medical-cyan mr-3"></i>
+                            <span class="text-zinc-300">White-label options</span>
+                        </li>
+                    </ul>
+                    
+                    <button onclick="scrollToSection('contact')" class="w-full px-6 py-3 border-2 border-medical-cyan text-medical-cyan rounded-lg hover:bg-medical-cyan hover:text-black transition-all focus-visible:focus">
+                        Contact Sales
+                    </button>
+                </div>
+            </div>
+            
+            <!-- FAQ -->
+            <div class="mt-16 max-w-4xl mx-auto">
+                <h3 class="text-2xl font-dm-sans font-bold text-white mb-8 text-center">Frequently Asked Questions</h3>
+                
+                <div class="space-y-4">
+                    <div class="glass-card rounded-xl">
+                        <button class="w-full px-6 py-4 text-left flex items-center justify-between focus-visible:focus" onclick="toggleFAQ(1)">
+                            <span class="font-semibold text-white">What is the typical processing latency?</span>
+                            <i class="fas fa-chevron-down text-medical-cyan transition-transform" id="faq-icon-1"></i>
+                        </button>
+                        <div class="hidden px-6 pb-4 text-zinc-300" id="faq-content-1">
+                            Processing times vary by modality and image size. Typical ranges: X-Ray (30-60 seconds), CT (2-5 minutes), MRI (3-8 minutes). Enterprise deployments can achieve faster processing with dedicated resources.
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card rounded-xl">
+                        <button class="w-full px-6 py-4 text-left flex items-center justify-between focus-visible:focus" onclick="toggleFAQ(2)">
+                            <span class="font-semibold text-white">How does PACS integration work?</span>
+                            <i class="fas fa-chevron-down text-medical-cyan transition-transform" id="faq-icon-2"></i>
+                        </button>
+                        <div class="hidden px-6 pb-4 text-zinc-300" id="faq-content-2">
+                            We support standard DICOM protocols and can integrate with major PACS systems including Epic, Cerner, GE Centricity, and Philips IntelliSpace. Our Edge Connector handles secure routing and maintains DICOM metadata integrity.
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card rounded-xl">
+                        <button class="w-full px-6 py-4 text-left flex items-center justify-between focus-visible:focus" onclick="toggleFAQ(3)">
+                            <span class="font-semibold text-white">Which OEM systems are supported?</span>
+                            <i class="fas fa-chevron-down text-medical-cyan transition-transform" id="faq-icon-3"></i>
+                        </button>
+                        <div class="hidden px-6 pb-4 text-zinc-300" id="faq-content-3">
+                            Our OEM-agnostic approach supports imaging systems from all major manufacturers including GE Healthcare, Siemens Healthineers, Philips Healthcare, Canon Medical, Hologic, and legacy systems. Our harmonization algorithms ensure consistent quality across vendors.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Security Section -->
+    <section id="security" class="py-20 bg-gradient-to-b from-black to-zinc-900">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-dm-sans font-bold text-white mb-6">
+                    Enterprise Security & Compliance
+                </h2>
+                <p class="text-xl text-zinc-300 max-w-3xl mx-auto">
+                    Built with healthcare-grade security and compliance standards. Protect patient data while leveraging cutting-edge AI technology.
+                </p>
+                
+                <div class="bg-blue-500/10 border border-blue-500/30 rounded-lg p-4 mt-8 max-w-4xl mx-auto">
+                    <p class="text-blue-200 text-sm">
+                        <i class="fas fa-info-circle mr-2"></i>
+                        Security and compliance information shown for demonstration purposes only. Actual implementations require formal security assessments.
+                    </p>
+                </div>
+            </div>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+                <!-- HIPAA -->
+                <div class="glass-card p-8 rounded-xl text-center">
+                    <div class="w-16 h-16 bg-medical-cyan/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-shield-alt text-medical-cyan text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-dm-sans font-bold text-white mb-4">HIPAA Ready</h3>
+                    <p class="text-zinc-300">
+                        Comprehensive HIPAA compliance framework with BAA availability, audit trails, and administrative safeguards.
+                    </p>
+                </div>
+                
+                <!-- SOC2 -->
+                <div class="glass-card p-8 rounded-xl text-center">
+                    <div class="w-16 h-16 bg-medical-cyan/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-certificate text-medical-cyan text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-dm-sans font-bold text-white mb-4">SOC 2 Ready</h3>
+                    <p class="text-zinc-300">
+                        SOC 2 Type II compliance posture with security, availability, and confidentiality controls.
+                    </p>
+                </div>
+                
+                <!-- GDPR -->
+                <div class="glass-card p-8 rounded-xl text-center">
+                    <div class="w-16 h-16 bg-medical-cyan/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-globe-europe text-medical-cyan text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-dm-sans font-bold text-white mb-4">GDPR Compliant</h3>
+                    <p class="text-zinc-300">
+                        European data protection compliance with data portability, right to erasure, and consent management.
+                    </p>
+                </div>
+                
+                <!-- Encryption -->
+                <div class="glass-card p-8 rounded-xl text-center">
+                    <div class="w-16 h-16 bg-medical-cyan/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-lock text-medical-cyan text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-dm-sans font-bold text-white mb-4">End-to-End Encryption</h3>
+                    <p class="text-zinc-300">
+                        AES-256 encryption in transit and at rest. TLS 1.3 for all communications with perfect forward secrecy.
+                    </p>
+                </div>
+                
+                <!-- Data Residency -->
+                <div class="glass-card p-8 rounded-xl text-center">
+                    <div class="w-16 h-16 bg-medical-cyan/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-server text-medical-cyan text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-dm-sans font-bold text-white mb-4">Data Residency</h3>
+                    <p class="text-zinc-300">
+                        Configurable data residency options with regional processing centers in US, EU, and APAC regions.
+                    </p>
+                </div>
+                
+                <!-- Access Controls -->
+                <div class="glass-card p-8 rounded-xl text-center">
+                    <div class="w-16 h-16 bg-medical-cyan/20 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i class="fas fa-key text-medical-cyan text-2xl"></i>
+                    </div>
+                    <h3 class="text-xl font-dm-sans font-bold text-white mb-4">Access Controls</h3>
+                    <p class="text-zinc-300">
+                        Role-based access controls, multi-factor authentication, and comprehensive audit logging for all actions.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Additional Security Features -->
+            <div class="glass-card p-8 rounded-xl max-w-4xl mx-auto">
+                <h3 class="text-2xl font-dm-sans font-bold text-white mb-6 text-center">Additional Security Features</h3>
+                
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div>
+                        <h4 class="text-lg font-semibold text-medical-cyan mb-4">Infrastructure Security</h4>
+                        <ul class="space-y-2 text-zinc-300">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-medical-cyan mr-3 text-sm"></i>
+                                Zero-trust network architecture
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-medical-cyan mr-3 text-sm"></i>
+                                Automated vulnerability scanning
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-medical-cyan mr-3 text-sm"></i>
+                                24/7 security monitoring
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-medical-cyan mr-3 text-sm"></i>
+                                Incident response procedures
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 class="text-lg font-semibold text-medical-cyan mb-4">Data Protection</h4>
+                        <ul class="space-y-2 text-zinc-300">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-medical-cyan mr-3 text-sm"></i>
+                                Automated data anonymization
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-medical-cyan mr-3 text-sm"></i>
+                                Secure multi-tenant isolation
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-medical-cyan mr-3 text-sm"></i>
+                                Regular penetration testing
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-medical-cyan mr-3 text-sm"></i>
+                                Business Associate Agreement (BAA)
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-20 bg-black">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-dm-sans font-bold text-white mb-6">
+                    Transforming Healthcare Through AI
+                </h2>
+                <p class="text-xl text-zinc-300 max-w-3xl mx-auto">
+                    Founded on the principle that advanced imaging technology should be accessible to all healthcare providers, 
+                    regardless of their equipment lifecycle or vendor relationships.
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-16 items-center mb-16">
+                <!-- Mission Content -->
+                <div class="space-y-8">
+                    <div>
+                        <h3 class="text-2xl font-dm-sans font-bold text-white mb-4">Our Mission</h3>
+                        <p class="text-zinc-300 leading-relaxed">
+                            We believe that every patient deserves access to the highest quality medical imaging, regardless of the 
+                            age or manufacturer of the imaging equipment. Our OEM-agnostic GenAI platform democratizes advanced 
+                            imaging capabilities, enabling healthcare providers to upgrade their diagnostic quality through software 
+                            rather than costly hardware replacements.
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-2xl font-dm-sans font-bold text-white mb-4">The Problem We Solve</h3>
+                        <p class="text-zinc-300 leading-relaxed">
+                            Healthcare systems face immense pressure from rapidly advancing imaging technology. With equipment 
+                            lifecycles spanning 10-15 years and imaging technology improving dramatically every few years, 
+                            providers must choose between significant capital investments or accepting suboptimal image quality. 
+                            Traditional OEM upgrade paths often lead to vendor lock-in and inconsistent quality standards.
+                        </p>
+                    </div>
+                    
+                    <div>
+                        <h3 class="text-2xl font-dm-sans font-bold text-white mb-4">Our Solution</h3>
+                        <p class="text-zinc-300 leading-relaxed">
+                            Our GenAI-powered platform provides immediate image quality upgrades for existing equipment through 
+                            advanced super-resolution and enhancement algorithms. By supporting all major OEM systems and 
+                            maintaining vendor neutrality, we enable healthcare providers to optimize their imaging workflows 
+                            while preserving their existing infrastructure investments.
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- Team/Values Visual -->
+                <div class="space-y-8">
+                    <div class="glass-card p-8 rounded-xl">
+                        <h3 class="text-xl font-dm-sans font-bold text-white mb-6">Our Values</h3>
+                        <div class="space-y-6">
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 bg-medical-cyan/20 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-heart text-medical-cyan"></i>
+                                </div>
+                                <div>
+                                    <div class="font-semibold text-white mb-1">Patient First</div>
+                                    <div class="text-zinc-300 text-sm">Every enhancement serves the ultimate goal of better patient outcomes</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 bg-medical-cyan/20 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-handshake text-medical-cyan"></i>
+                                </div>
+                                <div>
+                                    <div class="font-semibold text-white mb-1">Vendor Neutrality</div>
+                                    <div class="text-zinc-300 text-sm">OEM-agnostic solutions that work with any imaging system</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 bg-medical-cyan/20 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-microscope text-medical-cyan"></i>
+                                </div>
+                                <div>
+                                    <div class="font-semibold text-white mb-1">Scientific Rigor</div>
+                                    <div class="text-zinc-300 text-sm">Physics-informed AI that respects clinical requirements</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-start">
+                                <div class="w-10 h-10 bg-medical-cyan/20 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
+                                    <i class="fas fa-users text-medical-cyan"></i>
+                                </div>
+                                <div>
+                                    <div class="font-semibold text-white mb-1">Accessibility</div>
+                                    <div class="text-zinc-300 text-sm">Making advanced imaging technology accessible to all providers</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card p-8 rounded-xl text-center">
+                        <div class="text-3xl font-bold text-medical-cyan mb-2">500,000+</div>
+                        <div class="text-zinc-300">Studies Enhanced</div>
+                        <div class="text-zinc-500 text-sm mt-1">Across 50+ Healthcare Systems</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Founding Story -->
+            <div class="glass-card p-8 rounded-xl max-w-4xl mx-auto">
+                <h3 class="text-2xl font-dm-sans font-bold text-white mb-6 text-center">Founding Story</h3>
+                <p class="text-zinc-300 leading-relaxed text-center">
+                    Founded by a team of radiologists, AI researchers, and healthcare technology veterans who experienced 
+                    firsthand the frustration of working with aging imaging equipment while knowing that software-based 
+                    improvements were possible. After seeing countless cases where image quality limitations impacted 
+                    diagnostic confidence, we set out to create a solution that could upgrade any imaging system through 
+                    the power of artificial intelligence, without requiring hardware replacement or vendor lock-in.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-gradient-to-b from-black to-zinc-900">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-dm-sans font-bold text-white mb-6">
+                    Get in Touch
+                </h2>
+                <p class="text-xl text-zinc-300 max-w-3xl mx-auto">
+                    Ready to transform your medical imaging capabilities? Contact us to learn more about our GenAI solutions.
+                </p>
+            </div>
+            
+            <div class="grid lg:grid-cols-2 gap-12 max-w-6xl mx-auto">
+                <!-- Contact Form -->
+                <div class="glass-card p-8 rounded-xl">
+                    <h3 class="text-xl font-dm-sans font-bold text-white mb-6">Send us a message</h3>
+                    
+                    <form id="contact-form" class="space-y-6">
+                        <div class="grid md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="first-name" class="block text-sm font-medium text-zinc-300 mb-2">First Name *</label>
+                                <input type="text" id="first-name" name="firstName" required 
+                                       class="w-full px-4 py-3 bg-zinc-800 border border-zinc-600 rounded-lg text-white focus:border-medical-cyan focus:ring-1 focus:ring-medical-cyan outline-none transition-colors">
+                            </div>
+                            <div>
+                                <label for="last-name" class="block text-sm font-medium text-zinc-300 mb-2">Last Name *</label>
+                                <input type="text" id="last-name" name="lastName" required 
+                                       class="w-full px-4 py-3 bg-zinc-800 border border-zinc-600 rounded-lg text-white focus:border-medical-cyan focus:ring-1 focus:ring-medical-cyan outline-none transition-colors">
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <label for="email" class="block text-sm font-medium text-zinc-300 mb-2">Email Address *</label>
+                            <input type="email" id="email" name="email" required 
+                                   class="w-full px-4 py-3 bg-zinc-800 border border-zinc-600 rounded-lg text-white focus:border-medical-cyan focus:ring-1 focus:ring-medical-cyan outline-none transition-colors">
+                        </div>
+                        
+                        <div>
+                            <label for="organization" class="block text-sm font-medium text-zinc-300 mb-2">Organization</label>
+                            <input type="text" id="organization" name="organization" 
+                                   class="w-full px-4 py-3 bg-zinc-800 border border-zinc-600 rounded-lg text-white focus:border-medical-cyan focus:ring-1 focus:ring-medical-cyan outline-none transition-colors">
+                        </div>
+                        
+                        <div>
+                            <label for="role" class="block text-sm font-medium text-zinc-300 mb-2">Role</label>
+                            <select id="role" name="role" 
+                                    class="w-full px-4 py-3 bg-zinc-800 border border-zinc-600 rounded-lg text-white focus:border-medical-cyan focus:ring-1 focus:ring-medical-cyan outline-none transition-colors">
+                                <option value="">Select your role</option>
+                                <option value="radiologist">Radiologist</option>
+                                <option value="it-director">IT Director</option>
+                                <option value="administrator">Administrator</option>
+                                <option value="researcher">Researcher</option>
+                                <option value="other">Other</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="interest" class="block text-sm font-medium text-zinc-300 mb-2">Area of Interest</label>
+                            <select id="interest" name="interest" 
+                                    class="w-full px-4 py-3 bg-zinc-800 border border-zinc-600 rounded-lg text-white focus:border-medical-cyan focus:ring-1 focus:ring-medical-cyan outline-none transition-colors">
+                                <option value="">Select an area</option>
+                                <option value="xray">X-Ray Super-Resolution</option>
+                                <option value="ct">CT Enhancement</option>
+                                <option value="mri">MRI Super-Resolution</option>
+                                <option value="pathology">Digital Pathology</option>
+                                <option value="integration">PACS Integration</option>
+                                <option value="enterprise">Enterprise Deployment</option>
+                            </select>
+                        </div>
+                        
+                        <div>
+                            <label for="message" class="block text-sm font-medium text-zinc-300 mb-2">Message</label>
+                            <textarea id="message" name="message" rows="4" 
+                                      class="w-full px-4 py-3 bg-zinc-800 border border-zinc-600 rounded-lg text-white focus:border-medical-cyan focus:ring-1 focus:ring-medical-cyan outline-none transition-colors"
+                                      placeholder="Tell us about your imaging needs and how we can help..."></textarea>
+                        </div>
+                        
+                        <div class="flex items-center">
+                            <input type="checkbox" id="consent" name="consent" required 
+                                   class="mr-3 accent-medical-cyan focus-visible:focus">
+                            <label for="consent" class="text-sm text-zinc-300">
+                                I agree to receive communications from Agnostic Imaging AI about our products and services *
+                            </label>
+                        </div>
+                        
+                        <button type="submit" 
+                                class="w-full px-6 py-3 bg-medical-cyan text-black font-semibold rounded-lg hover:bg-cyan-400 transition-colors focus-visible:focus">
+                            Send Message
+                            <i class="fas fa-paper-plane ml-2"></i>
+                        </button>
+                    </form>
+                </div>
+                
+                <!-- Contact Information -->
+                <div class="space-y-8">
+                    <div class="glass-card p-8 rounded-xl">
+                        <h3 class="text-xl font-dm-sans font-bold text-white mb-6">Contact Information</h3>
+                        
+                        <div class="space-y-6">
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-medical-cyan/20 rounded-lg flex items-center justify-center mr-4">
+                                    <i class="fas fa-envelope text-medical-cyan"></i>
+                                </div>
+                                <div>
+                                    <div class="font-semibold text-white">Email</div>
+                                    <div class="text-zinc-300">contact@agnosticimagingai.com</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-medical-cyan/20 rounded-lg flex items-center justify-center mr-4">
+                                    <i class="fas fa-phone text-medical-cyan"></i>
+                                </div>
+                                <div>
+                                    <div class="font-semibold text-white">Phone</div>
+                                    <div class="text-zinc-300">+1 (555) 123-4567</div>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-center">
+                                <div class="w-10 h-10 bg-medical-cyan/20 rounded-lg flex items-center justify-center mr-4">
+                                    <i class="fas fa-map-marker-alt text-medical-cyan"></i>
+                                </div>
+                                <div>
+                                    <div class="font-semibold text-white">Address</div>
+                                    <div class="text-zinc-300">123 Innovation Drive<br>Medical City, CA 90210</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card p-8 rounded-xl">
+                        <h3 class="text-xl font-dm-sans font-bold text-white mb-6">Follow Us</h3>
+                        
+                        <div class="flex space-x-4">
+                            <a href="#" class="w-10 h-10 bg-medical-cyan/20 rounded-lg flex items-center justify-center text-medical-cyan hover:bg-medical-cyan hover:text-black transition-colors focus-visible:focus">
+                                <i class="fab fa-linkedin"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-medical-cyan/20 rounded-lg flex items-center justify-center text-medical-cyan hover:bg-medical-cyan hover:text-black transition-colors focus-visible:focus">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 bg-medical-cyan/20 rounded-lg flex items-center justify-center text-medical-cyan hover:bg-medical-cyan hover:text-black transition-colors focus-visible:focus">
+                                <i class="fas fa-rss"></i>
+                            </a>
+                        </div>
+                    </div>
+                    
+                    <div class="glass-card p-8 rounded-xl">
+                        <h3 class="text-xl font-dm-sans font-bold text-white mb-4">Schedule a Demo</h3>
+                        <p class="text-zinc-300 mb-6">
+                            See our technology in action with a personalized demonstration using your imaging data.
+                        </p>
+                        <button onclick="scrollToSection('demos')" class="px-6 py-3 border-2 border-medical-cyan text-medical-cyan rounded-lg hover:bg-medical-cyan hover:text-black transition-all focus-visible:focus">
+                            <i class="fas fa-calendar mr-2"></i>
+                            Book Demo
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-zinc-900 border-t border-zinc-800">
+        <div class="container mx-auto px-6 py-16">
+            <div class="grid md:grid-cols-4 gap-8 mb-12">
+                <!-- Brand -->
+                <div class="md:col-span-1">
+                    <div class="flex items-center space-x-3 mb-6">
+                        <div class="w-8 h-8 bg-gradient-to-r from-medical-cyan to-medical-violet rounded-lg flex items-center justify-center">
+                            <i class="fas fa-atom text-white text-sm"></i>
+                        </div>
+                        <span class="text-xl font-dm-sans font-bold text-white">Agnostic Imaging AI</span>
+                    </div>
+                    <p class="text-zinc-400 leading-relaxed">
+                        Transforming medical imaging through OEM-agnostic GenAI technology. Upgrade your image quality without replacing your equipment.
+                    </p>
+                </div>
+                
+                <!-- Solutions -->
+                <div>
+                    <h4 class="text-white font-semibold mb-6">Solutions</h4>
+                    <div class="space-y-3">
+                        <a href="#" class="block text-zinc-400 hover:text-medical-cyan transition-colors">X-Ray Super-Resolution</a>
+                        <a href="#" class="block text-zinc-400 hover:text-medical-cyan transition-colors">CT Enhancement</a>
+                        <a href="#" class="block text-zinc-400 hover:text-medical-cyan transition-colors">MRI Super-Resolution</a>
+                        <a href="#" class="block text-zinc-400 hover:text-medical-cyan transition-colors">Digital Pathology</a>
+                    </div>
+                </div>
+                
+                <!-- Company -->
+                <div>
+                    <h4 class="text-white font-semibold mb-6">Company</h4>
+                    <div class="space-y-3">
+                        <button onclick="scrollToSection('about')" class="block text-zinc-400 hover:text-medical-cyan transition-colors">About Us</button>
+                        <a href="#" class="block text-zinc-400 hover:text-medical-cyan transition-colors">Careers</a>
+                        <a href="#" class="block text-zinc-400 hover:text-medical-cyan transition-colors">News</a>
+                        <a href="#" class="block text-zinc-400 hover:text-medical-cyan transition-colors">Partners</a>
+                    </div>
+                </div>
+                
+                <!-- Support -->
+                <div>
+                    <h4 class="text-white font-semibold mb-6">Support</h4>
+                    <div class="space-y-3">
+                        <a href="#" class="block text-zinc-400 hover:text-medical-cyan transition-colors">Documentation</a>
+                        <a href="#" class="block text-zinc-400 hover:text-medical-cyan transition-colors">API Reference</a>
+                        <a href="#" class="block text-zinc-400 hover:text-medical-cyan transition-colors">Status Page</a>
+                        <button onclick="scrollToSection('contact')" class="block text-zinc-400 hover:text-medical-cyan transition-colors">Contact Support</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-zinc-800 pt-8">
+                <div class="flex flex-col md:flex-row items-center justify-between">
+                    <div class="text-zinc-400 text-sm mb-4 md:mb-0">
+                        © 2024 Agnostic Imaging AI. All rights reserved.
+                    </div>
+                    <div class="flex space-x-6 text-sm">
+                        <a href="#" class="text-zinc-400 hover:text-medical-cyan transition-colors">Privacy Policy</a>
+                        <a href="#" class="text-zinc-400 hover:text-medical-cyan transition-colors">Terms of Service</a>
+                        <a href="#" class="text-zinc-400 hover:text-medical-cyan transition-colors">Cookie Policy</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div id="login-modal" class="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 hidden items-center justify-center">
+        <div class="glass-card p-8 rounded-xl w-full max-w-md mx-4">
+            <div class="text-center mb-6">
+                <h3 class="text-2xl font-dm-sans font-bold text-white mb-2">Welcome Back</h3>
+                <p class="text-zinc-400">Sign in to your account</p>
+            </div>
+            
+            <form id="login-form" class="space-y-6">
+                <div>
+                    <label for="login-email" class="block text-sm font-medium text-zinc-300 mb-2">Email</label>
+                    <input type="email" id="login-email" required 
+                           class="w-full px-4 py-3 bg-zinc-800 border border-zinc-600 rounded-lg text-white focus:border-medical-cyan focus:ring-1 focus:ring-medical-cyan outline-none transition-colors">
+                </div>
+                
+                <button type="submit" 
+                        class="w-full px-6 py-3 bg-medical-cyan text-black font-semibold rounded-lg hover:bg-cyan-400 transition-colors focus-visible:focus">
+                    Send Magic Link
+                </button>
+            </form>
+            
+            <button onclick="hideLogin()" class="absolute top-4 right-4 text-zinc-400 hover:text-white transition-colors focus-visible:focus">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- Debug Panel (hidden by default) -->
+    <div id="debug-panel" class="hidden fixed bottom-4 right-4 glass-card p-4 rounded-lg text-xs font-mono">
+        <div class="text-medical-cyan font-bold mb-2">Debug Info</div>
+        <div>FPS: <span id="fps-counter">60</span></div>
+        <div>GPU: <span id="gpu-info">WebGL 2.0</span></div>
+        <div>SR Strength: <span id="sr-strength">85%</span></div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed top-20 right-4 glass-card p-4 rounded-lg text-white transform translate-x-full transition-transform duration-300 z-50">
+        <div class="flex items-center">
+            <i class="fas fa-check-circle text-green-400 mr-3"></i>
+            <span id="toast-message">Message sent successfully!</span>
+        </div>
+    </div>
+
+    <script>
+        // TODO: Implement business logic, API calls, or state management
+        
+        (function() {
+            // Mobile menu toggle
+            const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Smooth scrolling function
+            window.scrollToSection = function(sectionId) {
+                const element = document.getElementById(sectionId);
+                if (element) {
+                    element.scrollIntoView({ behavior: 'smooth' });
+                }
+                // Close mobile menu if open
+                mobileMenu.classList.add('hidden');
+            };
+
+            // Login modal functions
+            window.showLogin = function() {
+                const modal = document.getElementById('login-modal');
+                modal.classList.remove('hidden');
+                modal.classList.add('flex');
+            };
+
+            window.hideLogin = function() {
+                const modal = document.getElementById('login-modal');
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            };
+
+            // Login form submission
+            document.getElementById('login-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                hideLogin();
+                showToast('Magic link sent to your email!');
+            });
+
+            // Contact form submission
+            document.getElementById('contact-form').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Simulate form submission
+                const formData = new FormData(this);
+                const data = Object.fromEntries(formData);
+                
+                // Mock API call
+                setTimeout(() => {
+                    showToast('Thank you for your message! We\'ll be in touch soon.');
+                    this.reset();
+                }, 1000);
+            });
+
+            // Toast notification
+            window.showToast = function(message) {
+                const toast = document.getElementById('toast');
+                const toastMessage = document.getElementById('toast-message');
+                
+                toastMessage.textContent = message;
+                toast.classList.remove('translate-x-full');
+                
+                setTimeout(() => {
+                    toast.classList.add('translate-x-full');
+                }, 3000);
+            };
+
+            // FAQ toggle function
+            window.toggleFAQ = function(id) {
+                const content = document.getElementById(`faq-content-${id}`);
+                const icon = document.getElementById(`faq-icon-${id}`);
+                
+                content.classList.toggle('hidden');
+                icon.style.transform = content.classList.contains('hidden') ? 'rotate(0deg)' : 'rotate(180deg)';
+            };
+
+            // Compare slider interaction
+            function initCompareSlider(sliderId, beforeId, afterId) {
+                const slider = document.getElementById(sliderId);
+                const afterImage = document.getElementById(afterId);
+                let isDragging = false;
+
+                if (!slider || !afterImage) return;
+
+                function updateSlider(x) {
+                    const rect = slider.parentElement.getBoundingClientRect();
+                    const percentage = Math.max(0, Math.min(100, ((x - rect.left) / rect.width) * 100));
+                    
+                    slider.style.left = percentage + '%';
+                    afterImage.style.clipPath = `inset(0 0 0 ${percentage}%)`;
+                }
+
+                slider.addEventListener('mousedown', () => isDragging = true);
+                document.addEventListener('mouseup', () => isDragging = false);
+                document.addEventListener('mousemove', (e) => {
+                    if (isDragging) updateSlider(e.clientX);
+                });
+
+                // Touch events for mobile
+                slider.addEventListener('touchstart', () => isDragging = true);
+                document.addEventListener('touchend', () => isDragging = false);
+                document.addEventListener('touchmove', (e) => {
+                    if (isDragging) updateSlider(e.touches[0].clientX);
+                });
+            }
+
+            // Initialize compare sliders
+            initCompareSlider('xray-slider', 'xray-before', 'xray-after');
+            initCompareSlider('ct-slider', 'ct-before', 'ct-after');
+            initCompareSlider('mri-slider', 'mri-before', 'mri-after');
+
+            // Animate counters
+            function animateCounter(element, target, suffix = '') {
+                let current = 0;
+                const increment = target / 60; // 60 frames for smooth animation
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    element.textContent = (suffix === 'x' ? current.toFixed(0) + suffix : current.toFixed(1)) + (suffix !== 'x' && suffix !== '' ? suffix : '');
+                }, 33); // ~30fps
+            }
+
+            // Intersection Observer for counter animation
+            const counterObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const counter = entry.target;
+                        const target = parseFloat(counter.getAttribute('data-target'));
+                        const text = counter.textContent;
+                        
+                        // Determine suffix based on content
+                        if (text.includes('×') || text.includes('x')) {
+                            animateCounter(counter, target, '×');
+                        } else {
+                            animateCounter(counter, target);
+                        }
+                        
+                        counterObserver.unobserve(counter);
+                    }
+                });
+            });
+
+            // Observe all counter elements
+            document.querySelectorAll('.animate-counter').forEach(counter => {
+                counterObserver.observe(counter);
+            });
+
+            // Debug panel (shown when ?debug=1 is in URL)
+            if (window.location.search.includes('debug=1')) {
+                document.getElementById('debug-panel').classList.remove('hidden');
+                
+                // Simulate FPS counter
+                let fps = 60;
+                setInterval(() => {
+                    fps = 58 + Math.random() * 4; // Simulate realistic FPS
+                    document.getElementById('fps-counter').textContent = Math.round(fps);
+                }, 1000);
+            }
+
+            // Navbar scroll effect
+            let lastScrollY = window.scrollY;
+            window.addEventListener('scroll', () => {
+                const navbar = document.getElementById('navbar');
+                const currentScrollY = window.scrollY;
+                
+                if (currentScrollY > 100) {
+                    navbar.style.background = 'rgba(0, 0, 0, 0.95)';
+                } else {
+                    navbar.style.background = 'rgba(0, 0, 0, 0.8)';
+                }
+                
+                lastScrollY = currentScrollY;
+            });
+
+            // DICOM drop zone interaction
+            const dropZone = document.getElementById('dicom-drop-zone');
+            
+            ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, preventDefaults, false);
+            });
+
+            function preventDefaults(e) {
+                e.preventDefault();
+                e.stopPropagation();
+            }
+
+            ['dragenter', 'dragover'].forEach(eventName => {
+                dropZone.addEventListener(eventName, highlight, false);
+            });
+
+            ['dragleave', 'drop'].forEach(eventName => {
+                dropZone.addEventListener(eventName, unhighlight, false);
+            });
+
+            function highlight() {
+                dropZone.classList.add('border-medical-cyan', 'bg-medical-cyan/10');
+            }
+
+            function unhighlight() {
+                dropZone.classList.remove('border-medical-cyan', 'bg-medical-cyan/10');
+            }
+
+            dropZone.addEventListener('drop', handleDrop, false);
+
+            function handleDrop(e) {
+                const dt = e.dataTransfer;
+                const files = dt.files;
+                
+                if (files.length > 0) {
+                    showToast(`DICOM file "${files[0].name}" loaded successfully!`);
+                    // TODO: Implement DICOM file processing with Cornerstone3D
+                }
+            }
+
+        })();
+    </script>
+</body>
+</html>
