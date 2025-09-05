@@ -1,0 +1,29 @@
+# Large media files that should be served from CDN
+attached_assets/*.mov
+attached_assets/*.mp4
+attached_assets/*.png
+attached_assets/*.jpg
+attached_assets/*.jpeg
+
+# Development files
+.local/
+*.log
+.DS_Store
+
+# Node modules (will be installed by Vercel)
+node_modules/
+
+# Git files
+.git/
+.gitignore
+
+# Environment files
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Build artifacts (will be generated)
+dist/
+build/
